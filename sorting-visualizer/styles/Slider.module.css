@@ -1,0 +1,16 @@
+.thumb {
+  font-size: 0.9em;
+  text-align: center;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  border: 5px solid gray;
+  box-sizing: border-box;
+}
+.thumbActive {
+  background-color: grey;
+}
+.track {
+  position: relative;
+  background: #ddd;
+}

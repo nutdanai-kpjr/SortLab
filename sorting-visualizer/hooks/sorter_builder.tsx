@@ -20,9 +20,24 @@ export const useSorterBuilder: ISorterBuilder = () => {
     await sleep(100);
   };
 
-  const changeArray = async (newArr: number[]) => {
+  const changeArray = async (
+    newArr: number[],
+    option: { resetColor?: boolean } = { resetColor: true }
+  ) => {
     setNumArray(newArr);
+    if (option.resetColor) {
+      setColorArray(Array(newArr.length).fill(COLORS.PRIMARY));
+    }
     await sleep(200);
+  };
+
+  const changeSize = async (newSize: number) => {
+    //randomly generate new array of newSize length
+    let arr = [];
+    for (let i = 0; i < newSize; i++) {
+      arr.push(Math.floor(Math.random() * 100));
+    }
+    await changeArray(arr, { resetColor: true });
   };
 
   const swap = async (arr: number[], a: number, b: number) => {
@@ -41,6 +56,7 @@ export const useSorterBuilder: ISorterBuilder = () => {
     setColorArray,
     changeColor,
     changeArray,
+    changeSize,
     sleep,
     swap,
   };

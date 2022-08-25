@@ -1,7 +1,7 @@
 import { COLORS } from "../../styles/color";
 import { ISorter } from "./sorter";
 
-export const useBubbleSorter: ISorter = ({
+export const useSelectionSorter: ISorter = ({
   numArray,
   changeColor,
   swap,
@@ -10,9 +10,9 @@ export const useBubbleSorter: ISorter = ({
   swap: (arr: number[], a: number, b: number) => Promise<void>;
   changeColor: (indexs: number[], color: string) => Promise<void>;
 }) => {
-  const name = "Bubble Sort";
+  const name = "Selection Sort";
   const handleSort = async () => {
-    console.log("sorter bubble sort");
+    console.log("sorter selection sort");
     //sort the array of numbers
     let arr = [...numArray];
     // bubble sort algorithm

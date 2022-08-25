@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 
 export interface ISorter {
-  (builder: IBasicBuilder): { handleSort: () => Promise<void> };
+  (builder: IBasicBuilder): { handleSort: () => Promise<void>; name: string };
 }
 
 export interface ISorterBuilder {
@@ -11,7 +11,13 @@ export interface ISorterBuilder {
     colorArray: string[];
     setColorArray: Dispatch<SetStateAction<string[]>>;
     changeColor: (indexs: number[], color: string) => Promise<void>;
-    changeArray: (newArr: number[]) => Promise<void>;
+    changeArray: (
+      newArr: number[],
+      option?: {
+        resetColor?: boolean;
+      }
+    ) => Promise<void>;
+    changeSize: (newSize: number) => Promise<void>;
     sleep: (ms: number) => Promise<void>;
     swap: (arr: number[], a: number, b: number) => Promise<void>;
   };
