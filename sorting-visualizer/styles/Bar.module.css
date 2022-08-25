@@ -2,6 +2,7 @@
   /* border: 1px solid ?; */
   width: 50px;
   min-height: 20px;
+  min-width: 2px;
   text-align: center;
   margin-left: 5px;
   color: white;
