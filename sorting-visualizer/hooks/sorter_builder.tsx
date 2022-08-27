@@ -7,7 +7,7 @@ export const useSorterBuilder: ISorterBuilder = () => {
   const [colorArray, setColorArray] = useState(
     Array<string>(numArray.length).fill(COLORS.PRIMARY)
   );
-
+  const [isRunning, setIsRunning] = useState(false);
   const sleep = (ms: number) =>
     new Promise<void>((resolve) => setTimeout(resolve, ms));
 
@@ -49,11 +49,20 @@ export const useSorterBuilder: ISorterBuilder = () => {
     await changeColor([b], COLORS.SUCCESS);
   };
 
+  const changeIsRunning = async (newIsRunning: boolean) => {
+    setIsRunning(true);
+  };
+  const getIsRunning = () => isRunning;
+
   return {
     numArray,
     setNumArray,
     colorArray,
     setColorArray,
+    isRunning,
+    setIsRunning,
+    getIsRunning,
+    changeIsRunning,
     changeColor,
     changeArray,
     changeSize,

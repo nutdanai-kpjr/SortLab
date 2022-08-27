@@ -6,9 +6,23 @@ import { IBasicBuilder } from "./sorter_alghorithms/sorter";
 import { useSorterBuilder } from "./sorter_builder";
 export const useSorterUtils = () => {
   const sorterBuilder = useSorterBuilder;
-  const { numArray, colorArray, changeSize, changeColor, changeArray, swap } =
-    sorterBuilder();
-  const basicBuilder: IBasicBuilder = { numArray, changeColor, swap };
+  const {
+    numArray,
+    colorArray,
+    changeSize,
+    changeColor,
+    changeArray,
+    swap,
+    getIsRunning,
+    setIsRunning,
+  } = sorterBuilder();
+  const basicBuilder: IBasicBuilder = {
+    numArray,
+    changeColor,
+    swap,
+    getIsRunning,
+    setIsRunning,
+  };
   ``;
   const sorterList = [
     useBubbleSorter(basicBuilder),
@@ -34,7 +48,6 @@ export const useSorterUtils = () => {
   };
 
   const handleShuffle = async () => {
-    console.log({ changeSize });
     console.log("shuffle");
     let arr = [...numArray];
     for (let i = 0; i < arr.length; i++) {
@@ -47,21 +60,30 @@ export const useSorterUtils = () => {
   const handleGenerate = async () => {
     console.log("generate");
     let arr = [];
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < numArray.length; i++) {
       arr.push(Math.floor(Math.random() * 100));
     }
     await changeArray(arr, { resetColor: true });
   };
+  const handleStop = async () => {
+    setIsRunning(false);
+  };
 
+  const handlePlay = async () => {
+    await handleSort();
+  };
   return {
     handleShuffle,
     handleGenerate,
+    handleStop,
     getSorterNameList,
     changeSize,
     numArray,
     colorArray,
-    handleSort,
+    handlePlay,
     handleSorterChange,
     name,
+    setIsRunning,
+    getIsRunning,
   };
 };

@@ -15,8 +15,11 @@ export default function BarSet() {
     handleGenerate,
     handleSorterChange,
     getSorterNameList,
+    getIsRunning,
+    setIsRunning,
     name,
-    handleSort,
+    handlePlay,
+    handleStop,
   } = useSorterUtils();
 
   return (
@@ -41,13 +44,17 @@ export default function BarSet() {
 
       <button
         onClick={async () => {
-          console.log(changeSize);
-          console.log(handleShuffle);
-
-          await handleSort();
+          await handlePlay();
         }}
       >
-        Sort
+        Play
+      </button>
+      <button
+        onClick={async () => {
+          await handleStop();
+        }}
+      >
+        Stop
       </button>
       <button
         onClick={async () => {
@@ -62,6 +69,14 @@ export default function BarSet() {
         }}
       >
         Generate
+      </button>
+      <button
+        onClick={async () => {
+          console.log("isRunning", !getIsRunning());
+          setIsRunning(!getIsRunning());
+        }}
+      >
+        {getIsRunning() ? "Pause" : "Play"}
       </button>
     </div>
   );

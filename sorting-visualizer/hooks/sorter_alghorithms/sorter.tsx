@@ -10,6 +10,9 @@ export interface ISorterBuilder {
     setNumArray: Dispatch<SetStateAction<number[]>>;
     colorArray: string[];
     setColorArray: Dispatch<SetStateAction<string[]>>;
+    isRunning: boolean;
+    setIsRunning: Dispatch<SetStateAction<boolean>>;
+    getIsRunning: () => boolean;
     changeColor: (indexs: number[], color: string) => Promise<void>;
     changeArray: (
       newArr: number[],
@@ -25,8 +28,10 @@ export interface ISorterBuilder {
 
 export interface IBasicBuilder {
   numArray: number[];
+  getIsRunning: () => boolean;
   swap: (arr: number[], a: number, b: number) => Promise<void>;
   changeColor: (indexs: number[], color: string) => Promise<void>;
+  setIsRunning: Dispatch<SetStateAction<boolean>>;
 }
 
 export interface IAdvancedBuilder extends IBasicBuilder {

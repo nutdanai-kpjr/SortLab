@@ -10,7 +10,6 @@ export const Slider = ({
   defaultValue: number;
 }) => {
   const handleChange = (size: number) => {
-    console.log(onValueChanged);
     onValueChanged(size);
   };
 
