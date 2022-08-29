@@ -3,8 +3,8 @@ import styles from "../../styles/BarSet.module.css";
 
 import { Slider } from "../selectors/slider";
 import Dropdown from "../selectors/dropdown";
-import { useContext, useEffect, useState } from "react";
-import { ArrayCtx } from "../../context/arrayContext";
+import { useEffect, useState } from "react";
+
 import { useSortVisualizer } from "../../hooks/sorter_implement";
 
 export default function BarSet() {
@@ -36,12 +36,11 @@ export default function BarSet() {
         defaultValue={getSorterNameList()[0]}
         onChange={handleSorterChange}
       ></Dropdown> */}
-      {/* <Slider
-        defaultValue={numArray.length}
+      <Slider
+        defaultValue={getArray().length}
         onValueChanged={changeSize}
-      ></Slider> */}
+      ></Slider>
       <div className={styles.container}>
-        {/* generate 5 bar components */}
         {getArray().map((v, i) => (
           <Bar key={i} value={v.value} color={v.color} />
         ))}

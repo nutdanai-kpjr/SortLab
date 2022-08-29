@@ -72,7 +72,7 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
     await animate(800);
   };
   const updateSize = (newSize: number) => {
-    setItemArray(generateRandomItemArray());
+    setItemArray(generateRandomItemArray(newSize));
     // setItemArray(newArray);
   };
 
