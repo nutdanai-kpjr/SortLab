@@ -15,10 +15,9 @@ export const Slider = ({
 
   return (
     <>
-      <div>Slider</div>
       <ReactSlider
         min={2}
-        max={10000}
+        max={50}
         value={defaultValue}
         onChange={handleChange}
         ariaLabelledby="slider-label"

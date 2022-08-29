@@ -15,8 +15,12 @@ export default function BarSet() {
     getDescription,
     getComplexity,
     getArray,
+    sortAlgorithms,
+    currentSortAlgorithm,
+    changeSortAlgorithm,
     changeSize,
     stop,
+    reset,
   } = useSortVisualizer();
   const [hydrated, setHydrated] = useState(false);
   useEffect(() => {
@@ -30,47 +34,46 @@ export default function BarSet() {
   return (
     <div>
       {/* <h1>{getArray().map((i) => i.value)}</h1> */}
-      <h2>{getName()}</h2>
-      {/* <Dropdown
-        list={getSorterNameList()}
-        defaultValue={getSorterNameList()[0]}
-        onChange={handleSorterChange}
-      ></Dropdown> */}
+      {/* <h2>{getName()}</h2> */}
+
+      <Dropdown
+        list={sortAlgorithms.map((algo) => algo.info.name)}
+        defaultValue={currentSortAlgorithm.info.name}
+        onChange={changeSortAlgorithm}
+      ></Dropdown>
       <Slider
         defaultValue={getArray().length}
         onValueChanged={changeSize}
       ></Slider>
+      <div>
+        <button
+          onClick={async () => {
+            await play();
+          }}
+        >
+          Play
+        </button>
+        <button
+          onClick={() => {
+            stop();
+          }}
+        >
+          Stop
+        </button>
+        <button
+          onClick={() => {
+            reset();
+          }}
+        >
+          Reset
+        </button>
+      </div>
       <div className={styles.container}>
         {getArray().map((v, i) => (
           <Bar key={i} value={v.value} color={v.color} />
         ))}
       </div>
 
-      <button
-        onClick={async () => {
-          await play();
-        }}
-      >
-        Play
-      </button>
-      <button
-        onClick={() => {
-          console.log("hi");
-
-          stop();
-        }}
-      >
-        Stop
-      </button>
-      <button onClick={() => {}}>Reset</button>
-      <button
-        onClick={() => {
-          let randomInt = Math.floor(Math.random() * 100);
-          changeSize(randomInt);
-        }}
-      >
-        Change Size
-      </button>
       <h1>{getName()}</h1>
       <p>{getDescription()}</p>
       <p>Worst case: {getComplexity()}</p>

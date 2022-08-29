@@ -8,7 +8,7 @@ export interface SortVisualizer {
     stop(): void;
     reset(): void;
     changeSize(newSize: number): void;
-    changeSortAlgorithm(newSortAlgorithm: SortAlgorithm): void;
+    changeSortAlgorithm(newSortAlgorithmName: string): void;
     getName(): string;
     getDescription(): string;
     getComplexity(): string;

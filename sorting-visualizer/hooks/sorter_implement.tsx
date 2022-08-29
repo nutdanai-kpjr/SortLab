@@ -2,9 +2,10 @@ import { useContext, useEffect, useState } from "react";
 import { ArrayCtx } from "../context/arrayContext";
 import { SortAlgorithm, SortVisualizer } from "./sorter_abstract";
 import { useBubbleSort } from "./sorter_algo/bubble_sort";
+import { useSelectionSort } from "./sorter_algo/selection_sort";
 
 export const useSortVisualizer: SortVisualizer = () => {
-  const sortAlgorithms: SortAlgorithm[] = [useBubbleSort()];
+  const sortAlgorithms: SortAlgorithm[] = [useBubbleSort(), useSelectionSort()];
   const [currentSortAlgorithm, setSortAlgorithm] = useState<SortAlgorithm>(
     sortAlgorithms[0]
   );
@@ -21,11 +22,24 @@ export const useSortVisualizer: SortVisualizer = () => {
     setIsStop(true);
     console.log("SortViz Fx stop");
   };
-  const reset = () => {};
+  const reset = () => {
+    updateSize(itemArray.length);
+  };
   const changeSize = async (newSize: number) => {
     updateSize(newSize);
   };
-  const changeSortAlgorithm = (newSortAlgorithm: SortAlgorithm) => {};
+  const changeSortAlgorithm = (newSortAlgorithmName: string) => {
+    // find sortAlgorithm by Name
+    const newSortAlgorithm = sortAlgorithms.find(
+      (algo) => algo.info.name === newSortAlgorithmName
+    );
+    if (!newSortAlgorithm) {
+      console.error("sort algorithm not found");
+      return;
+    }
+    setSortAlgorithm(newSortAlgorithm);
+  };
+
   const getName = () => info.name;
   const getDescription = () => info.description;
   const getComplexity = () => info.complexity.worstCase;
