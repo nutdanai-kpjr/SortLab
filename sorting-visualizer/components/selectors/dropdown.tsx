@@ -11,7 +11,7 @@ export default function Dropdown({
     <select
       onChange={(e) => {
         const name = e.target.value;
-        console.log(name);
+
         onChange(name);
       }}
     >

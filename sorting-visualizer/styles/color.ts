@@ -3,6 +3,8 @@ export const COLORS = {
     SECONDARY: '#FFCE56',
     SUCCESS: '#4CAF50',
     FAILED: '#F44336',
-    WARNING:'red',
+    WARNING:'yellow',
+    INPROGRESS: 'blue',
+
     
 }
