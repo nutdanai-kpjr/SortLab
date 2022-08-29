@@ -9,8 +9,15 @@ import { useSortVisualizer } from "../../hooks/sorter_implement";
 
 export default function BarSet() {
   //this component manage the array of numbers that will be sorted
-  const { play, getName, getDescription, getComplexity, getArray, changeSize } =
-    useSortVisualizer();
+  const {
+    play,
+    getName,
+    getDescription,
+    getComplexity,
+    getArray,
+    changeSize,
+    stop,
+  } = useSortVisualizer();
   const [hydrated, setHydrated] = useState(false);
   useEffect(() => {
     setHydrated(true);
@@ -49,18 +56,14 @@ export default function BarSet() {
       </button>
       <button
         onClick={() => {
-          // changeSize(5);
+          console.log("hi");
+
+          stop();
         }}
       >
         Stop
       </button>
-      <button
-        onClick={() => {
-          // changeSize(5);
-        }}
-      >
-        Reset
-      </button>
+      <button onClick={() => {}}>Reset</button>
       <button
         onClick={() => {
           let randomInt = Math.floor(Math.random() * 100);

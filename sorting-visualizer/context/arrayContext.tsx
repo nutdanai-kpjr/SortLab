@@ -17,10 +17,10 @@ import { COLORS } from "../styles/color";
 export interface IArrayContext {
   itemArray: Item[];
   speed: number;
-  isProcessing: boolean;
+  isStop: boolean;
   setItemArray: Dispatch<SetStateAction<Item[]>>;
   setSpeed: Dispatch<SetStateAction<number>>;
-  setIsProcessing: Dispatch<SetStateAction<boolean>>;
+  setIsStop: Dispatch<SetStateAction<boolean>>;
   animate: (speed: number) => Promise<void>;
   updateArray: (newArray: Item[]) => Promise<void>;
   updateSize: (newSize: number) => void;
@@ -32,10 +32,10 @@ export interface IArrayContext {
 const initArrayCtx: IArrayContext = {
   itemArray: [],
   speed: 100,
-  isProcessing: false,
+  isStop: true,
   setItemArray: () => {},
   setSpeed: () => {},
-  setIsProcessing: () => {},
+  setIsStop: () => {},
   animate: () => Promise.resolve(),
   updateArray: () => Promise.resolve(),
   updateSize: () => {},
@@ -50,8 +50,12 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
   const defaultColor = COLORS.PRIMARY;
   const [itemArray, setItemArray] = useState<Item[]>(generateRandomItemArray());
   const [speed, setSpeed] = useState<number>(800);
-  const [isProcessing, setIsProcessing] = useState<boolean>(false);
+  const [isStop, setIsStop] = useState<boolean>(false);
   const itemArrayRef = useRef(itemArray);
+  useEffect(() => {
+    // console.log("ArrayProvider: itemArray changed", itemArray.length);
+    itemArrayRef.current = itemArray;
+  }, [itemArray]);
 
   // const randomColor = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`;
   const animate = async (speed: number) => {
@@ -71,11 +75,6 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
     setItemArray(generateRandomItemArray());
     // setItemArray(newArray);
   };
-  useEffect(() => {
-    // console.log("ArrayProvider: itemArray changed", itemArray.length);
-
-    itemArrayRef.current = itemArray;
-  }, [itemArray]);
 
   const updateColor = async (indexs: number[], color: string) => {
     let newArray: Item[] = [...itemArrayRef.current];
@@ -100,10 +99,10 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
   const arrayCtx: IArrayContext = {
     itemArray,
     speed,
-    isProcessing,
+    isStop,
     setItemArray,
     setSpeed,
-    setIsProcessing,
+    setIsStop,
     animate,
     updateArray,
     updateSize,

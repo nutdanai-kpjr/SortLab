@@ -20,7 +20,6 @@ export interface SortAlgorithm {
   info: AlgorithmInfo;
   itemArray: Item[];
   sort: () => Promise<void>;
-  updateSize: (newSize: number) => void;
 }
 export interface AlgorithmInfo {
   name: string;

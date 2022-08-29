@@ -5,15 +5,10 @@ import { Item, SortAlgorithm } from "../sorter_abstract";
 import { randomColor } from "../utils";
 
 export const useBubbleSort: () => SortAlgorithm = () => {
-  const {
-    itemArray,
-    swapItem,
-    isProcessing,
-    setIsProcessing,
-    updateColor,
-    updateSize,
-  } = useContext(ArrayCtx);
+  const { itemArray, swapItem, isStop, setIsStop, updateColor, updateSize } =
+    useContext(ArrayCtx);
   const itemArrayRef = useRef(itemArray);
+  const isStopRef = useRef(isStop);
 
   const info = {
     name: "Bubble Sort",
@@ -26,40 +21,37 @@ export const useBubbleSort: () => SortAlgorithm = () => {
     },
   };
   useEffect(() => {
-    // console.log("Bubble Sort: itemArray changed", itemArray.length);
     itemArrayRef.current = itemArray;
   }, [itemArray]);
+  useEffect(() => {
+    isStopRef.current = isStop;
+  }, [isStop]);
 
   const sort = async () => {
     // console.log("BubbleFunction", itemArrayRef.current.length);
+
     let arr: Item[] = [...itemArrayRef.current];
-    let sortedCount = 0;
-    // await swapItem(0, 1);
-    // await swapItem(1, 2);
-    // await swapItem(2, 3);
-    // await swapItem(3, 4);
-    // await swapItem(4, 3);
-    // await swapItem(3, 2);
-    // await swapItem(2, 1);
-    // await swapItem(1, 0);
-
-    let newColor = randomColor();
-
-    setIsProcessing(true);
 
     for (let i = 0; i < arr.length; i++) {
       // console.log(i);
 
       for (let j = 0; j < arr.length - i - 1; j++) {
+        let isStop = isStopRef.current;
+        if (isStop) {
+          //generate array of index from 0 to arr.length
+          let indexArr = Array.from(Array(arr.length).keys());
+          await updateColor(indexArr, COLORS.PRIMARY); //change back to original color
+
+          setIsStop(false);
+          return;
+        }
         arr = [...itemArrayRef.current]; // refetch the array from context to avoid stale state
+
         let valueA = { ...arr[j] }.value;
         let valueB = { ...arr[j + 1] }.value;
-        // if (!isRunning) {
-        //   return;
-        // }
         await updateColor([j, j + 1], COLORS.SECONDARY); // Comparing
         if (valueA > valueB) {
-          console.log(valueA + ">" + valueB + " swap " + j + " to " + (j + 1));
+          // console.log(valueA + ">" + valueB + " swap " + j + " to " + (j + 1));
           await updateColor([j], COLORS.SUCCESS);
           await swapItem(j, j + 1); // swap j to j+1
         }

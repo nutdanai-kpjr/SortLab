@@ -10,12 +10,17 @@ export const useSortVisualizer: SortVisualizer = () => {
   );
 
   const { sort, info } = currentSortAlgorithm;
-  const { itemArray, updateSize } = useContext(ArrayCtx);
+  const { itemArray, updateSize, setIsStop } = useContext(ArrayCtx);
   const play = async () => {
-    console.log("SortViz Fx ", itemArray.length);
+    // console.log("SortViz Fx ", itemArray.length);
+
     await sort();
+    // setIsProcessing(false);
   };
-  const stop = () => {};
+  const stop = () => {
+    setIsStop(true);
+    console.log("SortViz Fx stop");
+  };
   const reset = () => {};
   const changeSize = async (newSize: number) => {
     updateSize(newSize);
