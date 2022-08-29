@@ -2,7 +2,6 @@ import { useContext, useEffect, useRef } from "react";
 import { ArrayCtx } from "../../context/arrayContext";
 import { COLORS } from "../../styles/color";
 import { Item, SortAlgorithm } from "../sorter_abstract";
-import { randomColor } from "../utils";
 
 export const useBubbleSort: () => SortAlgorithm = () => {
   const { itemArray, swapItem, isStop, setIsStop, updateColor, updateSize } =
