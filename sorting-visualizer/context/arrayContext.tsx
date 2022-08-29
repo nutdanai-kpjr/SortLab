@@ -2,10 +2,16 @@ import React, {
   createContext,
   Dispatch,
   SetStateAction,
+  useEffect,
+  useRef,
   useState,
 } from "react";
 import { Item } from "../hooks/sorter_abstract";
-import { generateRandomItemArray, randomNumber } from "../hooks/utils";
+import {
+  generateRandomItemArray,
+  randomColor,
+  randomNumber,
+} from "../hooks/utils";
 import { COLORS } from "../styles/color";
 
 export interface IArrayContext {
@@ -45,6 +51,7 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
   const [itemArray, setItemArray] = useState<Item[]>(generateRandomItemArray());
   const [speed, setSpeed] = useState<number>(800);
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
+  const itemArrayRef = useRef(itemArray);
 
   // const randomColor = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`;
   const animate = async (speed: number) => {
@@ -55,33 +62,40 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
 
   // Level 2 :  Medium Level Operations
   const updateArray = async (newArray: Item[]) => {
+    // console.log("updateArray", newArray);
+
     setItemArray(newArray);
-    await animate(speed);
+    await animate(800);
   };
   const updateSize = (newSize: number) => {
-    let newArray: Item[] = Array<Item>(newSize).fill({
-      value: randomNumber(),
-      color: defaultColor,
-    });
-    setItemArray(newArray);
+    setItemArray(generateRandomItemArray());
+    // setItemArray(newArray);
   };
+  useEffect(() => {
+    // console.log("ArrayProvider: itemArray changed", itemArray.length);
+
+    itemArrayRef.current = itemArray;
+  }, [itemArray]);
+
   const updateColor = async (indexs: number[], color: string) => {
-    let newArray: Item[] = [...itemArray];
+    let newArray: Item[] = [...itemArrayRef.current];
+
     indexs.forEach((i) => {
       newArray[i].color = color;
     });
-    await updateArray(newArray);
+    // console.log("newArray", newArray);
+    await updateArray([...newArray]);
   };
   //
   // Level 3 :  High Level Operations
   const swapItem = async (indexA: number, indexB: number) => {
-    [itemArray[indexA], itemArray[indexB]] = [
-      itemArray[indexB],
-      itemArray[indexA],
-    ];
-    itemArray[indexB].color = COLORS.SUCCESS;
-    console.log(itemArray);
-    await updateArray(itemArray);
+    // console.log("swapItem ArrayProvider Function", itemArrayRef.current.length);
+    let newArray: Item[] = [...itemArrayRef.current];
+
+    [newArray[indexA], newArray[indexB]] = [newArray[indexB], newArray[indexA]];
+    newArray[indexB].color = COLORS.SUCCESS;
+
+    await updateArray([...newArray]);
   };
   const arrayCtx: IArrayContext = {
     itemArray,
