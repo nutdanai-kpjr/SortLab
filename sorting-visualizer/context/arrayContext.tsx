@@ -48,6 +48,7 @@ export const ArrayCtx = createContext<IArrayContext>(initArrayCtx);
 export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
   // Level 1 :  Low Level Operations
   const defaultColor = COLORS.PRIMARY;
+  const maxDelay = 1001;
   const [itemArray, setItemArray] = useState<Item[]>(generateRandomItemArray());
   const [speed, setSpeed] = useState<number>(800);
   const [isStop, setIsStop] = useState<boolean>(false);
@@ -62,10 +63,8 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
   }, [speed]);
   // const randomColor = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`;
   const animate = async (speed: number) => {
-    const maxDelay = 1001;
     const delay: number = maxDelay - speed;
     console.log("speed", speed);
-
     await new Promise<void>((resolve) => setTimeout(resolve, delay));
   };
 

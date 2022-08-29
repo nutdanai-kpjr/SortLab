@@ -1,16 +1,37 @@
+.container{
+ 
+
+    margin: 30px 0;
+
+
+}
 .thumb {
   font-size: 0.9em;
-  text-align: center;
-  background-color: black;
-  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  padding: 5px;
+  /* background-color: black; */
+  /* color: white; */
   cursor: pointer;
-  border: 5px solid gray;
-  box-sizing: border-box;
+  /* border: 5px solid gray; */
+  /* box-sizing: border-box; */
 }
 .thumbActive {
-  background-color: grey;
+  font-size: 0.9em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  padding: 5px;
+  color: white;
+  background-color: #818AD8;
+  
 }
 .track {
+  height: 30px;
   position: relative;
-  background: #ddd;
+  border: 1px solid black;
+  /* background: ; */
 }

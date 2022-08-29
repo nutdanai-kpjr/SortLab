@@ -20,7 +20,7 @@ export const Slider = ({
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <span>{title}</span>
       <ReactSlider
         min={min}
