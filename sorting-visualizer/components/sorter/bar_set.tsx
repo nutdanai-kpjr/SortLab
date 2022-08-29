@@ -15,10 +15,12 @@ export default function BarSet() {
     getDescription,
     getComplexity,
     getArray,
+    getSpeed,
     sortAlgorithms,
     currentSortAlgorithm,
     changeSortAlgorithm,
     changeSize,
+    changeSpeed,
     stop,
     reset,
   } = useSortVisualizer();
@@ -42,8 +44,16 @@ export default function BarSet() {
         onChange={changeSortAlgorithm}
       ></Dropdown>
       <Slider
+        title="Array Size"
         defaultValue={getArray().length}
         onValueChanged={changeSize}
+      ></Slider>
+      <Slider
+        title="Speed"
+        min={1}
+        max={1000}
+        defaultValue={getSpeed()}
+        onValueChanged={changeSpeed}
       ></Slider>
       <div>
         <button
@@ -76,7 +86,10 @@ export default function BarSet() {
 
       <h1>{getName()}</h1>
       <p>{getDescription()}</p>
-      <p>Worst case: {getComplexity()}</p>
+      <p>Worst case: {getComplexity().worstCase}</p>
+      <p>Average case: {getComplexity().averageCase}</p>
+      <p>Best case: {getComplexity().bestCase}</p>
+
       {/* <button
         onClick={async () => {
       await handleStop();

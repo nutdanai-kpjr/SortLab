@@ -3,15 +3,17 @@ export interface SortVisualizer {
   (): {
     sortAlgorithms: SortAlgorithm[];
     currentSortAlgorithm: SortAlgorithm;
+    getSpeed(): number;
     setSortAlgorithm: Dispatch<SetStateAction<SortAlgorithm>>;
     play(): Promise<void>;
     stop(): void;
     reset(): void;
     changeSize(newSize: number): void;
+    changeSpeed(newSpeed: number): void;
     changeSortAlgorithm(newSortAlgorithmName: string): void;
     getName(): string;
     getDescription(): string;
-    getComplexity(): string;
+    getComplexity(): AlgorithmComplexity;
     getArray(): Item[];
   };
 }

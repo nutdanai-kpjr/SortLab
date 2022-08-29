@@ -52,24 +52,29 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
   const [speed, setSpeed] = useState<number>(800);
   const [isStop, setIsStop] = useState<boolean>(false);
   const itemArrayRef = useRef(itemArray);
+  const speedRef = useRef(speed);
   useEffect(() => {
     // console.log("ArrayProvider: itemArray changed", itemArray.length);
     itemArrayRef.current = itemArray;
   }, [itemArray]);
-
+  useEffect(() => {
+    speedRef.current = speed;
+  }, [speed]);
   // const randomColor = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`;
   const animate = async (speed: number) => {
     const maxDelay = 1001;
     const delay: number = maxDelay - speed;
+    console.log("speed", speed);
+
     await new Promise<void>((resolve) => setTimeout(resolve, delay));
   };
 
   // Level 2 :  Medium Level Operations
   const updateArray = async (newArray: Item[]) => {
     // console.log("updateArray", newArray);
-
+    let speed = speedRef.current;
     setItemArray(newArray);
-    await animate(800);
+    await animate(speed);
   };
   const updateSize = (newSize: number) => {
     setItemArray(generateRandomItemArray(newSize));
