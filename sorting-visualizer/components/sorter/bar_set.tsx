@@ -83,12 +83,13 @@ export default function BarSet() {
           <Bar key={i} value={v.value} color={v.color} />
         ))}
       </div>
-
-      <h1>{getName()}</h1>
-      <p>{getDescription()}</p>
-      <p>Worst case: {getComplexity().worstCase}</p>
-      <p>Average case: {getComplexity().averageCase}</p>
-      <p>Best case: {getComplexity().bestCase}</p>
+      <div className={styles.info}>
+        <h1>{getName()}</h1>
+        <p>{getDescription()}</p>
+        <p>Worst case: {getComplexity().worstCase}</p>
+        <p>Average case: {getComplexity().averageCase}</p>
+        <p>Best case: {getComplexity().bestCase}</p>
+      </div>
 
       {/* <button
         onClick={async () => {

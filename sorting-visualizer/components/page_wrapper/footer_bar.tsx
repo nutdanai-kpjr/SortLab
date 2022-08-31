@@ -1,5 +1,22 @@
-
-
+import Link from "next/link";
+import { getCurrentYear } from "../../hooks/utils";
+import styles from "../../styles/FooterBar.module.css";
 export default function FooterBar() {
-    return ( <div>Footer Bar</div>);
-  }
+  return (
+    <footer className={styles.footer}>
+      <p className={styles.copyRight}>Copyright Nash {getCurrentYear()}</p>
+      <div className={styles.links}>
+        {" "}
+        <Link href="/about">
+          <a>About</a>
+        </Link>
+        <Link href="/privacy-policy">
+          <a>Privacy Policy</a>
+        </Link>
+        <Link href="/terms-of-service">
+          <a>Terms of Services</a>
+        </Link>
+      </div>
+    </footer>
+  );
+}
