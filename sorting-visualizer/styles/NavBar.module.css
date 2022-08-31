@@ -1,0 +1,25 @@
+.links {
+  /* set flex to be start and justify content to be end */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  /* width: 100%; */
+ /* height: 600px; */
+ /* border: 1px solid black; */
+
+}
+.links > a:not(:last-child) {
+  padding-right:30px ;
+}
+
+/* .logo{
+  padding-left: 10px;
+} */
+
+.nav{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  /* border:1px solid black; */
+}
