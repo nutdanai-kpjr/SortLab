@@ -12,6 +12,7 @@ export default function PageLayout({
       <div className={styles.container}>
         <NavBar />
         <main>{children}</main>
+
         <FooterBar />
       </div>
     </>

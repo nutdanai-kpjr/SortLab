@@ -7,7 +7,7 @@ import styles from "../styles/Home.module.css";
 const Home: NextPage = () => {
   return (
     <PageLayout>
-      <h2>Privacy Policy </h2>
+      <h2>Term of Services</h2>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ipsum, dictum
         amet fringilla mattis eget molestie risus adipiscing magna. Odio at

@@ -7,8 +7,13 @@ import styles from "../styles/Home.module.css";
 const Home: NextPage = () => {
   return (
     <PageLayout>
-      <h1>Sortng Viszualizer</h1>
-      <p>Learn world famous sorting algorithms through animiation!</p>
+      <h1>About This </h1>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Imperdiet in
+        pulvinar consectetur tempor at pellentesque. Pharetra mattis porttitor
+        vitae quam venenatis bibendum. Leo scelerisque cursus lectus quis
+        molestie non. Ac euismod nibh quis leo risus nulla.
+      </p>
     </PageLayout>
   );
 };
