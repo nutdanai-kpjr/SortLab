@@ -38,46 +38,52 @@ export default function BarSet() {
       {/* <h1>{getArray().map((i) => i.value)}</h1> */}
       {/* <h2>{getName()}</h2> */}
 
-      <Dropdown
-        list={sortAlgorithms.map((algo) => algo.info.name)}
-        defaultValue={currentSortAlgorithm.info.name}
-        onChange={changeSortAlgorithm}
-      ></Dropdown>
-      <Slider
-        title="Array Size"
-        defaultValue={getArray().length}
-        onValueChanged={changeSize}
-      ></Slider>
-      <Slider
-        title="Speed"
-        min={1}
-        max={1000}
-        defaultValue={getSpeed()}
-        onValueChanged={changeSpeed}
-      ></Slider>
-      <div>
-        <button
-          onClick={async () => {
-            await play();
-          }}
-        >
-          Play
-        </button>
-        <button
-          onClick={() => {
-            stop();
-          }}
-        >
-          Stop
-        </button>
-        <button
-          onClick={() => {
-            reset();
-          }}
-        >
-          Reset
-        </button>
+      <div className={styles.settingBar}>
+        <Dropdown
+          list={sortAlgorithms.map((algo) => algo.info.name)}
+          defaultValue={currentSortAlgorithm.info.name}
+          onChange={changeSortAlgorithm}
+        ></Dropdown>
+
+        <div className={styles.sliderSetting}>
+          <Slider
+            title="Array Size"
+            defaultValue={getArray().length}
+            onValueChanged={changeSize}
+          ></Slider>
+          <Slider
+            title="Speed"
+            min={1}
+            max={1000}
+            defaultValue={getSpeed()}
+            onValueChanged={changeSpeed}
+          ></Slider>
+        </div>
+        <div>
+          <button
+            onClick={async () => {
+              await play();
+            }}
+          >
+            Play
+          </button>
+          <button
+            onClick={() => {
+              stop();
+            }}
+          >
+            Stop
+          </button>
+          <button
+            onClick={() => {
+              reset();
+            }}
+          >
+            Reset
+          </button>
+        </div>
       </div>
+
       <div className={styles.container}>
         {getArray().map((v, i) => (
           <Bar key={i} value={v.value} color={v.color} />
