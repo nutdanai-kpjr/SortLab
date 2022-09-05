@@ -21,7 +21,7 @@ export const Slider = ({
 
   return (
     <div className={styles.container}>
-      <span>{title}</span>
+      <div className={styles.title}>{title}</div>
       <style>{`
         .customSlider-track {
           /* Top value to align your track to the center of your thumb */
@@ -59,8 +59,6 @@ export const Slider = ({
         onChange={handleChange}
         ariaLabelledby="slider-label"
         thumbClassName="customSlider-thumb"
-        // thumbClassName={styles.thumb}
-        // thumbActiveClassName={styles.thumbActive}
         trackClassName="customSlider-track"
         renderThumb={(props, state) => <div {...props}></div>}
       />
