@@ -1,16 +1,13 @@
 import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
 import PageLayout from "../components/page_wrapper/page_layout";
-import styles from "../styles/Home.module.css";
 
-const Home: NextPage = () => {
+const PrivacyPolicy: NextPage = () => {
   return (
     <PageLayout>
       <h2>Privacy Policy of Sorting Visualizer By Nash</h2>
 
       <p>
-        Sorting Visualizer By Nash operates the sorter-viz-nash.vercel.app
+        R Sorting Visualizer By Nash operates the sorter-viz-nash.vercel.app
         website, which provides the SERVICE.
       </p>
 
@@ -149,4 +146,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default PrivacyPolicy;
