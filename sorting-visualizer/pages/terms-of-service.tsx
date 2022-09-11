@@ -2,15 +2,13 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import PageLayout from "../components/page_wrapper/page_layout";
-import styles from "../styles/TermsOfService.module.css";
+import styles from "../styles/pages/TermsOfService.module.css";
 
 const Home: NextPage = () => {
   return (
     <PageLayout>
       <h2>Term of Services</h2>
-      <p>
-        <strong>TERMS OF SERVICE</strong>
-      </p>
+
       <p>Last updated:&nbsp;09/06/2022</p>
       <div className={styles.list}>
         <ol>
