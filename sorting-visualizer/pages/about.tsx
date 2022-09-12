@@ -5,7 +5,7 @@ import PageLayout from "../components/page_wrapper/page_layout";
 import styles from "../styles/pages/InfoPage.module.css";
 
 const Home: NextPage = () => {
-  const imageScale = 1.25;
+  const imageScale = 1;
   return (
     <PageLayout>
       <div className={styles.container}>
@@ -20,11 +20,11 @@ const Home: NextPage = () => {
             You are welcome to fork my projects and play with them!
           </p>
         </div>
-        <div>
+        <div className={styles.imageContainer}>
           <Image
             alt="Stationary"
-            width={655 * imageScale}
-            height={584 * imageScale}
+            width={447 * imageScale}
+            height={559 * imageScale}
             src="/about.png"
           ></Image>
         </div>

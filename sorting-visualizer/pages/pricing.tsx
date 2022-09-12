@@ -2,10 +2,10 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import PageLayout from "../components/page_wrapper/page_layout";
-import styles from "../styles/pages/Home.module.css";
-
+import styles from "../styles/pages/InfoPage.module.css";
+import Script from "next/script";
 const Home: NextPage = () => {
-  const imageScale = 1.25;
+  const imageScale = 1;
   return (
     <PageLayout>
       <div className={styles.container}>
@@ -28,13 +28,27 @@ const Home: NextPage = () => {
             happy as larry! You can do it by buy me the coffee, just click the
             button below. Thank you!
           </p>
+          <p>
+            <a
+              href="https://www.buymeacoffee.com/nutdanai"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Image
+                height={60}
+                width={217}
+                src="/buy-me-a-coffee.png"
+                alt="Buy Me A Coffee"
+              />
+            </a>
+          </p>
         </div>
-        <div>
+        <div className={styles.imageContainer}>
           {" "}
           <Image
             alt="Stationary"
-            width={655 * imageScale}
-            height={584 * imageScale}
+            width={619 * imageScale}
+            height={486 * imageScale}
             src="/pricing.png"
           ></Image>
         </div>
