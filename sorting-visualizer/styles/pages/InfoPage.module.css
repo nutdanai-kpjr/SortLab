@@ -9,7 +9,14 @@
   flex-direction: column;
   flex: 1;
 }
-
+.textContainer a {
+  padding: 7.5px 30px;
+  color: white;
+  border-radius: 7.5px;
+  text-align: center;
+  width: 200px;
+  background-color: #818ad8;
+}
 .textContainer h1 {
   font-size: 6rem;
   font-weight: bold;

@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import FilledButton from "../components/buttons/filled_button";
+import Link from "next/link";
 import PageLayout from "../components/page_wrapper/page_layout";
 import styles from "../styles/pages/InfoPage.module.css";
 
@@ -13,7 +13,9 @@ const Home: NextPage = () => {
         <div className={styles.textContainer}>
           <h1>Sorting Viszualizer</h1>
           <p>Learn world famous sorting algorithms through animiation!</p>
-          <FilledButton title="Play"></FilledButton>
+          <Link href="/">
+            <a>Play</a>
+          </Link>
         </div>
         <div className={styles.imageContainer}>
           {" "}
