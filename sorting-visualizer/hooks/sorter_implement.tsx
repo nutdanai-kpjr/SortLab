@@ -11,7 +11,7 @@ export const useSortVisualizer: SortVisualizer = () => {
   );
 
   const { sort, info } = currentSortAlgorithm;
-  const { speed, setSpeed, itemArray, updateSize, isStop, setIsStop } =
+  const { speed, setSpeed, itemArray, updateSize, setIsStop } =
     useContext(ArrayCtx);
   const play = async () => {
     // console.log("SortViz Fx ", itemArray.length);

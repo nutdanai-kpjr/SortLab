@@ -1,6 +1,4 @@
 import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
 import PageLayout from "../components/page_wrapper/page_layout";
 import styles from "../styles/pages/LegalPage.module.css";
 

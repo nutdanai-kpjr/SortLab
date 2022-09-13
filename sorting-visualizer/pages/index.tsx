@@ -1,10 +1,7 @@
 import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
 import PageLayout from "../components/page_wrapper/page_layout";
 import BarSet from "../components/sorter/bar_set";
 import { ArrayProvider } from "../context/arrayContext";
-import styles from "../styles/pages/Home.module.css";
 
 const Home: NextPage = () => {
   return (
