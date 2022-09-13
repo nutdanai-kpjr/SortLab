@@ -9,7 +9,7 @@
   flex-direction: column;
   flex: 1;
 }
-.textContainer a {
+.buttonContainer a {
   padding: 7.5px 30px;
   color: white;
   border-radius: 7.5px;

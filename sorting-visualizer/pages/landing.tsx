@@ -12,9 +12,11 @@ const Home: NextPage = () => {
         <div className={styles.textContainer}>
           <h1>Sorting Viszualizer</h1>
           <p>Learn world famous sorting algorithms through animiation!</p>
-          <Link href="/">
-            <a>Play</a>
-          </Link>
+          <div className={styles.buttonContainer}>
+            <Link href="/">
+              <a>Play</a>
+            </Link>
+          </div>
         </div>
         <div className={styles.imageContainer}>
           {" "}
