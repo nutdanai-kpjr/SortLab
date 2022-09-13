@@ -9,9 +9,12 @@ export default function PageLayout({
 }) {
   return (
     <>
-      <NavBar />
-      <main className={styles.container}>{children}</main>
-      <FooterBar />
+      <div className={styles.container}>
+        <NavBar />
+        <main>{children}</main>
+
+        <FooterBar />
+      </div>
     </>
   );
 }

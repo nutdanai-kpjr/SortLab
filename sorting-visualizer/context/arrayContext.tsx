@@ -53,6 +53,7 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
   const [speed, setSpeed] = useState<number>(800);
   const [isStop, setIsStop] = useState<boolean>(false);
   const itemArrayRef = useRef(itemArray);
+  const isStopRef = useRef(isStop);
   const speedRef = useRef(speed);
   useEffect(() => {
     // console.log("ArrayProvider: itemArray changed", itemArray.length);
@@ -61,6 +62,9 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     speedRef.current = speed;
   }, [speed]);
+  useEffect(() => {
+    isStopRef.current = isStop;
+  }, [isStop]);
   // const randomColor = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`;
   const animate = async (speed: number) => {
     const delay: number = maxDelay - speed;

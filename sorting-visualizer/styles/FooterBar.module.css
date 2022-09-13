@@ -1,0 +1,27 @@
+.links {
+  /* set flex to be start and justify content to be end */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.links > a {
+  font-size: 0.75rem;
+}
+.links > a:not(:last-child) {
+  padding-right: 15px;
+}
+
+.copyRight {
+  font-size: 0.75rem;
+  padding-right: 15px;
+}
+
+.footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  /* border:1px solid black; */
+}

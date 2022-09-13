@@ -1,3 +1,4 @@
+import styles from "../../styles/Dropdown.module.css";
 export default function Dropdown({
   list,
   defaultValue,
@@ -9,17 +10,19 @@ export default function Dropdown({
 }) {
   return (
     <select
+      className={styles.dropdownItem}
       onChange={(e) => {
         const name = e.target.value;
-
         onChange(name);
       }}
     >
+      {/* <optgroup> */}
       {list.map((v, i) => (
-        <option key={i} value={v}>
+        <option key={i} value={v} className={styles.dropdownItem}>
           {v}
         </option>
       ))}
+      {/* </optgroup> */}
     </select>
   );
 }
