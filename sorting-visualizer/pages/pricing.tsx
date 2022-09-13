@@ -10,7 +10,7 @@ const Home: NextPage = () => {
     <PageLayout>
       <div className={styles.container}>
         <div className={styles.textContainer}>
-          <h1>Pricing</h1>
+          <h2>Pricing</h2>
           <p>
             We charge a subscription fee of 4.99$ per month for our service.
             With our subscription, you will receive more detailed information
@@ -49,7 +49,7 @@ const Home: NextPage = () => {
             alt="Stationary"
             width={619 * imageScale}
             height={486 * imageScale}
-            src="/pricing.png"
+            src="/pricing.svg"
           ></Image>
         </div>
       </div>

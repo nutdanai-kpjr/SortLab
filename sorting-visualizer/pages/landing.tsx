@@ -19,8 +19,8 @@ const Home: NextPage = () => {
           {" "}
           <Image
             alt="Stationary"
-            width={1000 * imageScale}
-            height={800 * imageScale}
+            width={600 * imageScale}
+            height={600 * imageScale}
             src="/landing.svg"
           ></Image>
         </div>

@@ -10,12 +10,10 @@ const Home: NextPage = () => {
     <PageLayout>
       <div className={styles.container}>
         <div className={styles.textContainer}>
-          <h1>About</h1>
+          <h2>About</h2>
           <p>
             The purpose of this project is to provide you with an opportunity to
             learn more about sorting algorithms through step-by-step animations.
-          </p>
-          <p>
             This project is open-source and created using the Next.js framework.
             You are welcome to fork my projects and play with them!
           </p>
@@ -25,7 +23,7 @@ const Home: NextPage = () => {
             alt="Stationary"
             width={447 * imageScale}
             height={559 * imageScale}
-            src="/about.png"
+            src="/about.svg"
           ></Image>
         </div>
       </div>
