@@ -47,7 +47,6 @@ export const useSortVisualizer: SortVisualizer = () => {
   const getName = () => info.name;
   const getDescription = () => info.description;
   const getComplexity = () => info.complexity;
-
   const getArray = () => itemArray;
   const getSpeed = () => speed;
   useEffect(() => {

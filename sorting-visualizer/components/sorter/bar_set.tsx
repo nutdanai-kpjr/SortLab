@@ -39,6 +39,7 @@ export default function BarSet() {
       {/* <h1>{getArray().map((i) => i.value)}</h1> */}
       {/* <h2>{getName()}</h2> */}
 
+
       <div className={styles.barSet}>
         <div className={styles.settingBar}>
           <Dropdown
@@ -113,6 +114,8 @@ export default function BarSet() {
         <p>Average case: {getComplexity().averageCase}</p>
         <p>Best case: {getComplexity().bestCase}</p>
       </div>
+
+
 
       {/* <button
         onClick={async () => {

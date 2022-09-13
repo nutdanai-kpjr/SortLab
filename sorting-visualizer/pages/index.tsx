@@ -3,6 +3,7 @@ import PageLayout from "../components/page_wrapper/page_layout";
 import BarSet from "../components/sorter/bar_set";
 import { ArrayProvider } from "../context/arrayContext";
 
+
 const Home: NextPage = () => {
   return (
     <PageLayout>

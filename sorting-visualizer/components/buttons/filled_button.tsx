@@ -17,3 +17,4 @@ const FilledButton: NextPage<Props> = ({ title, onClick }) => {
 
 // export component
 export default FilledButton;
+
