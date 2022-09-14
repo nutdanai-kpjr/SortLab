@@ -25,6 +25,7 @@ export interface IArrayContext {
   setSpeed: Dispatch<SetStateAction<number>>;
   setIsStop: Dispatch<SetStateAction<boolean>>;
   animate: (speed: number) => Promise<void>;
+  replaceItem: (index: number, newItem: Item) => Promise<void>;
   updateArray: (newArray: Item[]) => Promise<void>;
   updateSize: (newSize: number) => void;
   updateColor: (indexs: number[], color: string) => Promise<void>;
@@ -43,6 +44,7 @@ const initArrayCtx: IArrayContext = {
   setSpeed: () => {},
   setIsStop: () => {},
   animate: () => Promise.resolve(),
+  replaceItem: () => Promise.resolve(),
   updateArray: () => Promise.resolve(),
   updateSize: () => {},
   updateColor: () => Promise.resolve(),
@@ -122,6 +124,12 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
 
     await updateArray([...newArray]);
   };
+
+  const replaceItem = async (index: number, newItem: Item) => {
+    let newArray: Item[] = [...itemArrayRef.current];
+    newArray[index] = newItem;
+    await updateArray([...newArray]);
+  };
   const arrayCtx: IArrayContext = {
     itemArray,
     speed,
@@ -135,6 +143,7 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
     updateColor,
     updateDifferentColor,
     swapItem,
+    replaceItem,
   };
 
   return <ArrayCtx.Provider value={arrayCtx}> {children}</ArrayCtx.Provider>;
