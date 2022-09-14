@@ -13,7 +13,10 @@ import {
   randomNumber,
 } from "../hooks/utils";
 import { COLORS } from "../styles/color";
-
+interface updateDiffrentColorInstruction {
+  index: number;
+  color: string;
+}
 export interface IArrayContext {
   itemArray: Item[];
   speed: number;
@@ -25,6 +28,9 @@ export interface IArrayContext {
   updateArray: (newArray: Item[]) => Promise<void>;
   updateSize: (newSize: number) => void;
   updateColor: (indexs: number[], color: string) => Promise<void>;
+  updateDifferentColor: (
+    instructions: updateDiffrentColorInstruction[]
+  ) => Promise<void>;
   swapItem: (indexA: number, indexB: number) => Promise<void>;
 }
 
@@ -40,6 +46,7 @@ const initArrayCtx: IArrayContext = {
   updateArray: () => Promise.resolve(),
   updateSize: () => {},
   updateColor: () => Promise.resolve(),
+  updateDifferentColor: () => Promise.resolve(),
   swapItem: () => Promise.resolve(),
 };
 
@@ -49,7 +56,9 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
   // Level 1 :  Low Level Operations
   const defaultColor = COLORS.PRIMARY;
   const maxDelay = 1001;
-  const [itemArray, setItemArray] = useState<Item[]>(generateRandomItemArray());
+  const [itemArray, setItemArray] = useState<Item[]>(
+    generateRandomItemArray(20)
+  );
   const [speed, setSpeed] = useState<number>(800);
   const [isStop, setIsStop] = useState<boolean>(false);
   const itemArrayRef = useRef(itemArray);
@@ -93,6 +102,16 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
     // console.log("newArray", newArray);
     await updateArray([...newArray]);
   };
+
+  const updateDifferentColor = async (
+    instructions: updateDiffrentColorInstruction[]
+  ) => {
+    let newArray: Item[] = [...itemArrayRef.current];
+    instructions.forEach((instruction) => {
+      newArray[instruction.index].color = instruction.color;
+    });
+    await updateArray([...newArray]);
+  };
   //
   // Level 3 :  High Level Operations
   const swapItem = async (indexA: number, indexB: number) => {
@@ -100,7 +119,6 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
     let newArray: Item[] = [...itemArrayRef.current];
 
     [newArray[indexA], newArray[indexB]] = [newArray[indexB], newArray[indexA]];
-    newArray[indexB].color = COLORS.SUCCESS;
 
     await updateArray([...newArray]);
   };
@@ -115,6 +133,7 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
     updateArray,
     updateSize,
     updateColor,
+    updateDifferentColor,
     swapItem,
   };
 

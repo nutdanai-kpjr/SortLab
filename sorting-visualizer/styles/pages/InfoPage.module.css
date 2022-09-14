@@ -9,12 +9,14 @@
   flex-direction: column;
   flex: 1;
 }
+
 .buttonContainer a {
-  padding: 7.5px 30px;
+  padding: 7.5px 80px;
   color: white;
   border-radius: 7.5px;
-  text-align: center;
   width: 200px;
+  text-align: center;
+
   background-color: #818ad8;
 }
 .textContainer h1 {

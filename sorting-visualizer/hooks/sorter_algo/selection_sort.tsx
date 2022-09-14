@@ -4,8 +4,15 @@ import { COLORS } from "../../styles/color";
 import { Item, SortAlgorithm } from "../sorter_abstract";
 
 export const useSelectionSort: () => SortAlgorithm = () => {
-  const { itemArray, swapItem, isStop, setIsStop, updateColor, updateSize } =
-    useContext(ArrayCtx);
+  const {
+    itemArray,
+    swapItem,
+    isStop,
+    setIsStop,
+    updateColor,
+    updateSize,
+    updateDifferentColor,
+  } = useContext(ArrayCtx);
   const itemArrayRef = useRef(itemArray);
   const isStopRef = useRef(isStop);
 
@@ -27,14 +34,13 @@ export const useSelectionSort: () => SortAlgorithm = () => {
   }, [isStop]);
 
   const sort = async () => {
-    // console.log("BubbleFunction", itemArrayRef.current.length);
-
     let arr: Item[] = [...itemArrayRef.current];
 
     for (let i = 0; i < arr.length; i++) {
-      // console.log(i);
-
-      for (let j = 0; j < arr.length - i - 1; j++) {
+      // FInd the smallest element in the unsorted array
+      // await updateColor([i], COLORS.SECONDARY);
+      let min = i;
+      for (let j = i + 1; j < arr.length; j++) {
         let isStop = isStopRef.current;
         if (isStop) {
           //generate array of index from 0 to arr.length
@@ -45,19 +51,28 @@ export const useSelectionSort: () => SortAlgorithm = () => {
           return;
         }
         arr = [...itemArrayRef.current]; // refetch the array from context to avoid stale state
-
-        let valueA = { ...arr[j] }.value;
-        let valueB = { ...arr[j + 1] }.value;
-        await updateColor([j, j + 1], COLORS.SECONDARY); // Comparing
-        if (valueA > valueB) {
-          // console.log(valueA + ">" + valueB + " swap " + j + " to " + (j + 1));
-          await updateColor([j], COLORS.SUCCESS);
-          await swapItem(j, j + 1); // swap j to j+1
+        let valueNew = { ...arr[j] }.value;
+        let valueMin = { ...arr[min] }.value;
+        await updateDifferentColor([
+          { index: min, color: COLORS.INPROGRESS },
+          { index: j, color: COLORS.SECONDARY },
+        ]);
+        //Comparing;
+        if (valueNew < valueMin) {
+          await updateColor([min], COLORS.PRIMARY);
+          min = j;
+          await updateColor([min], COLORS.INPROGRESS);
+        } else {
+          await updateColor([j, min], COLORS.PRIMARY); // Loser
         }
-        await updateColor([j + 1], COLORS.SUCCESS); // Winner
-        await updateColor([j], COLORS.PRIMARY); // Loser
       }
-      await updateColor([0], COLORS.SUCCESS); //
+      // await updateColor([min], COLORS.SUCCESS);
+      await updateColor([min], COLORS.INPROGRESS);
+
+      if (min !== i) {
+        await swapItem(i, min);
+      }
+      await updateColor([i], COLORS.SUCCESS);
     }
   };
   return { sort, info, itemArray, updateSize };
