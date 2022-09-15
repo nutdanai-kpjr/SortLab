@@ -24,7 +24,7 @@ export interface IArrayContext {
   speed: number;
   isStop: boolean;
   setItemArray: (newState: Item[]) => void;
-  setSpeed: Dispatch<SetStateAction<number>>;
+  setSpeed: (newState: number) => void;
   setIsStop: Dispatch<SetStateAction<boolean>>;
   animate: (speed: number) => Promise<void>;
   replaceItem: (index: number, newItem: Item) => Promise<void>;
@@ -59,27 +59,23 @@ export const ArrayCtx = createContext<IArrayContext>(initArrayCtx);
 
 export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
   // Level 1 :  Low Level Operations
-  const defaultColor = COLORS.PRIMARY;
   const maxDelay = 1001;
-  // const [itemArray, setItemArray] = useState<Item[]>(
-  //   generateRandomItemArray(20)
-  // );
-  const [speed, setSpeed] = useState<number>(800);
-  const [isStop, setIsStop] = useState<boolean>(false);
-  // const itemArrayRef = useRef(itemArray);
-  const isStopRef = useRef(isStop);
-  const speedRef = useRef(speed);
   const [itemArray, setItemArray, itemArrayRef] = useStateWithRef(
     generateRandomItemArray(20)
   );
+  const [speed, setSpeed, speedRef] = useStateWithRef<number>(800);
+  // const [speed, setSpeed] = useState<number>(800);
+  const [isStop, setIsStop] = useState<boolean>(false);
+  const isStopRef = useRef(isStop);
+  // const speedRef = useRef(speed);
 
   // useEffect(() => {
   //   // console.log("ArrayProvider: itemArray changed", itemArray.length);
   //   itemArrayRef.current = itemArray;
   // }, [itemArray]);
-  useEffect(() => {
-    speedRef.current = speed;
-  }, [speed]);
+  // useEffect(() => {
+  //   speedRef.current = speed;
+  // }, [speed]);
   useEffect(() => {
     isStopRef.current = isStop;
   }, [isStop]);
