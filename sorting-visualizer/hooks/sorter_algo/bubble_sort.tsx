@@ -4,9 +4,9 @@ import { COLORS } from "../../styles/color";
 import { Item, SortAlgorithm } from "../sorter_abstract";
 
 export const useBubbleSort: () => SortAlgorithm = () => {
-  const { itemArray, swapItem, isStop, setIsStop, updateColor, updateSize } =
+  const { itemArrayRef, swapItem, isStop, setIsStop, updateColor, updateSize } =
     useContext(ArrayCtx);
-  const itemArrayRef = useRef(itemArray);
+  // const itemArrayRef = useRef(itemArray);
   const isStopRef = useRef(isStop);
 
   const info = {
@@ -19,9 +19,7 @@ export const useBubbleSort: () => SortAlgorithm = () => {
       worstCase: "O(n^2)",
     },
   };
-  useEffect(() => {
-    itemArrayRef.current = itemArray;
-  }, [itemArray]);
+
   useEffect(() => {
     isStopRef.current = isStop;
   }, [isStop]);
@@ -60,5 +58,5 @@ export const useBubbleSort: () => SortAlgorithm = () => {
       await updateColor([0], COLORS.SUCCESS); //
     }
   };
-  return { sort, info, itemArray, updateSize };
+  return { sort, info, updateSize };
 };

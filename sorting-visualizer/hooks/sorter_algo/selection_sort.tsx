@@ -43,10 +43,8 @@ export const useSelectionSort: () => SortAlgorithm = () => {
       for (let j = i + 1; j < arr.length; j++) {
         let isStop = isStopRef.current;
         if (isStop) {
-          //generate array of index from 0 to arr.length
           let indexArr = Array.from(Array(arr.length).keys());
-          await updateColor(indexArr, COLORS.PRIMARY); //change back to original color
-
+          await updateColor(indexArr, COLORS.PRIMARY);
           setIsStop(false);
           return;
         }

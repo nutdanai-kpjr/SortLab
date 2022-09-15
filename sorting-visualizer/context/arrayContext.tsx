@@ -7,6 +7,7 @@ import React, {
   useState,
 } from "react";
 import { Item } from "../hooks/sorter_abstract";
+import { useStateWithRef } from "../hooks/use_state_with_ref";
 import {
   generateRandomItemArray,
   randomColor,
@@ -19,9 +20,10 @@ interface updateDiffrentColorInstruction {
 }
 export interface IArrayContext {
   itemArray: Item[];
+  itemArrayRef: React.MutableRefObject<Item[]>;
   speed: number;
   isStop: boolean;
-  setItemArray: Dispatch<SetStateAction<Item[]>>;
+  setItemArray: (newState: Item[]) => void;
   setSpeed: Dispatch<SetStateAction<number>>;
   setIsStop: Dispatch<SetStateAction<boolean>>;
   animate: (speed: number) => Promise<void>;
@@ -38,6 +40,7 @@ export interface IArrayContext {
 // Provider in your app
 const initArrayCtx: IArrayContext = {
   itemArray: [],
+  itemArrayRef: { current: [] },
   speed: 100,
   isStop: true,
   setItemArray: () => {},
@@ -58,18 +61,22 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
   // Level 1 :  Low Level Operations
   const defaultColor = COLORS.PRIMARY;
   const maxDelay = 1001;
-  const [itemArray, setItemArray] = useState<Item[]>(
-    generateRandomItemArray(20)
-  );
+  // const [itemArray, setItemArray] = useState<Item[]>(
+  //   generateRandomItemArray(20)
+  // );
   const [speed, setSpeed] = useState<number>(800);
   const [isStop, setIsStop] = useState<boolean>(false);
-  const itemArrayRef = useRef(itemArray);
+  // const itemArrayRef = useRef(itemArray);
   const isStopRef = useRef(isStop);
   const speedRef = useRef(speed);
-  useEffect(() => {
-    // console.log("ArrayProvider: itemArray changed", itemArray.length);
-    itemArrayRef.current = itemArray;
-  }, [itemArray]);
+  const [itemArray, setItemArray, itemArrayRef] = useStateWithRef(
+    generateRandomItemArray(20)
+  );
+
+  // useEffect(() => {
+  //   // console.log("ArrayProvider: itemArray changed", itemArray.length);
+  //   itemArrayRef.current = itemArray;
+  // }, [itemArray]);
   useEffect(() => {
     speedRef.current = speed;
   }, [speed]);
@@ -132,6 +139,7 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
   };
   const arrayCtx: IArrayContext = {
     itemArray,
+    itemArrayRef,
     speed,
     isStop,
     setItemArray,

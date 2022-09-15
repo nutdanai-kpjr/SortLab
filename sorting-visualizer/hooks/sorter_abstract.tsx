@@ -20,7 +20,6 @@ export interface SortVisualizer {
 
 export interface SortAlgorithm {
   info: AlgorithmInfo;
-  itemArray: Item[];
   sort: () => Promise<void>;
 }
 export interface AlgorithmInfo {

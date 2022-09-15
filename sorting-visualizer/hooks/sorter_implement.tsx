@@ -54,9 +54,9 @@ export const useSortVisualizer: SortVisualizer = () => {
   const getComplexity = () => info.complexity;
   const getArray = () => itemArray;
   const getSpeed = () => speed;
-  useEffect(() => {
-    // console.log("SorterImplement: itemArray changed", itemArray.length);
-  }, [itemArray]);
+  // useEffect(() => {
+  //   // console.log("SorterImplement: itemArray changed", itemArray.length);
+  // }, [itemArray]);
 
   return {
     sortAlgorithms,

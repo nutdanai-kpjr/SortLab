@@ -4,16 +4,8 @@ import { COLORS } from "../../styles/color";
 import { Item, SortAlgorithm } from "../sorter_abstract";
 
 export const useInsertionSort: () => SortAlgorithm = () => {
-  const {
-    itemArray,
-    swapItem,
-    isStop,
-    setIsStop,
-    replaceItem,
-    updateColor,
-    updateSize,
-    updateDifferentColor,
-  } = useContext(ArrayCtx);
+  const { itemArray, isStop, setIsStop, replaceItem, updateColor, updateSize } =
+    useContext(ArrayCtx);
   const itemArrayRef = useRef(itemArray);
   const isStopRef = useRef(isStop);
 
