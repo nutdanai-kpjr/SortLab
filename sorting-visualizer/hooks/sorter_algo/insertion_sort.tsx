@@ -4,14 +4,8 @@ import { COLORS } from "../../styles/color";
 import { Item, SortAlgorithm } from "../sorter_abstract";
 
 export const useInsertionSort: () => SortAlgorithm = () => {
-  const {
-    itemArrayRef,
-    isStopRef,
-    stopSort,
-    replaceItem,
-    updateColor,
-    updateSize,
-  } = useContext(ArrayCtx);
+  const { itemArrayRef, isStopRef, stopSort, replaceItem, updateColor } =
+    useContext(ArrayCtx);
 
   const info = {
     name: "Insertion Sort",

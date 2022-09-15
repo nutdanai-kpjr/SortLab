@@ -3,6 +3,7 @@ import { ArrayCtx } from "../context/arrayContext";
 import { SortAlgorithm, SortVisualizer } from "./sorter_abstract";
 import { useBubbleSort } from "./sorter_algo/bubble_sort";
 import { useInsertionSort } from "./sorter_algo/insertion_sort";
+import { useMergeSort } from "./sorter_algo/merge_sort";
 import { useSelectionSort } from "./sorter_algo/selection_sort";
 
 export const useSortVisualizer: SortVisualizer = () => {
@@ -10,6 +11,7 @@ export const useSortVisualizer: SortVisualizer = () => {
     useBubbleSort(),
     useSelectionSort(),
     useInsertionSort(),
+    useMergeSort(),
   ];
   const [currentSortAlgorithm, setSortAlgorithm] = useState<SortAlgorithm>(
     sortAlgorithms[0]

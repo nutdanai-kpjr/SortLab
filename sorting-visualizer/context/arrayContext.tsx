@@ -36,6 +36,11 @@ export interface IArrayContext {
   updateDifferentColor: (
     instructions: updateDiffrentColorInstruction[]
   ) => Promise<void>;
+  updateColorFromRange: (
+    start: number,
+    end: number,
+    color: string
+  ) => Promise<void>;
   swapItem: (indexA: number, indexB: number) => Promise<void>;
   stopSort: () => Promise<void>;
 }
@@ -57,6 +62,7 @@ const initArrayCtx: IArrayContext = {
   updateSize: () => {},
   updateColor: () => Promise.resolve(),
   updateDifferentColor: () => Promise.resolve(),
+  updateColorFromRange: () => Promise.resolve(),
   swapItem: () => Promise.resolve(),
   stopSort: () => Promise.resolve(),
 };
@@ -99,7 +105,19 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
     // console.log("newArray", newArray);
     await updateArray([...newArray]);
   };
+  const updateColorFromRange = async (
+    start: number,
+    end: number,
+    color: string
+  ) => {
+    let newArray: Item[] = [...itemArrayRef.current];
 
+    for (let i = start; i < end; i++) {
+      newArray[i].color = color;
+    }
+    // console.log("newArray", newArray);
+    await updateArray([...newArray]);
+  };
   const updateDifferentColor = async (
     instructions: updateDiffrentColorInstruction[]
   ) => {
@@ -147,6 +165,7 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
     updateSize,
     updateColor,
     updateDifferentColor,
+    updateColorFromRange,
     swapItem,
     replaceItem,
     stopSort,
