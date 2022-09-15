@@ -80,7 +80,7 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
 
   const animate = async (speed: number) => {
     const delay: number = maxDelay - speed;
-    console.log("speed", speed);
+    // console.log("speed", speed);
     await new Promise<void>((resolve) => setTimeout(resolve, delay));
   };
 
@@ -112,7 +112,7 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
   ) => {
     let newArray: Item[] = [...itemArrayRef.current];
 
-    for (let i = start; i < end; i++) {
+    for (let i = start; i <= end; i++) {
       newArray[i].color = color;
     }
     // console.log("newArray", newArray);

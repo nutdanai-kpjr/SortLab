@@ -22,7 +22,7 @@ export const useSortVisualizer: SortVisualizer = () => {
     useContext(ArrayCtx);
   const play = async () => {
     // console.log("SortViz Fx ", itemArray.length);
-
+    setIsStop(false);
     await sort();
     // setIsProcessing(false);
   };
