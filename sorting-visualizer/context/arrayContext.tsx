@@ -37,6 +37,7 @@ export interface IArrayContext {
     instructions: updateDiffrentColorInstruction[]
   ) => Promise<void>;
   swapItem: (indexA: number, indexB: number) => Promise<void>;
+  stopSort: () => Promise<void>;
 }
 
 // Provider in your app
@@ -57,6 +58,7 @@ const initArrayCtx: IArrayContext = {
   updateColor: () => Promise.resolve(),
   updateDifferentColor: () => Promise.resolve(),
   swapItem: () => Promise.resolve(),
+  stopSort: () => Promise.resolve(),
 };
 
 export const ArrayCtx = createContext<IArrayContext>(initArrayCtx);
@@ -68,7 +70,7 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
     generateRandomItemArray(20)
   );
   const [speed, setSpeed, speedRef] = useStateWithRef<number>(800);
-  const [isStop, setIsStop, isStopRef] = useStateWithRef<boolean>(true);
+  const [isStop, setIsStop, isStopRef] = useStateWithRef<boolean>(false);
 
   const animate = async (speed: number) => {
     const delay: number = maxDelay - speed;
@@ -123,6 +125,13 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
     newArray[index] = newItem;
     await updateArray([...newArray]);
   };
+
+  const stopSort = async () => {
+    let arr: Item[] = [...itemArrayRef.current];
+    let indexArr = Array.from(Array(arr.length).keys());
+    await updateColor(indexArr, COLORS.PRIMARY); //change back to original color
+    setIsStop(false);
+  };
   const arrayCtx: IArrayContext = {
     itemArray,
     itemArrayRef,
@@ -140,6 +149,7 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
     updateDifferentColor,
     swapItem,
     replaceItem,
+    stopSort,
   };
 
   return <ArrayCtx.Provider value={arrayCtx}> {children}</ArrayCtx.Provider>;
