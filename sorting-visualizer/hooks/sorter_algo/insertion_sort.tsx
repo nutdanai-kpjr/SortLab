@@ -4,10 +4,14 @@ import { COLORS } from "../../styles/color";
 import { Item, SortAlgorithm } from "../sorter_abstract";
 
 export const useInsertionSort: () => SortAlgorithm = () => {
-  const { itemArray, isStop, setIsStop, replaceItem, updateColor, updateSize } =
-    useContext(ArrayCtx);
-  const itemArrayRef = useRef(itemArray);
-  const isStopRef = useRef(isStop);
+  const {
+    itemArrayRef,
+    isStopRef,
+    stopSort,
+    replaceItem,
+    updateColor,
+    updateSize,
+  } = useContext(ArrayCtx);
 
   const info = {
     name: "Insertion Sort",
@@ -19,12 +23,6 @@ export const useInsertionSort: () => SortAlgorithm = () => {
       worstCase: "O(n^2)",
     },
   };
-  useEffect(() => {
-    itemArrayRef.current = itemArray;
-  }, [itemArray]);
-  useEffect(() => {
-    isStopRef.current = isStop;
-  }, [isStop]);
 
   const sort = async () => {
     let arr: Item[] = [...itemArrayRef.current];
@@ -36,12 +34,8 @@ export const useInsertionSort: () => SortAlgorithm = () => {
       let j = i - 1;
       let lastSorted = { ...arr[j] };
       while (j >= 0 && lastSorted.value > firstUnsorted.value) {
-        let isStop = isStopRef.current;
-        if (isStop) {
-          let indexArr = Array.from(Array(arr.length).keys());
-          await updateColor(indexArr, COLORS.PRIMARY);
-          setIsStop(false);
-          return;
+        if (isStopRef.current) {
+          return await stopSort();
         }
         arr = [...itemArrayRef.current];
         // Through a while loop, we go through the sorted array and shift elements to the right, opening up a space for the current element to be inserted.
@@ -61,5 +55,5 @@ export const useInsertionSort: () => SortAlgorithm = () => {
       // the last element of our sorted subarray
     }
   };
-  return { sort, info, itemArray, updateSize };
+  return { sort, info };
 };

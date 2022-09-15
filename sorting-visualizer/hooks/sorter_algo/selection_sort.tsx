@@ -5,16 +5,13 @@ import { Item, SortAlgorithm } from "../sorter_abstract";
 
 export const useSelectionSort: () => SortAlgorithm = () => {
   const {
-    itemArray,
+    itemArrayRef,
     swapItem,
-    isStop,
-    setIsStop,
+    isStopRef,
+    stopSort,
     updateColor,
-    updateSize,
     updateDifferentColor,
   } = useContext(ArrayCtx);
-  const itemArrayRef = useRef(itemArray);
-  const isStopRef = useRef(isStop);
 
   const info = {
     name: "Selection Sort",
@@ -26,12 +23,6 @@ export const useSelectionSort: () => SortAlgorithm = () => {
       worstCase: "O(n^2)",
     },
   };
-  useEffect(() => {
-    itemArrayRef.current = itemArray;
-  }, [itemArray]);
-  useEffect(() => {
-    isStopRef.current = isStop;
-  }, [isStop]);
 
   const sort = async () => {
     let arr: Item[] = [...itemArrayRef.current];
@@ -41,12 +32,8 @@ export const useSelectionSort: () => SortAlgorithm = () => {
       // await updateColor([i], COLORS.SECONDARY);
       let min = i;
       for (let j = i + 1; j < arr.length; j++) {
-        let isStop = isStopRef.current;
-        if (isStop) {
-          let indexArr = Array.from(Array(arr.length).keys());
-          await updateColor(indexArr, COLORS.PRIMARY);
-          setIsStop(false);
-          return;
+        if (isStopRef.current) {
+          return await stopSort();
         }
         arr = [...itemArrayRef.current]; // refetch the array from context to avoid stale state
         let valueNew = { ...arr[j] }.value;
@@ -73,5 +60,5 @@ export const useSelectionSort: () => SortAlgorithm = () => {
       await updateColor([i], COLORS.SUCCESS);
     }
   };
-  return { sort, info, itemArray, updateSize };
+  return { sort, info };
 };

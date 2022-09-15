@@ -4,14 +4,8 @@ import { COLORS } from "../../styles/color";
 import { Item, SortAlgorithm } from "../sorter_abstract";
 
 export const useBubbleSort: () => SortAlgorithm = () => {
-  const {
-    itemArrayRef,
-    isStopRef,
-    swapItem,
-    stopSort,
-    updateColor,
-    updateSize,
-  } = useContext(ArrayCtx);
+  const { itemArrayRef, isStopRef, swapItem, stopSort, updateColor } =
+    useContext(ArrayCtx);
   // const itemArrayRef = useRef(itemArray);
 
   const info = {
@@ -35,8 +29,7 @@ export const useBubbleSort: () => SortAlgorithm = () => {
 
       for (let j = 0; j < arr.length - i - 1; j++) {
         if (isStopRef.current) {
-          await stopSort();
-          return;
+          return await stopSort();
         }
         arr = [...itemArrayRef.current]; // refetch the array from context to avoid stale state
 
@@ -54,5 +47,5 @@ export const useBubbleSort: () => SortAlgorithm = () => {
       await updateColor([0], COLORS.SUCCESS); //
     }
   };
-  return { sort, info, updateSize };
+  return { sort, info };
 };

@@ -26,7 +26,6 @@ export const useSortVisualizer: SortVisualizer = () => {
   };
   const stop = () => {
     setIsStop(true);
-    console.log("SortViz Fx stop");
   };
   const reset = () => {
     updateSize(itemArray.length);
