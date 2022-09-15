@@ -22,10 +22,12 @@ export interface IArrayContext {
   itemArray: Item[];
   itemArrayRef: React.MutableRefObject<Item[]>;
   speed: number;
+  speedRef: React.MutableRefObject<number>;
   isStop: boolean;
+  isStopRef: React.MutableRefObject<boolean>;
   setItemArray: (newState: Item[]) => void;
   setSpeed: (newState: number) => void;
-  setIsStop: Dispatch<SetStateAction<boolean>>;
+  setIsStop: (newState: boolean) => void;
   animate: (speed: number) => Promise<void>;
   replaceItem: (index: number, newItem: Item) => Promise<void>;
   updateArray: (newArray: Item[]) => Promise<void>;
@@ -42,7 +44,9 @@ const initArrayCtx: IArrayContext = {
   itemArray: [],
   itemArrayRef: { current: [] },
   speed: 100,
+  speedRef: { current: 800 },
   isStop: true,
+  isStopRef: { current: false },
   setItemArray: () => {},
   setSpeed: () => {},
   setIsStop: () => {},
@@ -64,22 +68,8 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
     generateRandomItemArray(20)
   );
   const [speed, setSpeed, speedRef] = useStateWithRef<number>(800);
-  // const [speed, setSpeed] = useState<number>(800);
-  const [isStop, setIsStop] = useState<boolean>(false);
-  const isStopRef = useRef(isStop);
-  // const speedRef = useRef(speed);
+  const [isStop, setIsStop, isStopRef] = useStateWithRef<boolean>(true);
 
-  // useEffect(() => {
-  //   // console.log("ArrayProvider: itemArray changed", itemArray.length);
-  //   itemArrayRef.current = itemArray;
-  // }, [itemArray]);
-  // useEffect(() => {
-  //   speedRef.current = speed;
-  // }, [speed]);
-  useEffect(() => {
-    isStopRef.current = isStop;
-  }, [isStop]);
-  // const randomColor = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`;
   const animate = async (speed: number) => {
     const delay: number = maxDelay - speed;
     console.log("speed", speed);
@@ -137,7 +127,9 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
     itemArray,
     itemArrayRef,
     speed,
+    speedRef,
     isStop,
+    isStopRef,
     setItemArray,
     setSpeed,
     setIsStop,
