@@ -148,7 +148,7 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
     let arr: Item[] = [...itemArrayRef.current];
     let indexArr = Array.from(Array(arr.length).keys());
     await updateColor(indexArr, COLORS.PRIMARY); //change back to original color
-    setIsStop(false);
+    // setIsStop(false);
   };
   const arrayCtx: IArrayContext = {
     itemArray,

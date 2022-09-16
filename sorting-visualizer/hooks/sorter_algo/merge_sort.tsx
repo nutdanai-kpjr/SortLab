@@ -26,15 +26,15 @@ export const useMergeSort: () => SortAlgorithm = () => {
   const sort = async () => {
     let arr: Item[] = [...itemArrayRef.current];
     await mergeSort(arr, 0, arr.length - 1);
-    await updateColorFromRange(0, arr.length - 1, COLORS.SUCCESS);
+    if (!isStopRef.current) {
+      await updateColorFromRange(0, arr.length - 1, COLORS.SUCCESS);
+    }
   };
   // l is for left index and r is
   // right index of the sub-array
   // of arr to be sorted */
   async function mergeSort(arr: Item[], l: number, r: number) {
-    console.log("mergeSort", isStopRef.current);
     if (isStopRef.current) {
-      console.log("stop at mergeSort 0");
       return await stopSort();
     }
     if (l >= r) {
@@ -53,10 +53,7 @@ export const useMergeSort: () => SortAlgorithm = () => {
   // First subarray is arr[l..m]
   // Second subarray is arr[m+1..r]
   async function merge(arr: Item[], l: number, m: number, r: number) {
-    console.log("merge", l, m, r);
-
     if (isStopRef.current) {
-      console.log("stop at merge 0");
       return await stopSort();
     }
     let n1 = m - l + 1; // size of the left subarray (l to m) we need to +1 because we need to include the m
@@ -84,9 +81,7 @@ export const useMergeSort: () => SortAlgorithm = () => {
     // await updateColorFromRange(m + 1, r, COLORS.INPROGRESS);
 
     while (i < n1 && j < n2) {
-      console.log("merge 1", isStopRef.current);
       if (isStopRef.current) {
-        console.log("stop at merge 1");
         return await stopSort();
       }
       // animation here
@@ -110,9 +105,7 @@ export const useMergeSort: () => SortAlgorithm = () => {
     // Copy the remaining elements of
     // L[], if there are any
     while (i < n1) {
-      console.log("merge 2", isStopRef.current);
       if (isStopRef.current) {
-        console.log("stop at merge 2");
         return await stopSort();
       }
       arr[k] = L[i];
@@ -124,9 +117,7 @@ export const useMergeSort: () => SortAlgorithm = () => {
     // Copy the remaining elements of
     // R[], if there are any
     while (j < n2) {
-      console.log("merge 3", isStopRef.current);
       if (isStopRef.current) {
-        console.log("stop at merge 3");
         return await stopSort();
       }
       arr[k] = R[j];
@@ -134,9 +125,7 @@ export const useMergeSort: () => SortAlgorithm = () => {
       j++;
       k++;
     }
-    console.log("merge 4", isStopRef.current);
     if (isStopRef.current) {
-      console.log("stop at merge 4");
       return await stopSort();
     }
     await updateColorFromRange(l, r, getRandomColor());
