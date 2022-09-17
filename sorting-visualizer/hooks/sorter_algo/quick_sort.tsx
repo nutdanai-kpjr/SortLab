@@ -16,7 +16,6 @@ export const useQuickSort: () => SortAlgorithm = () => {
     blinkItemDifferentColor,
     updateColor,
     updateColorFromRange,
-    updateDifferentColor,
   } = useContext(ArrayCtx);
 
   // let pivotNo = 1;
@@ -35,6 +34,7 @@ export const useQuickSort: () => SortAlgorithm = () => {
   const sort = async () => {
     let n = itemArrayRef.current.length;
     await quickSort(0, n - 1);
+    if (!isStopRef.current) await updateColorFromRange(0, n - 1, COLORS.SORTED);
   };
   // 1. based case
   // 2. recursive case
