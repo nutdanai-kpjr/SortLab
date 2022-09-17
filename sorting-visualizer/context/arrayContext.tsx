@@ -46,6 +46,11 @@ export interface IArrayContext {
     end: number,
     color: string
   ) => Promise<void>;
+  blinkItemDifferentColor: (
+    instructions: updateDiffrentColorInstruction[],
+    color: string,
+    times: number
+  ) => Promise<void>;
   swapItem: (indexA: number, indexB: number) => Promise<void>;
   stopSort: () => Promise<void>;
 }
@@ -69,6 +74,7 @@ const initArrayCtx: IArrayContext = {
   updateDifferentColor: () => Promise.resolve(),
   updateColorFromRange: () => Promise.resolve(),
   updateColorExceptFromRange: () => Promise.resolve(),
+  blinkItemDifferentColor: () => Promise.resolve(),
   swapItem: () => Promise.resolve(),
   stopSort: () => Promise.resolve(),
 };
@@ -148,7 +154,7 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
     });
     await updateArray([...newArray]);
   };
-  //
+
   // Level 3 :  High Level Operations
   const swapItem = async (indexA: number, indexB: number) => {
     // console.log("swapItem ArrayProvider Function", itemArrayRef.current.length);
@@ -164,11 +170,26 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
     newArray[index] = newItem;
     await updateArray([...newArray]);
   };
+  const blinkItemDifferentColor = async (
+    instructions: updateDiffrentColorInstruction[],
+    color: string,
+    times: number
+  ) => {
+    for (let i = 0; i < times; i++) {
+      await updateDifferentColor(instructions);
+      await updateDifferentColor(
+        instructions.map((instruction) => {
+          return { index: instruction.index, color: color };
+        })
+      );
+    }
+    await updateDifferentColor(instructions);
+  };
 
   const stopSort = async () => {
     let arr: Item[] = [...itemArrayRef.current];
     let indexArr = Array.from(Array(arr.length).keys());
-    await updateColor(indexArr, COLORS.PRIMARY); //change back to original color
+    await updateColor(indexArr, COLORS.DEFAULT); //change back to original color
     // setIsStop(false);
   };
   const arrayCtx: IArrayContext = {
@@ -188,6 +209,7 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
     updateDifferentColor,
     updateColorFromRange,
     updateColorExceptFromRange,
+    blinkItemDifferentColor,
     swapItem,
     replaceItem,
     stopSort,

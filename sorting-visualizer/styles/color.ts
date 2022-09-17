@@ -1,11 +1,13 @@
 export const COLORS = {
-    PRIMARY: '#818AD8',
-    SECONDARY: '#FFCE56',
-    SUCCESS: '#4CAF50',
-    FAILED: '#F44336',
-    WARNING:'yellow',
-    INPROGRESS: 'blue',
-    INACTIVE:'grey'
+    DEFAULT: '#818AD8',
+    COMPARE: '#FFCE56',
+    SORTED: '#4CAF50',
+    FREE1: '#30C9AF',
+    FREE2:'#EA534E',
+    SPECIAL: '#318BC8',
+    INACTIVE:'#dddddd',
+    BLOCKED: '#555555',
+    
 }
 
 export const getRandomColor = () => {

@@ -11,7 +11,7 @@ export const generateRandomItemArray:(size?:number)=>Item[] = (size=10) => {
     for (let i = 0; i < size; i++) {
         arr.push({
             value: randomNumber(),
-            color: COLORS.PRIMARY
+            color: COLORS.DEFAULT
         });
     }
     return arr;

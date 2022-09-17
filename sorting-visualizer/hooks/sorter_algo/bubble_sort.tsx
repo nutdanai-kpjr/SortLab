@@ -33,16 +33,16 @@ export const useBubbleSort: () => SortAlgorithm = () => {
 
         let valueA = { ...arr[j] }.value;
         let valueB = { ...arr[j + 1] }.value;
-        await updateColor([j, j + 1], COLORS.SECONDARY); // Comparing
+        await updateColor([j, j + 1], COLORS.COMPARE); // Comparing
         if (valueA > valueB) {
           // console.log(valueA + ">" + valueB + " swap " + j + " to " + (j + 1));
-          await updateColor([j], COLORS.SUCCESS);
+          await updateColor([j], COLORS.SORTED);
           await swapItem(j, j + 1); // swap j to j+1
         }
-        await updateColor([j + 1], COLORS.SUCCESS); // Winner
-        await updateColor([j], COLORS.PRIMARY); // Loser
+        await updateColor([j + 1], COLORS.SORTED); // Winner
+        await updateColor([j], COLORS.DEFAULT); // Loser
       }
-      await updateColor([0], COLORS.SUCCESS); //
+      await updateColor([0], COLORS.SORTED); //
     }
   };
   return { sort, info };

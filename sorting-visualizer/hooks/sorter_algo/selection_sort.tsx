@@ -29,7 +29,7 @@ export const useSelectionSort: () => SortAlgorithm = () => {
 
     for (let i = 0; i < arr.length; i++) {
       // FInd the smallest element in the unsorted array
-      // await updateColor([i], COLORS.SECONDARY);
+      // await updateColor([i], COLORS.COMPARE);
       let min = i;
       for (let j = i + 1; j < arr.length; j++) {
         if (isStopRef.current) {
@@ -39,25 +39,25 @@ export const useSelectionSort: () => SortAlgorithm = () => {
         let valueNew = { ...arr[j] }.value;
         let valueMin = { ...arr[min] }.value;
         await updateDifferentColor([
-          { index: min, color: COLORS.INPROGRESS },
-          { index: j, color: COLORS.SECONDARY },
+          { index: min, color: COLORS.SPECIAL },
+          { index: j, color: COLORS.COMPARE },
         ]);
         //Comparing;
         if (valueNew < valueMin) {
-          await updateColor([min], COLORS.PRIMARY);
+          await updateColor([min], COLORS.DEFAULT);
           min = j;
-          await updateColor([min], COLORS.INPROGRESS);
+          await updateColor([min], COLORS.SPECIAL);
         } else {
-          await updateColor([j, min], COLORS.PRIMARY); // Loser
+          await updateColor([j, min], COLORS.DEFAULT); // Loser
         }
       }
-      // await updateColor([min], COLORS.SUCCESS);
-      await updateColor([min], COLORS.INPROGRESS);
+      // await updateColor([min], COLORS.SORTED);
+      await updateColor([min], COLORS.SPECIAL);
 
       if (min !== i) {
         await swapItem(i, min);
       }
-      await updateColor([i], COLORS.SUCCESS);
+      await updateColor([i], COLORS.SORTED);
     }
   };
   return { sort, info };

@@ -9,17 +9,14 @@ import { Item, SortAlgorithm } from "../sorter_abstract";
 
 export const useQuickSort: () => SortAlgorithm = () => {
   const {
-    animate,
     itemArrayRef,
     isStopRef,
     stopSort,
-    replaceItem,
     swapItem,
+    blinkItemDifferentColor,
     updateColor,
     updateColorFromRange,
     updateDifferentColor,
-    updateColorExceptFromRange,
-    updateArray,
   } = useContext(ArrayCtx);
 
   // let pivotNo = 1;
@@ -38,8 +35,6 @@ export const useQuickSort: () => SortAlgorithm = () => {
   const sort = async () => {
     let n = itemArrayRef.current.length;
     await quickSort(0, n - 1);
-    await updateColorFromRange(0, n - 1, COLORS.SUCCESS);
-    // pivotNo = 1;
   };
   // 1. based case
   // 2. recursive case
@@ -48,10 +43,8 @@ export const useQuickSort: () => SortAlgorithm = () => {
   // 2.3 Recursively sort left and right
 
   const quickSort = async (start: number, end: number) => {
-    // if (isStopRef.current) return await stopSort();
+    if (isStopRef.current) return await stopSort();
     if (start >= end) {
-      // if (start === end) await updateColor([start], COLORS.SUCCESS);
-
       return;
     }
     let pivotIndex = await partition(start, end);
@@ -59,10 +52,14 @@ export const useQuickSort: () => SortAlgorithm = () => {
     // await updateColorFromRange(start, pivotIndex - 1, leftColor);
     // await updateColorFromRange(pivotIndex + 1, end, rightColor);
     await quickSort(start, pivotIndex - 1);
-    await updateColorFromRange(start, pivotIndex, COLORS.SUCCESS);
+    await updateColorFromRange(start, pivotIndex, COLORS.SORTED);
     await quickSort(pivotIndex + 1, end);
   };
   const partition = async (start: number, end: number): Promise<number> => {
+    if (isStopRef.current) {
+      await stopSort();
+      return -1;
+    }
     // 2.2 Partition
     let arr = [...itemArrayRef.current];
 
@@ -70,29 +67,24 @@ export const useQuickSort: () => SortAlgorithm = () => {
     let pivotInitialIndex = end;
 
     let pivot = arr[pivotInitialIndex]; // use last element as pivot election
-    let pivotSize = end - start + 1;
-    // console.log(
-    //   "pivot no. ",
-    //   // pivotNo,
-    //   " pivot value ",
-    //   pivot.value,
-    //   " pivot size ",
-    //   pivotSize
-    // );
-    // pivotNo++;
-    await updateColor([pivotInitialIndex], COLORS.INPROGRESS);
 
-    let leftColor = COLORS.FAILED;
-    let rightColor = "purple";
+    await updateColor([pivotInitialIndex], COLORS.SPECIAL);
+
+    let leftColor = COLORS.FREE1;
+    let rightColor = COLORS.FREE2;
 
     for (let i = start; i < end; i++) {
+      if (isStopRef.current) {
+        await stopSort();
+        return -1;
+      }
       arr = [...itemArrayRef.current];
-      await updateColor([i], COLORS.SECONDARY);
+      await updateColor([i], COLORS.COMPARE);
       if (arr[i].value < pivot.value) {
         await updateColor([i], leftColor);
         await swapItem(i, pivotInsertionIndex);
 
-        // await updateColor([pivotInsertionIndex], COLORS.INPROGRESS);
+        // await updateColor([pivotInsertionIndex], COLORS.SPECIAL);
         pivotInsertionIndex++;
       } else {
         await updateColor([i], rightColor);
@@ -102,54 +94,22 @@ export const useQuickSort: () => SortAlgorithm = () => {
 
     // await updateColorFromRange(start, pivotInsertionIndex - 1, leftColor);
     // await updateColorFromRange(pivotInsertionIndex + 1, end, rightColor);
+    await blinkItemDifferentColor(
+      [
+        { index: pivotInsertionIndex, color: rightColor },
+        { index: end, color: COLORS.SPECIAL },
+      ],
+      COLORS.COMPARE,
+      3
+    );
 
-    await updateDifferentColor([
-      { index: pivotInsertionIndex, color: COLORS.SUCCESS },
-      { index: end, color: COLORS.INPROGRESS },
-    ]);
-    await updateDifferentColor([
-      { index: pivotInsertionIndex, color: COLORS.SECONDARY },
-      { index: end, color: COLORS.SECONDARY },
-    ]);
-    await updateDifferentColor([
-      { index: pivotInsertionIndex, color: COLORS.SUCCESS },
-      { index: end, color: COLORS.INPROGRESS },
-    ]);
-    await updateDifferentColor([
-      { index: pivotInsertionIndex, color: COLORS.SECONDARY },
-      { index: end, color: COLORS.SECONDARY },
-    ]);
-    await updateDifferentColor([
-      { index: pivotInsertionIndex, color: COLORS.SUCCESS },
-      { index: end, color: COLORS.INPROGRESS },
-    ]);
-    await updateDifferentColor([
-      { index: pivotInsertionIndex, color: COLORS.SECONDARY },
-      { index: end, color: COLORS.SECONDARY },
-    ]);
-    await updateDifferentColor([
-      { index: pivotInsertionIndex, color: COLORS.SUCCESS },
-      { index: end, color: COLORS.INPROGRESS },
-    ]);
     await swapItem(pivotInsertionIndex, end);
 
-    // await updateColor([pivotInsertionIndex], COLORS.INPROGRESS);
-    // await updateColor([pivotInsertionIndex], COLORS.SECONDARY);
-    // await updateColor([pivotInsertionIndex], COLORS.INPROGRESS);
-    // await updateColor([pivotInsertionIndex], COLORS.SECONDARY);
-    // await updateColor([pivotInsertionIndex], COLORS.INPROGRESS);
-    // await updateColor([pivotInsertionIndex], COLORS.SECONDARY);
-    // await updateColor([pivotInsertionIndex], COLORS.INPROGRESS);
-    // await updateColor([pivotInsertionIndex], COLORS.SECONDARY);
-    // await updateColor([pivotInsertionIndex], COLORS.INPROGRESS);
-    // await updateColor([pivotInsertionIndex], COLORS.SECONDARY);
-    // await updateColor([pivotInsertionIndex], COLORS.INPROGRESS);
-    // await updateColor([pivotInsertionIndex], COLORS.SECONDARY);
-    await updateColorFromRange(start, end, COLORS.SECONDARY);
-    // await updateColor([pivotInsertionIndex], COLORS.INPROGRESS);
-    await updateColor([pivotInsertionIndex], COLORS.INACTIVE);
-    // await updateColor([end], COLORS.SECONDARY);
-    // await updateColorFromRange(start, end, COLORS.PRIMARY);
+    await updateColorFromRange(start, end, COLORS.INACTIVE);
+    // await updateColor([pivotInsertionIndex], COLORS.SPECIAL);
+    await updateColor([pivotInsertionIndex], COLORS.BLOCKED);
+    // await updateColor([end], COLORS.COMPARE);
+    // await updateColorFromRange(start, end, COLORS.DEFAULT);
 
     return pivotInsertionIndex;
   };

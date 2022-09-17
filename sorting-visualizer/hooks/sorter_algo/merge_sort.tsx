@@ -27,7 +27,7 @@ export const useMergeSort: () => SortAlgorithm = () => {
     let arr: Item[] = [...itemArrayRef.current];
     await mergeSort(arr, 0, arr.length - 1);
     if (!isStopRef.current)
-      await updateColorFromRange(0, arr.length - 1, COLORS.SUCCESS);
+      await updateColorFromRange(0, arr.length - 1, COLORS.SORTED);
   };
   // l is for left index and r is
   // right index of the sub-array
