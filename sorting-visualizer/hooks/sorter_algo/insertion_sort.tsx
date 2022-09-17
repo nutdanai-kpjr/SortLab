@@ -28,9 +28,7 @@ export const useInsertionSort: () => SortAlgorithm = () => {
       let j = i - 1;
       let lastSorted = { ...arr[j] };
       while (j >= 0 && lastSorted.value > firstUnsorted.value) {
-        if (isStopRef.current) {
-          return await stopSort();
-        }
+        if (isStopRef.current) return await stopSort();
         arr = [...itemArrayRef.current];
         // Through a while loop, we go through the sorted array and shift elements to the right, opening up a space for the current element to be inserted.
         await updateColor([j + 1], COLORS.SECONDARY);

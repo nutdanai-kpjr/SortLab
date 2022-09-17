@@ -28,9 +28,7 @@ export const useBubbleSort: () => SortAlgorithm = () => {
       // console.log(i);
 
       for (let j = 0; j < arr.length - i - 1; j++) {
-        if (isStopRef.current) {
-          return await stopSort();
-        }
+        if (isStopRef.current) return await stopSort();
         arr = [...itemArrayRef.current]; // refetch the array from context to avoid stale state
 
         let valueA = { ...arr[j] }.value;

@@ -26,17 +26,14 @@ export const useMergeSort: () => SortAlgorithm = () => {
   const sort = async () => {
     let arr: Item[] = [...itemArrayRef.current];
     await mergeSort(arr, 0, arr.length - 1);
-    if (!isStopRef.current) {
+    if (!isStopRef.current)
       await updateColorFromRange(0, arr.length - 1, COLORS.SUCCESS);
-    }
   };
   // l is for left index and r is
   // right index of the sub-array
   // of arr to be sorted */
-  async function mergeSort(arr: Item[], l: number, r: number) {
-    if (isStopRef.current) {
-      return await stopSort();
-    }
+  const mergeSort = async (arr: Item[], l: number, r: number) => {
+    if (isStopRef.current) return await stopSort();
     if (l >= r) {
       return; //  If the array has only one element (l , r is point at the same), return
       // why? because we need to have at least 2 elements to merge
@@ -45,17 +42,17 @@ export const useMergeSort: () => SortAlgorithm = () => {
     let m = l + Math.floor((r - l) / 2); //divide the array into two halves
     await updateColorFromRange(l, m, getRandomColor());
     await updateColorFromRange(m + 1, r, getRandomColor());
+
     await mergeSort(arr, l, m); // start to middle of the array (left)
     await mergeSort(arr, m + 1, r); // middle+1 to end of the array (right)
     await merge(arr, l, m, r); // merge the two halves
-  }
+  };
   // Merges two subarrays of arr[].
   // First subarray is arr[l..m]
   // Second subarray is arr[m+1..r]
-  async function merge(arr: Item[], l: number, m: number, r: number) {
-    if (isStopRef.current) {
-      return await stopSort();
-    }
+  const merge = async (arr: Item[], l: number, m: number, r: number) => {
+    if (isStopRef.current) return await stopSort();
+
     let n1 = m - l + 1; // size of the left subarray (l to m) we need to +1 because we need to include the m
     let n2 = r - m; // size of the right subarray
 
@@ -78,15 +75,8 @@ export const useMergeSort: () => SortAlgorithm = () => {
     // Initial index of merged subarray
     var k = l;
 
-    // await updateColorFromRange(m + 1, r, COLORS.INPROGRESS);
-
     while (i < n1 && j < n2) {
-      if (isStopRef.current) {
-        return await stopSort();
-      }
-      // animation here
-      // await updateColor([i, j], COLORS.SECONDARY);
-      // await updateColorFromRange(i, n1, COLORS.SECONDARY);
+      if (isStopRef.current) return await stopSort();
 
       if (L[i].value <= R[j].value) {
         arr[k] = L[i];
@@ -105,9 +95,7 @@ export const useMergeSort: () => SortAlgorithm = () => {
     // Copy the remaining elements of
     // L[], if there are any
     while (i < n1) {
-      if (isStopRef.current) {
-        return await stopSort();
-      }
+      if (isStopRef.current) return await stopSort();
       arr[k] = L[i];
       await replaceItem(k, L[i]);
       i++;
@@ -117,19 +105,15 @@ export const useMergeSort: () => SortAlgorithm = () => {
     // Copy the remaining elements of
     // R[], if there are any
     while (j < n2) {
-      if (isStopRef.current) {
-        return await stopSort();
-      }
+      if (isStopRef.current) return await stopSort();
       arr[k] = R[j];
       await replaceItem(k, R[j]);
       j++;
       k++;
     }
-    if (isStopRef.current) {
-      return await stopSort();
-    }
+    if (isStopRef.current) return await stopSort();
     await updateColorFromRange(l, r, getRandomColor());
-  }
+  };
 
   return { sort, info };
 };

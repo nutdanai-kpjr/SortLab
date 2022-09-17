@@ -5,6 +5,7 @@ export const COLORS = {
     FAILED: '#F44336',
     WARNING:'yellow',
     INPROGRESS: 'blue',
+    INACTIVE:'grey'
 }
 
 export const getRandomColor = () => {

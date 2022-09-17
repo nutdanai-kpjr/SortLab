@@ -41,6 +41,11 @@ export interface IArrayContext {
     end: number,
     color: string
   ) => Promise<void>;
+  updateColorExceptFromRange: (
+    start: number,
+    end: number,
+    color: string
+  ) => Promise<void>;
   swapItem: (indexA: number, indexB: number) => Promise<void>;
   stopSort: () => Promise<void>;
 }
@@ -63,6 +68,7 @@ const initArrayCtx: IArrayContext = {
   updateColor: () => Promise.resolve(),
   updateDifferentColor: () => Promise.resolve(),
   updateColorFromRange: () => Promise.resolve(),
+  updateColorExceptFromRange: () => Promise.resolve(),
   swapItem: () => Promise.resolve(),
   stopSort: () => Promise.resolve(),
 };
@@ -118,6 +124,20 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
     // console.log("newArray", newArray);
     await updateArray([...newArray]);
   };
+  const updateColorExceptFromRange = async (
+    start: number,
+    end: number,
+    color: string
+  ) => {
+    let newArray: Item[] = [...itemArrayRef.current];
+    for (let i = 0; i < newArray.length; i++) {
+      if (i < start || i > end) {
+        newArray[i].color = color;
+      }
+    }
+    await updateArray([...newArray]);
+  };
+
   const updateDifferentColor = async (
     instructions: updateDiffrentColorInstruction[]
   ) => {
@@ -166,6 +186,7 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
     updateColor,
     updateDifferentColor,
     updateColorFromRange,
+    updateColorExceptFromRange,
     swapItem,
     replaceItem,
     stopSort,
