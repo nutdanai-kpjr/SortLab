@@ -135,6 +135,7 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
         newArray[i].color = color;
       }
     }
+
     await updateArray([...newArray]);
   };
 
