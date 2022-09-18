@@ -31,6 +31,11 @@ export interface IArrayContext {
   animate: (speed: number) => Promise<void>;
   replaceItem: (index: number, newItem: Item) => Promise<void>;
   updateArray: (newArray: Item[]) => Promise<void>;
+  updateArrayFromRange: (
+    start: number,
+    end: number,
+    newArray: Item[]
+  ) => Promise<void>;
   updateSize: (newSize: number) => void;
   updateColor: (indexs: number[], color: string) => Promise<void>;
   updateDifferentColor: (
@@ -69,6 +74,7 @@ const initArrayCtx: IArrayContext = {
   animate: () => Promise.resolve(),
   replaceItem: () => Promise.resolve(),
   updateArray: () => Promise.resolve(),
+  updateArrayFromRange: () => Promise.resolve(),
   updateSize: () => {},
   updateColor: () => Promise.resolve(),
   updateDifferentColor: () => Promise.resolve(),
@@ -103,6 +109,21 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
     setItemArray(newArray);
     await animate(speed);
   };
+  const updateArrayFromRange = async (
+    start: number,
+    end: number,
+    newArray: Item[]
+  ) => {
+    let speed = speedRef.current;
+    let oldArray = itemArrayRef.current;
+    let updatedArray = oldArray
+      .slice(0, start)
+      .concat(newArray)
+      .concat(oldArray.slice(end + 1));
+    setItemArray(updatedArray);
+    await animate(speed);
+  };
+
   const updateSize = (newSize: number) => {
     setItemArray(generateRandomItemArray(newSize));
     // setItemArray(newArray);
@@ -204,6 +225,7 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
     setIsStop,
     animate,
     updateArray,
+    updateArrayFromRange,
     updateSize,
     updateColor,
     updateDifferentColor,

@@ -29,7 +29,7 @@ export const getRGBAColorWIthOpacity = (r:number,g:number,b:number, opacity:numb
     return `rgba(${r},${g},${b},${newOpacity})`;
 }
  
-export const getGradientColor = (level:number,contrast=30) => {
+export const getGradientColor = (level:number,contrast=40) => {
     if(level < 1){
         return COLORS.BLOCKED
     }

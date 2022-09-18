@@ -10,6 +10,8 @@ export const useHeapSort: () => SortAlgorithm = () => {
     isStopRef,
     stopSort,
     updateColor,
+    updateArray,
+    updateArrayFromRange,
     updateDifferentColor,
     blinkItemDifferentColor,
     replaceItem,
@@ -46,18 +48,27 @@ export const useHeapSort: () => SortAlgorithm = () => {
       await this.heapifyUp(); // to move the new node up to the correct position
     }
 
-    async remove(): Promise<Item | undefined> {
+    async remove(start: number, end: number): Promise<Item | undefined> {
       if (this.heap.length === 0) return;
-      if (this.heap.length === 1) return this.heap.pop();
+      if (this.heap.length === 1) {
+        let rootItem = this.heap.pop();
+        if (rootItem) rootItem = { ...rootItem, color: COLORS.SORTED };
+        return rootItem;
+      }
       // 1. Remove root
       // 2. Replace root with last element
       // 3. Heapify down to move the new root to the correct position
       let rootItem = this.heap.shift();
+
+      await updateArrayFromRange(start, end, this.heap);
       let lastItem = this.heap.pop();
-      if (lastItem) this.heap.unshift(lastItem);
+      if (lastItem) {
+        this.heap.unshift(lastItem);
+        await updateArrayFromRange(start, end, this.heap);
+      }
 
-      await this.heapifyDown();
-
+      await this.heapifyDown(start, end);
+      if (rootItem) rootItem = { ...rootItem, color: COLORS.SORTED };
       return rootItem;
     }
 
@@ -77,7 +88,8 @@ export const useHeapSort: () => SortAlgorithm = () => {
         lastItemIndex > 0 &&
         this.isSmaller(lastItemIndex, parentOfLastItemIndex)
       ) {
-        // we want min at top , so swap if child is smaller than parent
+        // we want fmin at top , so swap if child is smaller than parent
+        await swapItem(lastItemIndex, parentOfLastItemIndex);
         this.swap(lastItemIndex, parentOfLastItemIndex);
         lastItemIndex = parentOfLastItemIndex;
         parentOfLastItemIndex = this.getParentIndex(lastItemIndex);
@@ -89,7 +101,7 @@ export const useHeapSort: () => SortAlgorithm = () => {
       // 5. Repeat 2-4 until parent is smaller than last element
     }
 
-    async heapifyDown() {
+    async heapifyDown(start: number, end: number) {
       // 1 Compare root with children
       // 2 Swap if root is bigger than children
       // 3. Repeat 3-4 until root is smaller than children
@@ -122,6 +134,7 @@ export const useHeapSort: () => SortAlgorithm = () => {
         }
 
         this.swap(rootIndex, smallerChildIndex);
+        await updateArrayFromRange(start, end, this.heap);
         rootIndex = smallerChildIndex;
         leftChildIndex = this.getLeftChildIndex(rootIndex);
         rightChildIndex = this.getRightChildIndex(rootIndex);
@@ -130,6 +143,8 @@ export const useHeapSort: () => SortAlgorithm = () => {
     }
     swap(a: number, b: number) {
       [this.heap[a], this.heap[b]] = [this.heap[b], this.heap[a]];
+      this.heap[a].color = getGradientColor(this.getHeapLevel(a) + 1);
+      this.heap[b].color = getGradientColor(this.getHeapLevel(b) + 1);
     }
     getParentIndex = (index: number) => Math.floor((index - 1) / 2);
     getLeftChildIndex = (index: number) => 2 * index + 1;
@@ -181,14 +196,27 @@ export const useHeapSort: () => SortAlgorithm = () => {
     for (let i = 0; i < arr.length; i++) {
       if (isStopRef.current) return await stopSort();
       await minHeap.add(i);
+      if (i > 0) await updateArrayFromRange(0, i, minHeap.heap);
     }
-
+    await updateArray(minHeap.heap);
     for (let i = 0; i < arr.length; i++) {
       if (isStopRef.current) return await stopSort();
-      let item = await minHeap.remove();
+      let item = await minHeap.remove(i + 1, arr.length - 1);
       if (item) {
-        item = { ...item, color: COLORS.SORTED };
-        await replaceItem(i, item);
+        await updateArrayFromRange(i + 1, arr.length - 1, minHeap.heap);
+        if (i < arr.length - 1) {
+          await replaceItem(i, item);
+          await blinkItemDifferentColor(
+            [
+              { index: i + 1, color: COLORS.FREE1 },
+              { index: arr.length - 1, color: COLORS.FREE2 },
+            ],
+            COLORS.COMPARE,
+            3
+          );
+        } else {
+          await updateColor([i], COLORS.SORTED);
+        }
 
         sorted.push(item);
       }
