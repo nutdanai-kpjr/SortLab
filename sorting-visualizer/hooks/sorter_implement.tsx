@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { ArrayCtx } from "../context/arrayContext";
 import { SortAlgorithm, SortVisualizer } from "./sorter_abstract";
 import { useBubbleSort } from "./sorter_algo/bubble_sort";
+import { useHeapSort } from "./sorter_algo/heap_sort";
 import { useInsertionSort } from "./sorter_algo/insertion_sort";
 import { useMergeSort } from "./sorter_algo/merge_sort";
 import { useQuickSort } from "./sorter_algo/quick_sort";
@@ -14,6 +15,7 @@ export const useSortVisualizer: SortVisualizer = () => {
     useInsertionSort(),
     useMergeSort(),
     useQuickSort(),
+    useHeapSort(),
   ];
   const [currentSortAlgorithm, setSortAlgorithm] = useState<SortAlgorithm>(
     sortAlgorithms[0]

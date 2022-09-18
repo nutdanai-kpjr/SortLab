@@ -84,7 +84,6 @@ export const useQuickSort: () => SortAlgorithm = () => {
         await updateColor([i], leftColor);
         await swapItem(i, pivotInsertionIndex);
 
-        // await updateColor([pivotInsertionIndex], COLORS.SPECIAL);
         pivotInsertionIndex++;
       } else {
         await updateColor([i], rightColor);
@@ -92,8 +91,6 @@ export const useQuickSort: () => SortAlgorithm = () => {
     }
     arr = [...itemArrayRef.current];
 
-    // await updateColorFromRange(start, pivotInsertionIndex - 1, leftColor);
-    // await updateColorFromRange(pivotInsertionIndex + 1, end, rightColor);
     await blinkItemDifferentColor(
       [
         { index: pivotInsertionIndex, color: rightColor },
