@@ -1,10 +1,14 @@
 import type { NextPage } from "next";
+import Head from "next/head";
 import PageLayout from "../components/page_wrapper/page_layout";
 import styles from "../styles/pages/LegalPage.module.css";
 
 const Home: NextPage = () => {
   return (
     <PageLayout>
+      <Head>
+        <title>Sorting Viz - Terms of Service</title>
+      </Head>
       <div className={styles.textContainer}>
         <h1>Term of Services</h1>
         <p>Last updated:&nbsp;09/06/2022</p>

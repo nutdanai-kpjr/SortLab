@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import PageLayout from "../components/page_wrapper/page_layout";
@@ -8,6 +9,9 @@ const Home: NextPage = () => {
   const imageScale = 1;
   return (
     <PageLayout>
+      <Head>
+        <title>Sorting Viz - Landing</title>
+      </Head>
       <div className={styles.container}>
         <div className={styles.textContainer}>
           <h1>Sorting Viszualizer</h1>
