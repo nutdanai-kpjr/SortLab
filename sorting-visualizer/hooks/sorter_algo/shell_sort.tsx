@@ -61,7 +61,6 @@ by https://levelup.gitconnected.com/
     for (let gapIndex = 0; gapIndex < knuthSequence.length; gapIndex++) {
       arr = [...itemArrayRef.current];
       let gap = knuthSequence[gapIndex];
-      console.log("current gap", gap);
 
       //Do a insertion sort for each of the section the gap ends up dividing
       // start with select the next candidate to be inserted and then compare it with the previous element in the sorted array; (in case the sorted array is not empty)
@@ -85,7 +84,6 @@ by https://levelup.gitconnected.com/
         );
         while (j >= 0 && lastSorted.value > firstUnsorted.value) {
           if (isStopRef.current) return await stopSort();
-          console.log("new item is less than lastItem in sortedArr, swap");
 
           arr = [...itemArrayRef.current];
           await updateColor([j + gap], COLORS.COMPARE);
