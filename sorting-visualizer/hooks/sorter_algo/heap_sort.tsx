@@ -1,6 +1,6 @@
-import { useContext, useEffect, useRef } from "react";
+import { useContext } from "react";
 import { ArrayCtx } from "../../context/arrayContext";
-import { COLORS, getGradientColor, getRandomColor } from "../../styles/color";
+import { COLORS, getGradientColor } from "../../styles/color";
 import { Item, SortAlgorithm } from "../sorter_abstract";
 
 export const useHeapSort: () => SortAlgorithm = () => {
@@ -12,7 +12,6 @@ export const useHeapSort: () => SortAlgorithm = () => {
     updateColor,
     updateArray,
     updateArrayFromRange,
-    updateDifferentColor,
     blinkItemDifferentColor,
     replaceItem,
   } = useContext(ArrayCtx);
@@ -41,9 +40,11 @@ export const useHeapSort: () => SortAlgorithm = () => {
     async add(arrIndex: number) {
       // index of item in itemArrayRef (not heap) (use to update color)
       let item = itemArrayRef.current[arrIndex];
+      // update color based on heap level on orginal arr (not heap array)
       let itemHeapLevel = this.getHeapLevel(arrIndex);
       let color = getGradientColor(itemHeapLevel + 1); //gradient level start from 1st level
       await updateColor([arrIndex], color);
+
       this.heap.push(item);
       await this.heapifyUp(); // to move the new node up to the correct position
     }
@@ -60,14 +61,15 @@ export const useHeapSort: () => SortAlgorithm = () => {
       // 3. Heapify down to move the new root to the correct position
       let rootItem = this.heap.shift();
 
-      await updateArrayFromRange(start, end, this.heap);
+      await updateArrayFromRange(start, end, this.heap); // update heap array into orginal array (after remove root)
+
       let lastItem = this.heap.pop();
       if (lastItem) {
         this.heap.unshift(lastItem);
-        await updateArrayFromRange(start, end, this.heap);
+        await updateArrayFromRange(start, end, this.heap); // update heap array into orginal array (after replace new root with last element)
       }
 
-      await this.heapifyDown(start, end);
+      await this.heapifyDown(start, end); // move the root to the correct position
       if (rootItem) rootItem = { ...rootItem, color: COLORS.SORTED };
       return rootItem;
     }
@@ -75,22 +77,13 @@ export const useHeapSort: () => SortAlgorithm = () => {
     async heapifyUp() {
       let lastItemIndex = this.heap.length - 1;
       let parentOfLastItemIndex = this.getParentIndex(lastItemIndex);
-      // await blinkItemDifferentColor(
-      //   [
-      //     { index: lastItemIndex, color: COLORS.SPECIAL },
-      //     { index: parentOfLastItemIndex, color: COLORS.SPECIAL },
-      //   ],
-      //   COLORS.COMPARE,
-      //   3
-      // );
-
       while (
         lastItemIndex > 0 &&
         this.isSmaller(lastItemIndex, parentOfLastItemIndex)
       ) {
         // we want fmin at top , so swap if child is smaller than parent
-        await swapItem(lastItemIndex, parentOfLastItemIndex);
-        this.swap(lastItemIndex, parentOfLastItemIndex);
+        await swapItem(lastItemIndex, parentOfLastItemIndex); // swap on orginal array
+        this.swap(lastItemIndex, parentOfLastItemIndex); // swap on heap array
         lastItemIndex = parentOfLastItemIndex;
         parentOfLastItemIndex = this.getParentIndex(lastItemIndex);
       }
@@ -134,7 +127,7 @@ export const useHeapSort: () => SortAlgorithm = () => {
         }
 
         this.swap(rootIndex, smallerChildIndex);
-        await updateArrayFromRange(start, end, this.heap);
+        await updateArrayFromRange(start, end, this.heap); // update heap array into orginal array (after swap)
         rootIndex = smallerChildIndex;
         leftChildIndex = this.getLeftChildIndex(rootIndex);
         rightChildIndex = this.getRightChildIndex(rootIndex);
@@ -143,12 +136,13 @@ export const useHeapSort: () => SortAlgorithm = () => {
     }
     swap(a: number, b: number) {
       [this.heap[a], this.heap[b]] = [this.heap[b], this.heap[a]];
-      this.heap[a].color = getGradientColor(this.getHeapLevel(a) + 1);
+      this.heap[a].color = getGradientColor(this.getHeapLevel(a) + 1); // swap gradient color as well
       this.heap[b].color = getGradientColor(this.getHeapLevel(b) + 1);
     }
     getParentIndex = (index: number) => Math.floor((index - 1) / 2);
     getLeftChildIndex = (index: number) => 2 * index + 1;
     getRightChildIndex = (index: number) => 2 * index + 2;
+
     isHavingOneChild(index: number) {
       return this.isLeftChildEmpty(index) || this.isRightChildEmpty(index);
     }
@@ -196,14 +190,12 @@ export const useHeapSort: () => SortAlgorithm = () => {
     for (let i = 0; i < arr.length; i++) {
       if (isStopRef.current) return await stopSort();
       await minHeap.add(i);
-      if (i > 0) await updateArrayFromRange(0, i, minHeap.heap);
     }
     await updateArray(minHeap.heap);
     for (let i = 0; i < arr.length; i++) {
       if (isStopRef.current) return await stopSort();
       let item = await minHeap.remove(i + 1, arr.length - 1);
       if (item) {
-        await updateArrayFromRange(i + 1, arr.length - 1, minHeap.heap);
         if (i < arr.length - 1) {
           await replaceItem(i, item);
           await blinkItemDifferentColor(
@@ -212,7 +204,7 @@ export const useHeapSort: () => SortAlgorithm = () => {
               { index: arr.length - 1, color: COLORS.FREE2 },
             ],
             COLORS.COMPARE,
-            3
+            2
           );
         } else {
           await updateColor([i], COLORS.SORTED);

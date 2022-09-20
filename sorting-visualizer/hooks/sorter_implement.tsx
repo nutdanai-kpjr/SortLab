@@ -7,6 +7,7 @@ import { useInsertionSort } from "./sorter_algo/insertion_sort";
 import { useMergeSort } from "./sorter_algo/merge_sort";
 import { useQuickSort } from "./sorter_algo/quick_sort";
 import { useSelectionSort } from "./sorter_algo/selection_sort";
+import { useShellSort } from "./sorter_algo/shell_sort";
 
 export const useSortVisualizer: SortVisualizer = () => {
   const sortAlgorithms: SortAlgorithm[] = [
@@ -16,6 +17,7 @@ export const useSortVisualizer: SortVisualizer = () => {
     useMergeSort(),
     useQuickSort(),
     useHeapSort(),
+    useShellSort(),
   ];
   const [currentSortAlgorithm, setSortAlgorithm] = useState<SortAlgorithm>(
     sortAlgorithms[0]

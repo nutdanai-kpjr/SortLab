@@ -1,10 +1,6 @@
-import { useContext, useEffect, useRef } from "react";
+import { useContext } from "react";
 import { ArrayCtx } from "../../context/arrayContext";
-import {
-  COLORS,
-  getRandomColor,
-  getRGBAColorWIthOpacity,
-} from "../../styles/color";
+import { COLORS } from "../../styles/color";
 import { Item, SortAlgorithm } from "../sorter_abstract";
 
 export const useQuickSort: () => SortAlgorithm = () => {

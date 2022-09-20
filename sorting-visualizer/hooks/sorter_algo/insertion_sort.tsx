@@ -1,11 +1,18 @@
-import { useContext, useEffect, useRef } from "react";
+import { useContext } from "react";
 import { ArrayCtx } from "../../context/arrayContext";
 import { COLORS } from "../../styles/color";
 import { Item, SortAlgorithm } from "../sorter_abstract";
 
 export const useInsertionSort: () => SortAlgorithm = () => {
-  const { itemArrayRef, isStopRef, stopSort, replaceItem, updateColor } =
-    useContext(ArrayCtx);
+  const {
+    itemArrayRef,
+    isStopRef,
+    stopSort,
+    replaceItem,
+    updateColor,
+    updateColorFromRange,
+    blinkItemDifferentColor,
+  } = useContext(ArrayCtx);
 
   const info = {
     name: "Insertion Sort",
@@ -24,7 +31,12 @@ export const useInsertionSort: () => SortAlgorithm = () => {
       arr = [...itemArrayRef.current];
       // choose the first element in our unsorted subarray
       let firstUnsorted = { ...arr[i] };
-      await updateColor([i], COLORS.SPECIAL);
+      // await updateColor([i], COLORS.SPECIAL);
+      await blinkItemDifferentColor(
+        [{ index: i, color: COLORS.SPECIAL }],
+        COLORS.COMPARE,
+        3
+      );
       let j = i - 1;
       let lastSorted = { ...arr[j] };
       while (j >= 0 && lastSorted.value > firstUnsorted.value) {
@@ -37,15 +49,21 @@ export const useInsertionSort: () => SortAlgorithm = () => {
         j--;
         lastSorted = { ...arr[j] };
       }
+      await blinkItemDifferentColor(
+        [{ index: j + 1, color: COLORS.SORTED }],
+        COLORS.COMPARE,
+        3
+      );
       // we found the proper place for the current element
       await updateColor([j + 1], COLORS.SORTED);
       await replaceItem(j + 1, firstUnsorted);
-
       let indexArr = Array.from(Array(arr.length).keys());
       await updateColor(indexArr, COLORS.DEFAULT);
-
       // the last element of our sorted subarray
     }
+    await updateColorFromRange(0, arr.length - 1, COLORS.SORTED);
+    // let indexArr = Array.from(Array(arr.length).keys());
+    // await updateColor(indexArr, COLORS.SORTED);
   };
   return { sort, info };
 };
