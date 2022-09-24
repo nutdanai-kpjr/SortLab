@@ -11,11 +11,19 @@
 .links > a:not(:last-child) {
   padding-right: 30px;
 }
+.links > a:not(:last-child):hover {
+  color: var(--primary-color);
+}
 .links > a:last-child {
   padding: 3.75px 30px;
   color: white;
   border-radius: 7.5px;
-  background-color: #818ad8;
+  background-color: var(--primary-color);
+  transition: box-shadow 0.3s;
+}
+
+.links > a:last-child:hover {
+  box-shadow: 0 0 15px rgba(128, 138, 216, 0.5);
 }
 /* .logo{
   padding-left: 10px;

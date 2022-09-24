@@ -1,13 +1,17 @@
-import { useContext, useEffect, useRef } from "react";
+import { useContext } from "react";
 import { ArrayCtx } from "../../context/arrayContext";
 import { COLORS } from "../../styles/color";
 import { Item, SortAlgorithm } from "../sorter_abstract";
 
 export const useSelectionSort: () => SortAlgorithm = () => {
-  const { itemArray, swapItem, isStop, setIsStop, updateColor, updateSize } =
-    useContext(ArrayCtx);
-  const itemArrayRef = useRef(itemArray);
-  const isStopRef = useRef(isStop);
+  const {
+    itemArrayRef,
+    swapItem,
+    isStopRef,
+    stopSort,
+    updateColor,
+    updateDifferentColor,
+  } = useContext(ArrayCtx);
 
   const info = {
     name: "Selection Sort",
@@ -19,46 +23,42 @@ export const useSelectionSort: () => SortAlgorithm = () => {
       worstCase: "O(n^2)",
     },
   };
-  useEffect(() => {
-    itemArrayRef.current = itemArray;
-  }, [itemArray]);
-  useEffect(() => {
-    isStopRef.current = isStop;
-  }, [isStop]);
 
   const sort = async () => {
-    // console.log("BubbleFunction", itemArrayRef.current.length);
-
     let arr: Item[] = [...itemArrayRef.current];
 
     for (let i = 0; i < arr.length; i++) {
-      // console.log(i);
-
-      for (let j = 0; j < arr.length - i - 1; j++) {
-        let isStop = isStopRef.current;
-        if (isStop) {
-          //generate array of index from 0 to arr.length
-          let indexArr = Array.from(Array(arr.length).keys());
-          await updateColor(indexArr, COLORS.PRIMARY); //change back to original color
-
-          setIsStop(false);
-          return;
+      // FInd the smallest element in the unsorted array
+      // await updateColor([i], COLORS.COMPARE);
+      let min = i;
+      for (let j = i + 1; j < arr.length; j++) {
+        if (isStopRef.current) {
+          return await stopSort();
         }
         arr = [...itemArrayRef.current]; // refetch the array from context to avoid stale state
-
-        let valueA = { ...arr[j] }.value;
-        let valueB = { ...arr[j + 1] }.value;
-        await updateColor([j, j + 1], COLORS.SECONDARY); // Comparing
-        if (valueA > valueB) {
-          // console.log(valueA + ">" + valueB + " swap " + j + " to " + (j + 1));
-          await updateColor([j], COLORS.SUCCESS);
-          await swapItem(j, j + 1); // swap j to j+1
+        let valueNew = { ...arr[j] }.value;
+        let valueMin = { ...arr[min] }.value;
+        await updateDifferentColor([
+          { index: min, color: COLORS.SPECIAL },
+          { index: j, color: COLORS.COMPARE },
+        ]);
+        //Comparing;
+        if (valueNew < valueMin) {
+          await updateColor([min], COLORS.DEFAULT);
+          min = j;
+          await updateColor([min], COLORS.SPECIAL);
+        } else {
+          await updateColor([j, min], COLORS.DEFAULT); // Loser
         }
-        await updateColor([j + 1], COLORS.SUCCESS); // Winner
-        await updateColor([j], COLORS.PRIMARY); // Loser
       }
-      await updateColor([0], COLORS.SUCCESS); //
+      // await updateColor([min], COLORS.SORTED);
+      await updateColor([min], COLORS.SPECIAL);
+
+      if (min !== i) {
+        await swapItem(i, min);
+      }
+      await updateColor([i], COLORS.SORTED);
     }
   };
-  return { sort, info, itemArray, updateSize };
+  return { sort, info };
 };

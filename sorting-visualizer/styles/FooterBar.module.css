@@ -8,6 +8,10 @@
 .links > a {
   font-size: 0.75rem;
 }
+.links > a:hover {
+  /* font-size: 1rem; */
+  color: var(--primary-color);
+}
 .links > a:not(:last-child) {
   padding-right: 15px;
 }

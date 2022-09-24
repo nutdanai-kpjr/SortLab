@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import Head from "next/head";
 import Image from "next/image";
 import PageLayout from "../components/page_wrapper/page_layout";
 import styles from "../styles/pages/InfoPage.module.css";
@@ -8,6 +9,9 @@ const Home: NextPage = () => {
     <PageLayout>
       <div className={styles.container}>
         <div className={styles.textContainer}>
+          <Head>
+            <title>Sorting Viz - Pricing</title>
+          </Head>
           <h2>Pricing</h2>
           <p>
             We charge a subscription fee of 4.99$ per month for our service.
@@ -26,7 +30,8 @@ const Home: NextPage = () => {
             happy as larry! You can do it by buy me the coffee, just click the
             button below. Thank you!
           </p>
-          <p>
+
+          <div className={styles.buyMeACoffee}>
             <a
               href="https://www.buymeacoffee.com/nutdanai"
               target="_blank"
@@ -39,7 +44,7 @@ const Home: NextPage = () => {
                 alt="Buy Me A Coffee"
               />
             </a>
-          </p>
+          </div>
         </div>
         <div className={styles.imageContainer}>
           {" "}

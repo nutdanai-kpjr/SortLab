@@ -1,9 +1,13 @@
 import type { NextPage } from "next";
+import Head from "next/head";
 import PageLayout from "../components/page_wrapper/page_layout";
 import styles from "../styles/pages/LegalPage.module.css";
 const PrivacyPolicy: NextPage = () => {
   return (
     <PageLayout>
+      <Head>
+        <title>Sorting Viz - Privacy Policy</title>
+      </Head>
       <div className={styles.textContainer}>
         <h1>Privacy Policy of Sorting Visualizer By Nash</h1>
         <p>
