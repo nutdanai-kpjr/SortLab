@@ -1,26 +1,37 @@
 import { useContext } from "react";
 import { ArrayCtx } from "../context/arrayContext";
+import { Item } from "./sorter_abstract";
 import useAudio from "./use_audio";
 
 export const useSorterAudio = () => {
-  const firstAudio = useAudio("/audio/1-do.wav");
-  const secondAudio = useAudio("/audio/2-re.wav");
-  const thirdAudio = useAudio("/audio/3-mi.wav");
-  const fourthAudio = useAudio("/audio/4-fa.wav");
-  const fifthAudio = useAudio("/audio/5-sol.wav");
-  const sixthAudio = useAudio("/audio/6-la.wav");
-  const seventhAudio = useAudio("/audio/7-si.wav");
-  const eighthAudio = useAudio("/audio/8-do-octave.wav");
+  const firstAudio = useAudio("/audio/note1.mp3");
+  const secondAudio = useAudio("/audio/note2.mp3");
+  const thirdAudio = useAudio("/audio/note3.mp3");
+  const fourthAudio = useAudio("/audio/note4.mp3");
+  const fifthAudio = useAudio("/audio/note5.mp3");
+  const sixthAudio = useAudio("/audio/note6.mp3");
+  const seventhAudio = useAudio("/audio/note7.mp3");
+  const eighthAudio = useAudio("/audio/note8.mp3");
+  const ninthAudio = useAudio("/audio/note9.mp3");
+  const tenthAudio = useAudio("/audio/note10.mp3");
+  const eleventhAudio = useAudio("/audio/note11.mp3");
+  const twelfthAudio = useAudio("/audio/note12.mp3");
 
-  const { itemArrayRef } = useContext(ArrayCtx);
+  const { itemArrayRef, speedRef } = useContext(ArrayCtx);
 
-  const getAudioNoFromIndex = (index: number) => {
-    const totalLength = [...itemArrayRef.current].length;
-    const audioNo = Math.ceil(((index + 1) / totalLength) * 8);
+  const getAudioNoFromIndex = (index: number, arr: Item[]) => {
+    const n = arr.length;
+    console.log("totalLength", n);
+    // console.log((index + 1) / totalLength);
+
+    const audioNo = Math.ceil(((index + 1) / n) * 12);
     return audioNo;
   };
-  const playAudio = (index: number) => {
-    const audioNo = getAudioNoFromIndex(index);
+  const playAudio = (index: number, arr: Item[]) => {
+    const audioNo = getAudioNoFromIndex(index, arr);
+    console.log(audioNo);
+    console.log(index);
+
     let player = firstAudio;
     switch (audioNo) {
       case 1:
@@ -46,6 +57,18 @@ export const useSorterAudio = () => {
         break;
       case 8:
         player = eighthAudio;
+        break;
+      case 9:
+        player = ninthAudio;
+        break;
+      case 10:
+        player = tenthAudio;
+        break;
+      case 11:
+        player = eleventhAudio;
+        break;
+      case 12:
+        player = twelfthAudio;
         break;
     }
     const [playing, toggle] = player;

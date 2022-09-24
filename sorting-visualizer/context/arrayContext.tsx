@@ -1,5 +1,6 @@
 import React, { createContext } from "react";
 import { Item } from "../hooks/sorter_abstract";
+import { useSorterAudio } from "../hooks/sorter_audio";
 import { useStateWithRef } from "../hooks/use_state_with_ref";
 import { generateRandomItemArray } from "../hooks/utils";
 import { COLORS } from "../styles/color";
@@ -84,13 +85,13 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
   );
   const [speed, setSpeed, speedRef] = useStateWithRef<number>(800);
   const [isStop, setIsStop, isStopRef] = useStateWithRef<boolean>(false);
-
+  const { playAudio } = useSorterAudio();
   const animate = async (speed: number) => {
     const delay: number = maxDelay - speed;
     // console.log("speed", speed);
     await new Promise<void>((resolve) => setTimeout(resolve, delay));
   };
-  const playSound = async (index: number) => {};
+
   // Level 2 :  Medium Level Operations
   const updateArray = async (newArray: Item[]) => {
     // console.log("updateArray", newArray);
@@ -171,13 +172,14 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
     let newArray: Item[] = [...itemArrayRef.current];
 
     [newArray[indexA], newArray[indexB]] = [newArray[indexB], newArray[indexA]];
-
+    playAudio(indexB, newArray);
     await updateArray([...newArray]);
   };
 
   const replaceItem = async (index: number, newItem: Item) => {
     let newArray: Item[] = [...itemArrayRef.current];
     newArray[index] = newItem;
+    playAudio(index, newArray);
     await updateArray([...newArray]);
   };
   const blinkItemDifferentColor = async (
