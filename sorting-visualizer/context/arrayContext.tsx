@@ -1,18 +1,7 @@
-import React, {
-  createContext,
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { createContext } from "react";
 import { Item } from "../hooks/sorter_abstract";
 import { useStateWithRef } from "../hooks/use_state_with_ref";
-import {
-  generateRandomItemArray,
-  randomColor,
-  randomNumber,
-} from "../hooks/utils";
+import { generateRandomItemArray } from "../hooks/utils";
 import { COLORS } from "../styles/color";
 interface updateDiffrentColorInstruction {
   index: number;
@@ -101,7 +90,7 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
     // console.log("speed", speed);
     await new Promise<void>((resolve) => setTimeout(resolve, delay));
   };
-
+  const playSound = async (index: number) => {};
   // Level 2 :  Medium Level Operations
   const updateArray = async (newArray: Item[]) => {
     // console.log("updateArray", newArray);

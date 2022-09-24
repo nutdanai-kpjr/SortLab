@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { ArrayCtx } from "../../context/arrayContext";
 import { COLORS } from "../../styles/color";
-import { Item, SortAlgorithm } from "../sorter_abstract";
+import { SortAlgorithm } from "../sorter_abstract";
 
 export const useQuickSort: () => SortAlgorithm = () => {
   const {

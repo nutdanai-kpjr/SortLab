@@ -33,7 +33,7 @@ export const getGradientColor = (level:number,contrast=40) => {
     if(level < 1){
         return COLORS.BLOCKED
     }
-    let extraFactor  =level %2 == 0? 50:0;
+    // let extraFactor  =level %2 == 0? 50:0;
     // graditent level start from 1 to ... (start from darkest color)
     let r = 0 + level*contrast
     let g = 0  + level*contrast

@@ -184,7 +184,7 @@ export const useHeapSort: () => SortAlgorithm = () => {
 
   const sort = async () => {
     let arr: Item[] = [...itemArrayRef.current];
-    let sorted: Item[] = [];
+    // let sorted: Item[] = [];
     let minHeap = new MinHeap();
 
     for (let i = 0; i < arr.length; i++) {
@@ -210,7 +210,7 @@ export const useHeapSort: () => SortAlgorithm = () => {
           await updateColor([i], COLORS.SORTED);
         }
 
-        sorted.push(item);
+        // sorted.push(item);
       }
     }
   };

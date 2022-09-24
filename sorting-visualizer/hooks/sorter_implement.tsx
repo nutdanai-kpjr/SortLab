@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { ArrayCtx } from "../context/arrayContext";
 import { SortAlgorithm, SortVisualizer } from "./sorter_abstract";
 import { useBubbleSort } from "./sorter_algo/bubble_sort";
@@ -8,6 +8,7 @@ import { useMergeSort } from "./sorter_algo/merge_sort";
 import { useQuickSort } from "./sorter_algo/quick_sort";
 import { useSelectionSort } from "./sorter_algo/selection_sort";
 import { useShellSort } from "./sorter_algo/shell_sort";
+import { useSorterAudio } from "./sorter_audio";
 
 export const useSortVisualizer: SortVisualizer = () => {
   const sortAlgorithms: SortAlgorithm[] = [
@@ -22,7 +23,7 @@ export const useSortVisualizer: SortVisualizer = () => {
   const [currentSortAlgorithm, setSortAlgorithm] = useState<SortAlgorithm>(
     sortAlgorithms[0]
   );
-
+  const { playAudio } = useSorterAudio();
   const { sort, info } = currentSortAlgorithm;
   const { speed, setSpeed, itemArray, updateSize, setIsStop } =
     useContext(ArrayCtx);

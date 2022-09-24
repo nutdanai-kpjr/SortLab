@@ -30,22 +30,21 @@ const Home: NextPage = () => {
             happy as larry! You can do it by buy me the coffee, just click the
             button below. Thank you!
           </p>
-          <p>
-            <div className={styles.buyMeACoffee}>
-              <a
-                href="https://www.buymeacoffee.com/nutdanai"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <Image
-                  height={60}
-                  width={217}
-                  src="/buy-me-a-coffee.png"
-                  alt="Buy Me A Coffee"
-                />
-              </a>
-            </div>
-          </p>
+
+          <div className={styles.buyMeACoffee}>
+            <a
+              href="https://www.buymeacoffee.com/nutdanai"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Image
+                height={60}
+                width={217}
+                src="/buy-me-a-coffee.png"
+                alt="Buy Me A Coffee"
+              />
+            </a>
+          </div>
         </div>
         <div className={styles.imageContainer}>
           {" "}
