@@ -16,21 +16,30 @@ export const useSorterAudio = () => {
   const tenthAudio = useAudio("/audio/note10.mp3");
   const eleventhAudio = useAudio("/audio/note11.mp3");
   const twelfthAudio = useAudio("/audio/note12.mp3");
+  const sortedAudio = useAudio("/audio/sorted.wav");
 
-  const { itemArrayRef, speedRef } = useContext(ArrayCtx);
-
-  const getAudioNoFromIndex = (index: number, arr: Item[]) => {
-    const n = arr.length;
-    console.log("totalLength", n);
-    // console.log((index + 1) / totalLength);
-
-    const audioNo = Math.ceil(((index + 1) / n) * 12);
+  const { animate, speedRef } = useContext(ArrayCtx);
+  const maxNote = 12;
+  const getAudioFromValue = (value: number, min: number, max: number) => {
+    const range = max - min;
+    const valueRange = value - min;
+    const percentage = valueRange / range;
+    // get audio no from percentage range from 1-12;
+    const audioNo = Math.floor(percentage * maxNote) + 1;
+    if (audioNo > maxNote) return maxNote;
     return audioNo;
   };
-  const playAudio = (index: number, arr: Item[]) => {
-    const audioNo = getAudioNoFromIndex(index, arr);
-    console.log(audioNo);
-    console.log(index);
+  const playSortedAudio = async () => {
+    await animate(speedRef.current);
+    console.log("play sorted audio");
+    console.log("With Speed", speedRef.current);
+
+    const [isPlaying, toggle] = sortedAudio;
+    toggle();
+  };
+
+  const playAudio = (value: number, min: number, max: number) => {
+    const audioNo = getAudioFromValue(value, min, max);
 
     let player = firstAudio;
     switch (audioNo) {
@@ -75,5 +84,5 @@ export const useSorterAudio = () => {
     toggle();
   };
 
-  return { playAudio };
+  return { playAudio, playSortedAudio };
 };

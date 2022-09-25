@@ -172,14 +172,14 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
     let newArray: Item[] = [...itemArrayRef.current];
 
     [newArray[indexA], newArray[indexB]] = [newArray[indexB], newArray[indexA]];
-    playAudio(indexB, newArray);
+    // playAudio(indexB, newArray);
     await updateArray([...newArray]);
   };
 
   const replaceItem = async (index: number, newItem: Item) => {
     let newArray: Item[] = [...itemArrayRef.current];
     newArray[index] = newItem;
-    playAudio(index, newArray);
+    // playAudio(index, newArray);
     await updateArray([...newArray]);
   };
   const blinkItemDifferentColor = async (
