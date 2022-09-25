@@ -42,13 +42,15 @@ export const useBubbleSort: () => SortAlgorithm = () => {
         let valueB = { ...arr[j + 1] }.value;
         let maxValue = Math.max(valueA, valueB);
         setExplainText(
-          `Round ${i + 1} : Finding max value... (Candidate is ${maxValue})`
+          `Moving the max item into proper place : Candidate is ${maxValue} (Round ${
+            i + 1
+          })`
         );
         await updateColor([j, j + 1], COLORS.COMPARE); // Comparing
         if (valueA > valueB) {
           // console.log(valueA + ">" + valueB + " swap " + j + " to " + (j + 1));
           await updateColor([j], COLORS.SORTED);
-          await swapItem(j, j + 1); // swap j to j+1
+          await swapItem(j, j + 1); // swazp j to j+1
         }
 
         audioPlayer.playAudio(AudioType.Default);
