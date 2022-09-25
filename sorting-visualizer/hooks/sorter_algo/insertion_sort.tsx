@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { ArrayCtx } from "../../context/arrayContext";
 import { COLORS } from "../../styles/color";
 import { Item, SortAlgorithm } from "../sorter_abstract";
+import { useSorterAudio } from "../sorter_audio";
 
 export const useInsertionSort: () => SortAlgorithm = () => {
   const {
@@ -13,7 +14,7 @@ export const useInsertionSort: () => SortAlgorithm = () => {
     updateColorFromRange,
     blinkItemDifferentColor,
   } = useContext(ArrayCtx);
-
+  const { playAudio } = useSorterAudio();
   const info = {
     name: "Insertion Sort",
     description:
@@ -32,10 +33,11 @@ export const useInsertionSort: () => SortAlgorithm = () => {
       // choose the first element in our unsorted subarray
       let firstUnsorted = { ...arr[i] };
       // await updateColor([i], COLORS.SPECIAL);
+      playAudio(firstUnsorted.value);
       await blinkItemDifferentColor(
         [{ index: i, color: COLORS.SPECIAL }],
         COLORS.COMPARE,
-        3
+        1
       );
       let j = i - 1;
       let lastSorted = { ...arr[j] };
@@ -43,6 +45,7 @@ export const useInsertionSort: () => SortAlgorithm = () => {
         if (isStopRef.current) return await stopSort();
         arr = [...itemArrayRef.current];
         // Through a while loop, we go through the sorted array and shift elements to the right, opening up a space for the current element to be inserted.
+        playAudio(lastSorted.value);
         await updateColor([j + 1], COLORS.COMPARE);
         await replaceItem(j + 1, { ...arr[j] });
         // Once we find the proper place for it, the current element is inserted into the newly-opened slot. This process is repeated for each iteration until the array is sorted  Cr.https://stackabuse.com/insertion-sort-in-javascript/
@@ -52,11 +55,13 @@ export const useInsertionSort: () => SortAlgorithm = () => {
       await blinkItemDifferentColor(
         [{ index: j + 1, color: COLORS.SORTED }],
         COLORS.COMPARE,
-        3
+        1
       );
       // we found the proper place for the current element
+      // playAudio(firstUnsorted.value);
       await updateColor([j + 1], COLORS.SORTED);
       await replaceItem(j + 1, firstUnsorted);
+
       let indexArr = Array.from(Array(arr.length).keys());
       await updateColor(indexArr, COLORS.DEFAULT);
       // the last element of our sorted subarray
