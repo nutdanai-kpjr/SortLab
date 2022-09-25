@@ -53,7 +53,7 @@ export const useSorterAudio = ({
         break;
     }
 
-    if (speed >= 970 && type !== AudioType.Success) {
+    if (speed >= 970 && type !== AudioType.Sorted) {
       audio = defaultAudio;
     }
     audio.play();
