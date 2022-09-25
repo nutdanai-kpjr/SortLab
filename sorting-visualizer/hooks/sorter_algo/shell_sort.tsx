@@ -15,7 +15,7 @@ export const useShellSort: () => SortAlgorithm = () => {
     blinkItemDifferentColor,
   } = useContext(ArrayCtx);
 
-  const { playAudio } = useSorterAudio();
+  const { playAudio, playWinAudio } = useSorterAudio();
   /* 
 Shell sort is an optimized version of Insertion sort, that basically allows the exchange of items that are far away from another.
 
@@ -99,6 +99,7 @@ by https://levelup.gitconnected.com/
         // right now, j+gap is the index where we want to insert the firstUnsorted in the sorted array
 
         await replaceItem(j + gap, firstUnsorted);
+        playWinAudio();
         await updateColor([j + gap], COLORS.SORTED);
         await updateColorFromRange(0, arr.length - 1, COLORS.DEFAULT);
       }

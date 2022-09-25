@@ -13,7 +13,7 @@ export const useMergeSort: () => SortAlgorithm = () => {
     updateColorFromRange,
   } = useContext(ArrayCtx);
 
-  const { playSpecialAudio } = useSorterAudio();
+  const { playSpecialAudio, playWinAudio } = useSorterAudio();
   const info = {
     name: "Merge Sort",
     description:
@@ -43,11 +43,13 @@ export const useMergeSort: () => SortAlgorithm = () => {
     }
 
     let m = l + Math.floor((r - l) / 2); //divide the array into two halves
+
     await updateColorFromRange(l, m, getRandomColor());
     await updateColorFromRange(m + 1, r, getRandomColor());
 
     await mergeSort(arr, l, m); // start to middle of the array (left)
     await mergeSort(arr, m + 1, r); // middle+1 to end of the array (right)
+
     await merge(arr, l, m, r); // merge the two halves
   };
   // Merges two subarrays of arr[].
@@ -115,6 +117,7 @@ export const useMergeSort: () => SortAlgorithm = () => {
       k++;
     }
     if (isStopRef.current) return await stopSort();
+
     await updateColorFromRange(l, r, getRandomColor());
   };
 

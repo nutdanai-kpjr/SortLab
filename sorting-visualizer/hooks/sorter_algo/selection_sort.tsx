@@ -14,7 +14,7 @@ export const useSelectionSort: () => SortAlgorithm = () => {
     updateDifferentColor,
   } = useContext(ArrayCtx);
 
-  const { playAudio } = useSorterAudio();
+  const { playAudio, playWinAudio } = useSorterAudio();
   const info = {
     name: "Selection Sort",
     description:
@@ -50,6 +50,7 @@ export const useSelectionSort: () => SortAlgorithm = () => {
         if (valueNew < valueMin) {
           await updateColor([min], COLORS.DEFAULT);
           min = j;
+          playWinAudio();
           await updateColor([min], COLORS.SPECIAL);
         } else {
           await updateColor([j, min], COLORS.DEFAULT); // Loser
@@ -59,7 +60,7 @@ export const useSelectionSort: () => SortAlgorithm = () => {
       await updateColor([min], COLORS.SPECIAL);
 
       if (min !== i) {
-        playAudio({ ...arr[i] }.value);
+        playWinAudio();
         await swapItem(i, min);
       }
 

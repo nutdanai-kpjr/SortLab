@@ -14,7 +14,7 @@ export const useInsertionSort: () => SortAlgorithm = () => {
     updateColorFromRange,
     blinkItemDifferentColor,
   } = useContext(ArrayCtx);
-  const { playAudio } = useSorterAudio();
+  const { playAudio, playWinAudio } = useSorterAudio();
   const info = {
     name: "Insertion Sort",
     description:
@@ -52,6 +52,7 @@ export const useInsertionSort: () => SortAlgorithm = () => {
         j--;
         lastSorted = { ...arr[j] };
       }
+      playWinAudio();
       await blinkItemDifferentColor(
         [{ index: j + 1, color: COLORS.SORTED }],
         COLORS.COMPARE,
@@ -59,6 +60,7 @@ export const useInsertionSort: () => SortAlgorithm = () => {
       );
       // we found the proper place for the current element
       // playAudio(firstUnsorted.value);
+
       await updateColor([j + 1], COLORS.SORTED);
       await replaceItem(j + 1, firstUnsorted);
 

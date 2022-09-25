@@ -16,7 +16,7 @@ export const useHeapSort: () => SortAlgorithm = () => {
     blinkItemDifferentColor,
     replaceItem,
   } = useContext(ArrayCtx);
-  const { playAudio } = useSorterAudio();
+  const { playAudio, playWinAudio } = useSorterAudio();
   const info = {
     name: "Heap Sort",
     description:
@@ -199,7 +199,8 @@ export const useHeapSort: () => SortAlgorithm = () => {
       let item = await minHeap.remove(i + 1, arr.length - 1);
       if (item) {
         if (i < arr.length - 1) {
-          playAudio(item.value);
+          // playAudio(item.value);
+
           await replaceItem(i, item);
           await blinkItemDifferentColor(
             [
@@ -212,7 +213,7 @@ export const useHeapSort: () => SortAlgorithm = () => {
         } else {
           await updateColor([i], COLORS.SORTED);
         }
-
+        playWinAudio();
         // sorted.push(item);
       }
     }

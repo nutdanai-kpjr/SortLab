@@ -18,6 +18,8 @@ export const useSorterAudio = () => {
   const twelfthAudio = useAudio("/audio/note12.mp3");
   const sortedAudio = useAudio("/audio/sorted.wav");
   const specialAudio = useAudio("/audio/special.wav");
+  const testAudio = useAudio("/audio/test.wav");
+  const winAudio = useAudio("/audio/win.wav");
 
   const { animate, speedRef, minItemValue, maxItemValueRef } =
     useContext(ArrayCtx);
@@ -41,7 +43,10 @@ export const useSorterAudio = () => {
     const [isPlaying, toggle] = specialAudio;
     toggle();
   };
-
+  const playWinAudio = async () => {
+    const [isPlaying, toggle] = winAudio;
+    toggle();
+  };
   const playAudio = (value: number) => {
     const audioNo = getAudioFromValue(value);
     let player = firstAudio;
@@ -83,9 +88,10 @@ export const useSorterAudio = () => {
         player = twelfthAudio;
         break;
     }
-    const [playing, toggle] = player;
+
+    const [playing, toggle] = testAudio;
     toggle();
   };
 
-  return { playAudio, playSortedAudio, playSpecialAudio };
+  return { playAudio, playSortedAudio, playSpecialAudio, playWinAudio };
 };

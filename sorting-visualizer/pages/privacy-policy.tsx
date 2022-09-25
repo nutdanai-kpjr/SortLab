@@ -11,7 +11,7 @@ const PrivacyPolicy: NextPage = () => {
       <div className={styles.textContainer}>
         <h1>Privacy Policy of Sorting Visualizer By Nash</h1>
         <p>
-          R Sorting Visualizer By Nash operates the sorter-viz-nash.vercel.app
+          Sorting Visualizer By Nash operates the sorter-viz-nash.vercel.app
           website, which provides the SERVICE.
         </p>
         <p>
