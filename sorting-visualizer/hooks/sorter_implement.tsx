@@ -8,7 +8,7 @@ import { useMergeSort } from "./sorter_algo/merge_sort";
 import { useQuickSort } from "./sorter_algo/quick_sort";
 import { useSelectionSort } from "./sorter_algo/selection_sort";
 import { useShellSort } from "./sorter_algo/shell_sort";
-import { AudioType, useSorterAudio } from "./sorter_audio";
+import { AudioType } from "./sorter_audio";
 
 export const useSortVisualizer: SortVisualizer = () => {
   const sortAlgorithms: SortAlgorithm[] = [
@@ -34,6 +34,8 @@ export const useSortVisualizer: SortVisualizer = () => {
     isStopRef,
     setIsStop,
     audioPlayer,
+    explainText,
+    setExplainText,
   } = useContext(ArrayCtx);
   const play = async () => {
     // console.log("SortViz Fx ", itemArray.length);
@@ -42,15 +44,17 @@ export const useSortVisualizer: SortVisualizer = () => {
     await sort();
     await animate(1000);
     if (isStopRef.current) return;
-
+    setExplainText("Done");
     audioPlayer.playAudio(AudioType.Sorted);
 
     // setIsProcessing(false);
   };
   const stop = () => {
+    setExplainText("");
     setIsStop(true);
   };
   const reset = () => {
+    setExplainText("");
     updateSize(itemArray.length);
   };
 
@@ -81,6 +85,7 @@ export const useSortVisualizer: SortVisualizer = () => {
   const getArray = () => itemArray;
   const getSpeed = () => speed;
   const getIsAudioOn = () => audioPlayer.isAudioOn;
+  const getExplainText = () => explainText;
   // useEffect(() => {
   //   // console.log("SorterImplement: itemArray changed", itemArray.length);
   // }, [itemArray]);
@@ -102,5 +107,6 @@ export const useSortVisualizer: SortVisualizer = () => {
     getSpeed,
     getArray,
     getIsAudioOn,
+    getExplainText,
   };
 };

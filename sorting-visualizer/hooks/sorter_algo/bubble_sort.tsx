@@ -12,6 +12,7 @@ export const useBubbleSort: () => SortAlgorithm = () => {
     stopSort,
     updateColor,
     audioPlayer,
+    setExplainText,
   } = useContext(ArrayCtx);
   // const itemArrayRef = useRef(itemArray);
   const info = {
@@ -32,7 +33,7 @@ export const useBubbleSort: () => SortAlgorithm = () => {
 
     for (let i = 0; i < arr.length; i++) {
       // console.log(i);
-
+      setExplainText(`Loop ${i + 1}`);
       for (let j = 0; j < arr.length - i - 1; j++) {
         if (isStopRef.current) return await stopSort();
         arr = [...itemArrayRef.current]; // refetch the array from context to avoid stale state

@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import React, { createContext, useState } from "react";
 import { Item } from "../hooks/sorter_abstract";
 import { audioPlayer, AudioType, useSorterAudio } from "../hooks/sorter_audio";
 import { useStateWithRef } from "../hooks/use_state_with_ref";
@@ -19,10 +19,12 @@ export interface IArrayContext {
   minItemValue: number;
   maxItemValue: number;
   maxItemValueRef: React.MutableRefObject<number>;
+  explainText: string;
   setItemArray: (newState: Item[]) => void;
   setSpeed: (newState: number) => void;
   setIsStop: (newState: boolean) => void;
   setMaxItemValue: (newState: number) => void;
+  setExplainText: (newState: string) => void;
   animate: (speed: number) => Promise<void>;
 
   replaceItem: (
@@ -71,6 +73,7 @@ const initArrayCtx: IArrayContext = {
   minItemValue: 1,
   maxItemValue: 100,
   maxItemValueRef: { current: 100 },
+  explainText: "",
   audioPlayer: {
     toggleAudio: () => {},
     playAudio: () => {},
@@ -80,6 +83,7 @@ const initArrayCtx: IArrayContext = {
   setSpeed: () => {},
   setIsStop: () => {},
   setMaxItemValue: () => {},
+  setExplainText: () => {},
   animate: () => Promise.resolve(),
   replaceItem: () => Promise.resolve(),
   updateArray: () => Promise.resolve(),
@@ -106,6 +110,7 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
   const [maxItemValue, setMaxItemValue, maxItemValueRef] = useStateWithRef(100);
   const [speed, setSpeed, speedRef] = useStateWithRef<number>(200);
   const [isStop, setIsStop, isStopRef] = useStateWithRef<boolean>(false);
+  const [explainText, setExplainText] = useState<string>("");
   const audioPlayer = useSorterAudio({ speedRef: speedRef });
   const animate = async (speed: number) => {
     // const delay: number = maxDelay - speed;
@@ -239,7 +244,9 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
     maxItemValueRef,
     isStop,
     isStopRef,
+    explainText,
     setItemArray,
+    setExplainText,
     setSpeed,
     setIsStop,
     setMaxItemValue,

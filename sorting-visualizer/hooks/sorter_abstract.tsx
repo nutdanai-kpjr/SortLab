@@ -17,6 +17,7 @@ export interface SortVisualizer {
     getComplexity(): AlgorithmComplexity;
     getArray(): Item[];
     getIsAudioOn(): boolean;
+    getExplainText(): string;
   };
 }
 

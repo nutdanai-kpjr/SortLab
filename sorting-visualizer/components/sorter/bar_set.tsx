@@ -18,6 +18,7 @@ export default function BarSet() {
     getArray,
     getSpeed,
     getIsAudioOn,
+    getExplainText,
     sortAlgorithms,
     currentSortAlgorithm,
     changeSortAlgorithm,
@@ -118,6 +119,11 @@ export default function BarSet() {
           <div></div>
         </div>
         <div className={styles.container}>
+          {getExplainText().length > 0 ? (
+            <div className={styles.explainText}> {getExplainText()}</div>
+          ) : (
+            <></>
+          )}
           {getArray().map((v, i) => (
             <Bar key={i} value={v.value} color={v.color} />
           ))}
