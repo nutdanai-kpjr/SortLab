@@ -10,6 +10,8 @@ export const useMergeSort: () => SortAlgorithm = () => {
     stopSort,
     replaceItem,
     updateColorFromRange,
+    updateColorExceptFromRange,
+    setExplainText,
   } = useContext(ArrayCtx);
 
   const info = {
@@ -35,13 +37,17 @@ export const useMergeSort: () => SortAlgorithm = () => {
   // of arr to be sorted */
   const mergeSort = async (arr: Item[], l: number, r: number) => {
     if (isStopRef.current) return await stopSort();
+
     if (l >= r) {
       return; //  If the array has only one element (l , r is point at the same), return
       // why? because we need to have at least 2 elements to merge
     }
-
     let m = l + Math.floor((r - l) / 2); //divide the array into two halves
-
+    let n1 = m - l + 1; // size of the left subarray (l to m) we need to +1 because we need to include the m
+    let n2 = r - m; // size of the right subarray
+    setExplainText(
+      `Dividing Array into two subarrays(left: ${n1} items, right: ${n2} items)`
+    );
     await updateColorFromRange(l, m, getRandomColor());
     await updateColorFromRange(m + 1, r, getRandomColor());
 
@@ -58,7 +64,7 @@ export const useMergeSort: () => SortAlgorithm = () => {
 
     let n1 = m - l + 1; // size of the left subarray (l to m) we need to +1 because we need to include the m
     let n2 = r - m; // size of the right subarray
-
+    setExplainText(`Merging sub array into array of ${n1 + n2} items`);
     // Create temp arrays
     let L = new Array(n1);
     let R = new Array(n2);
