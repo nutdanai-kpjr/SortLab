@@ -33,13 +33,17 @@ export const useBubbleSort: () => SortAlgorithm = () => {
 
     for (let i = 0; i < arr.length; i++) {
       // console.log(i);
-      setExplainText(`Loop ${i + 1}`);
+
       for (let j = 0; j < arr.length - i - 1; j++) {
         if (isStopRef.current) return await stopSort();
         arr = [...itemArrayRef.current]; // refetch the array from context to avoid stale state
 
         let valueA = { ...arr[j] }.value;
         let valueB = { ...arr[j + 1] }.value;
+        let maxValue = Math.max(valueA, valueB);
+        setExplainText(
+          `Round ${i + 1} : Finding max value... (Candidate is ${maxValue})`
+        );
         await updateColor([j, j + 1], COLORS.COMPARE); // Comparing
         if (valueA > valueB) {
           // console.log(valueA + ">" + valueB + " swap " + j + " to " + (j + 1));
@@ -48,11 +52,12 @@ export const useBubbleSort: () => SortAlgorithm = () => {
         }
 
         audioPlayer.playAudio(AudioType.Default);
+
         await updateColor([j + 1], COLORS.SORTED); // Winner
         await updateColor([j], COLORS.DEFAULT); // Loser
       }
 
-      await updateColor([0], COLORS.SORTED); //
+      await updateColor([0], COLORS.SORTED); // update the leftover one element.
     }
   };
   return { sort, info };
