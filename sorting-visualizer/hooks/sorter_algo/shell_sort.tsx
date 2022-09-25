@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { ArrayCtx } from "../../context/arrayContext";
 import { COLORS, getRandomColor } from "../../styles/color";
 import { Item, SortAlgorithm } from "../sorter_abstract";
-import { useSorterAudio } from "../sorter_audio";
+import { AudioType, useSorterAudio } from "../sorter_audio";
 
 export const useShellSort: () => SortAlgorithm = () => {
   const {
@@ -13,9 +13,9 @@ export const useShellSort: () => SortAlgorithm = () => {
     updateColor,
     updateColorFromRange,
     blinkItemDifferentColor,
+    audioPlayer,
   } = useContext(ArrayCtx);
 
-  const { playAudio, playWinAudio } = useSorterAudio();
   /* 
 Shell sort is an optimized version of Insertion sort, that basically allows the exchange of items that are far away from another.
 
@@ -74,7 +74,7 @@ by https://levelup.gitconnected.com/
         //We store the current varible
         let firstUnsorted = { ...arr[i] };
         //This is the insection sort to sort the section into order
-        playAudio();
+        audioPlayer.playAudio(AudioType.Default);
         let j = i - gap;
         let lastSorted = { ...arr[j] };
 
@@ -90,7 +90,7 @@ by https://levelup.gitconnected.com/
           if (isStopRef.current) return await stopSort();
 
           arr = [...itemArrayRef.current];
-          playAudio();
+          audioPlayer.playAudio(AudioType.Default);
           await updateColor([j + gap], COLORS.COMPARE);
           await replaceItem(j + gap, { ...arr[j] });
           j -= gap;
@@ -99,7 +99,7 @@ by https://levelup.gitconnected.com/
         // right now, j+gap is the index where we want to insert the firstUnsorted in the sorted array
 
         await replaceItem(j + gap, firstUnsorted);
-        playWinAudio();
+        audioPlayer.playAudio(AudioType.Success);
         await updateColor([j + gap], COLORS.SORTED);
         await updateColorFromRange(0, arr.length - 1, COLORS.DEFAULT);
       }

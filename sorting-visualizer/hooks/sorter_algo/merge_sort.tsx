@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { ArrayCtx } from "../../context/arrayContext";
 import { COLORS, getRandomColor } from "../../styles/color";
 import { Item, SortAlgorithm } from "../sorter_abstract";
-import { useSorterAudio } from "../sorter_audio";
 
 export const useMergeSort: () => SortAlgorithm = () => {
   const {
@@ -13,7 +12,6 @@ export const useMergeSort: () => SortAlgorithm = () => {
     updateColorFromRange,
   } = useContext(ArrayCtx);
 
-  const { playSpecialAudio, playWinAudio } = useSorterAudio();
   const info = {
     name: "Merge Sort",
     description:

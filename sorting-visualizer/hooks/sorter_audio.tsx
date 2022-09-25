@@ -2,29 +2,52 @@ import { useContext } from "react";
 import { ArrayCtx } from "../context/arrayContext";
 import { Item } from "./sorter_abstract";
 import useAudio from "./use_audio";
+import { useStateWithRef } from "./use_state_with_ref";
 
+export interface audioPlayer {
+  toggleAudio: () => void;
+  playAudio: (type: AudioType) => void;
+}
+export enum AudioType {
+  Default = "default",
+  Sorted = "sorted",
+  Special = "special",
+  Success = "success",
+}
 export const useSorterAudio = () => {
   const sortedAudio = useAudio("/audio/sorted.wav");
   const specialAudio = useAudio("/audio/special.wav");
   const defaultAudio = useAudio("/audio/default.wav");
-  const winAudio = useAudio("/audio/win.wav");
+  const successAudio = useAudio("/audio/success.wav");
+
+  const [isAudioOn, setIsAudioOn, isAudioOnRef] =
+    useStateWithRef<boolean>(true);
 
   const { animate, speedRef } = useContext(ArrayCtx);
 
-  const playSortedAudio = async () => {
-    await animate(speedRef.current);
-
-    sortedAudio.play();
-  };
-  const playSpecialAudio = async () => {
-    specialAudio.play();
-  };
-  const playWinAudio = async () => {
-    winAudio.play();
-  };
-  const playAudio = () => {
-    defaultAudio.play();
+  const toggleAudio = () => {
+    setIsAudioOn(!isAudioOnRef.current);
   };
 
-  return { playAudio, playSortedAudio, playSpecialAudio, playWinAudio };
+  const playAudio = (type: AudioType) => {
+    if (!isAudioOnRef.current) return;
+    let audio = defaultAudio;
+    switch (type) {
+      case AudioType.Default:
+        audio = defaultAudio;
+        break;
+      case AudioType.Sorted:
+        audio = sortedAudio;
+        break;
+      case AudioType.Special:
+        audio = specialAudio;
+        break;
+      case AudioType.Success:
+        audio = successAudio;
+        break;
+    }
+    audio.play();
+  };
+
+  return { playAudio, toggleAudio };
 };

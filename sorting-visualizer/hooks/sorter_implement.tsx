@@ -8,7 +8,7 @@ import { useMergeSort } from "./sorter_algo/merge_sort";
 import { useQuickSort } from "./sorter_algo/quick_sort";
 import { useSelectionSort } from "./sorter_algo/selection_sort";
 import { useShellSort } from "./sorter_algo/shell_sort";
-import { useSorterAudio } from "./sorter_audio";
+import { AudioType, useSorterAudio } from "./sorter_audio";
 
 export const useSortVisualizer: SortVisualizer = () => {
   const sortAlgorithms: SortAlgorithm[] = [
@@ -23,17 +23,25 @@ export const useSortVisualizer: SortVisualizer = () => {
   const [currentSortAlgorithm, setSortAlgorithm] = useState<SortAlgorithm>(
     sortAlgorithms[0]
   );
-  const { playSortedAudio } = useSorterAudio();
+  const audioPlayer = useSorterAudio();
   const { sort, info } = currentSortAlgorithm;
-  const { speed, setSpeed, itemArray, updateSize, isStopRef, setIsStop } =
-    useContext(ArrayCtx);
+  const {
+    animate,
+    speed,
+    setSpeed,
+    itemArray,
+    updateSize,
+    isStopRef,
+    setIsStop,
+  } = useContext(ArrayCtx);
   const play = async () => {
     // console.log("SortViz Fx ", itemArray.length);
     setIsStop(false);
 
     await sort();
     if (isStopRef.current) return;
-    playSortedAudio();
+    await animate(1000);
+    audioPlayer.playAudio(AudioType.Sorted);
 
     // setIsProcessing(false);
   };

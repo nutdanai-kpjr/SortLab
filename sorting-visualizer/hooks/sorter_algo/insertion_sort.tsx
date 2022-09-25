@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { ArrayCtx } from "../../context/arrayContext";
 import { COLORS } from "../../styles/color";
 import { Item, SortAlgorithm } from "../sorter_abstract";
-import { useSorterAudio } from "../sorter_audio";
+import { AudioType } from "../sorter_audio";
 
 export const useInsertionSort: () => SortAlgorithm = () => {
   const {
@@ -13,8 +13,9 @@ export const useInsertionSort: () => SortAlgorithm = () => {
     updateColor,
     updateColorFromRange,
     blinkItemDifferentColor,
+    audioPlayer,
   } = useContext(ArrayCtx);
-  const { playAudio, playWinAudio } = useSorterAudio();
+
   const info = {
     name: "Insertion Sort",
     description:
@@ -33,7 +34,7 @@ export const useInsertionSort: () => SortAlgorithm = () => {
       // choose the first element in our unsorted subarray
       let firstUnsorted = { ...arr[i] };
       // await updateColor([i], COLORS.SPECIAL);
-      playAudio();
+      audioPlayer.playAudio(AudioType.Default);
       await blinkItemDifferentColor(
         [{ index: i, color: COLORS.SPECIAL }],
         COLORS.COMPARE,
@@ -45,14 +46,14 @@ export const useInsertionSort: () => SortAlgorithm = () => {
         if (isStopRef.current) return await stopSort();
         arr = [...itemArrayRef.current];
         // Through a while loop, we go through the sorted array and shift elements to the right, opening up a space for the current element to be inserted.
-        playAudio();
+        audioPlayer.playAudio(AudioType.Default);
         await updateColor([j + 1], COLORS.COMPARE);
         await replaceItem(j + 1, { ...arr[j] });
         // Once we find the proper place for it, the current element is inserted into the newly-opened slot. This process is repeated for each iteration until the array is sorted  Cr.https://stackabuse.com/insertion-sort-in-javascript/
         j--;
         lastSorted = { ...arr[j] };
       }
-      playWinAudio();
+      audioPlayer.playAudio(AudioType.Success);
       await blinkItemDifferentColor(
         [{ index: j + 1, color: COLORS.SORTED }],
         COLORS.COMPARE,

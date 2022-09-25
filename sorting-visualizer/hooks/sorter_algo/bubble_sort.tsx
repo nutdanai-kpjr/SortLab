@@ -2,13 +2,18 @@ import { useContext } from "react";
 import { ArrayCtx } from "../../context/arrayContext";
 import { COLORS } from "../../styles/color";
 import { Item, SortAlgorithm } from "../sorter_abstract";
-import { useSorterAudio } from "../sorter_audio";
+import { AudioType, useSorterAudio } from "../sorter_audio";
 
 export const useBubbleSort: () => SortAlgorithm = () => {
-  const { itemArrayRef, isStopRef, swapItem, stopSort, updateColor } =
-    useContext(ArrayCtx);
+  const {
+    itemArrayRef,
+    isStopRef,
+    swapItem,
+    stopSort,
+    updateColor,
+    audioPlayer,
+  } = useContext(ArrayCtx);
   // const itemArrayRef = useRef(itemArray);
-  const { playAudio } = useSorterAudio();
   const info = {
     name: "Bubble Sort",
     description:
@@ -41,7 +46,7 @@ export const useBubbleSort: () => SortAlgorithm = () => {
           await swapItem(j, j + 1); // swap j to j+1
         }
         const biggerValue = valueA > valueB ? valueA : valueB;
-        playAudio();
+        audioPlayer.playAudio(AudioType.Default);
         await updateColor([j + 1], COLORS.SORTED); // Winner
         await updateColor([j], COLORS.DEFAULT); // Loser
       }

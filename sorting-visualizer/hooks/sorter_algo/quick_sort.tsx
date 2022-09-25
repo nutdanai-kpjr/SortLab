@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { ArrayCtx } from "../../context/arrayContext";
 import { COLORS } from "../../styles/color";
 import { SortAlgorithm } from "../sorter_abstract";
-import { useSorterAudio } from "../sorter_audio";
+import { AudioType, useSorterAudio } from "../sorter_audio";
 
 export const useQuickSort: () => SortAlgorithm = () => {
   const {
@@ -13,9 +13,9 @@ export const useQuickSort: () => SortAlgorithm = () => {
     blinkItemDifferentColor,
     updateColor,
     updateColorFromRange,
+    audioPlayer,
   } = useContext(ArrayCtx);
 
-  const { playAudio } = useSorterAudio();
   // let pivotNo = 1;
 
   const info = {
@@ -65,7 +65,7 @@ export const useQuickSort: () => SortAlgorithm = () => {
     let pivotInitialIndex = end;
 
     let pivot = arr[pivotInitialIndex]; // use last element as pivot election
-    playAudio();
+    audioPlayer.playAudio(AudioType.Default);
     await updateColor([pivotInitialIndex], COLORS.SPECIAL);
 
     let leftColor = COLORS.FREE1;
@@ -77,7 +77,7 @@ export const useQuickSort: () => SortAlgorithm = () => {
         return -1;
       }
       arr = [...itemArrayRef.current];
-      playAudio();
+      audioPlayer.playAudio(AudioType.Default);
       await updateColor([i], COLORS.COMPARE);
       if (arr[i].value < pivot.value) {
         await updateColor([i], leftColor);

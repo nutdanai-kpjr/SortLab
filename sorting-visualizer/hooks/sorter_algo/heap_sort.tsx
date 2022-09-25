@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { ArrayCtx } from "../../context/arrayContext";
 import { COLORS, getGradientColor } from "../../styles/color";
 import { Item, SortAlgorithm } from "../sorter_abstract";
-import { useSorterAudio } from "../sorter_audio";
+import { AudioType, useSorterAudio } from "../sorter_audio";
 
 export const useHeapSort: () => SortAlgorithm = () => {
   const {
@@ -15,8 +15,8 @@ export const useHeapSort: () => SortAlgorithm = () => {
     updateArrayFromRange,
     blinkItemDifferentColor,
     replaceItem,
+    audioPlayer,
   } = useContext(ArrayCtx);
-  const { playAudio, playWinAudio } = useSorterAudio();
   const info = {
     name: "Heap Sort",
     description:
@@ -82,7 +82,7 @@ export const useHeapSort: () => SortAlgorithm = () => {
         lastItemIndex > 0 &&
         this.isSmaller(lastItemIndex, parentOfLastItemIndex)
       ) {
-        playAudio();
+        audioPlayer.playAudio(AudioType.Default);
         // we want fmin at top , so swap if child is smaller than parent
         await swapItem(lastItemIndex, parentOfLastItemIndex); // swap on orginal array
         this.swap(lastItemIndex, parentOfLastItemIndex); // swap on heap array
@@ -127,7 +127,7 @@ export const useHeapSort: () => SortAlgorithm = () => {
             ? leftChildIndex
             : rightChildIndex;
         }
-        playAudio();
+        audioPlayer.playAudio(AudioType.Default);
         this.swap(rootIndex, smallerChildIndex);
         await updateArrayFromRange(start, end, this.heap); // update heap array into orginal array (after swap)
         rootIndex = smallerChildIndex;
@@ -213,7 +213,7 @@ export const useHeapSort: () => SortAlgorithm = () => {
         } else {
           await updateColor([i], COLORS.SORTED);
         }
-        playWinAudio();
+        audioPlayer.playAudio(AudioType.Success);
         // sorted.push(item);
       }
     }

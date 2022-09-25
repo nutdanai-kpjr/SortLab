@@ -3,7 +3,7 @@ import { useMemo, useEffect, useState } from "react";
 const useAudio = (url: string) => {
   const audio = useMemo<HTMLAudioElement | undefined>(
     () => (typeof Audio !== "undefined" ? new Audio(url) : undefined),
-    []
+    [url]
   );
   const [playing, setPlaying] = useState(false);
 
