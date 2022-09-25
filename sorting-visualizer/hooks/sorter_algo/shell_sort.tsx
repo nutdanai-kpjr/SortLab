@@ -74,7 +74,7 @@ by https://levelup.gitconnected.com/
         //We store the current varible
         let firstUnsorted = { ...arr[i] };
         //This is the insection sort to sort the section into order
-        playAudio(firstUnsorted.value);
+        playAudio();
         let j = i - gap;
         let lastSorted = { ...arr[j] };
 
@@ -90,7 +90,7 @@ by https://levelup.gitconnected.com/
           if (isStopRef.current) return await stopSort();
 
           arr = [...itemArrayRef.current];
-          playAudio(lastSorted.value);
+          playAudio();
           await updateColor([j + gap], COLORS.COMPARE);
           await replaceItem(j + gap, { ...arr[j] });
           j -= gap;

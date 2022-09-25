@@ -41,7 +41,7 @@ export const useSelectionSort: () => SortAlgorithm = () => {
         arr = [...itemArrayRef.current]; // refetch the array from context to avoid stale state
         let valueNew = { ...arr[j] }.value;
         let valueMin = { ...arr[min] }.value;
-        playAudio(valueNew);
+        playAudio();
         await updateDifferentColor([
           { index: min, color: COLORS.SPECIAL },
           { index: j, color: COLORS.COMPARE },

@@ -41,7 +41,7 @@ export const useBubbleSort: () => SortAlgorithm = () => {
           await swapItem(j, j + 1); // swap j to j+1
         }
         const biggerValue = valueA > valueB ? valueA : valueB;
-        playAudio(biggerValue);
+        playAudio();
         await updateColor([j + 1], COLORS.SORTED); // Winner
         await updateColor([j], COLORS.DEFAULT); // Loser
       }

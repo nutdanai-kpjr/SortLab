@@ -82,7 +82,7 @@ export const useHeapSort: () => SortAlgorithm = () => {
         lastItemIndex > 0 &&
         this.isSmaller(lastItemIndex, parentOfLastItemIndex)
       ) {
-        playAudio(this.heap[lastItemIndex].value);
+        playAudio();
         // we want fmin at top , so swap if child is smaller than parent
         await swapItem(lastItemIndex, parentOfLastItemIndex); // swap on orginal array
         this.swap(lastItemIndex, parentOfLastItemIndex); // swap on heap array
@@ -127,7 +127,7 @@ export const useHeapSort: () => SortAlgorithm = () => {
             ? leftChildIndex
             : rightChildIndex;
         }
-        playAudio(this.heap[smallerChildIndex].value);
+        playAudio();
         this.swap(rootIndex, smallerChildIndex);
         await updateArrayFromRange(start, end, this.heap); // update heap array into orginal array (after swap)
         rootIndex = smallerChildIndex;

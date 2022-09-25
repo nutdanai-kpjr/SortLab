@@ -65,7 +65,7 @@ export const useQuickSort: () => SortAlgorithm = () => {
     let pivotInitialIndex = end;
 
     let pivot = arr[pivotInitialIndex]; // use last element as pivot election
-    playAudio(pivotInitialIndex);
+    playAudio();
     await updateColor([pivotInitialIndex], COLORS.SPECIAL);
 
     let leftColor = COLORS.FREE1;
@@ -77,7 +77,7 @@ export const useQuickSort: () => SortAlgorithm = () => {
         return -1;
       }
       arr = [...itemArrayRef.current];
-      playAudio(arr[i].value);
+      playAudio();
       await updateColor([i], COLORS.COMPARE);
       if (arr[i].value < pivot.value) {
         await updateColor([i], leftColor);

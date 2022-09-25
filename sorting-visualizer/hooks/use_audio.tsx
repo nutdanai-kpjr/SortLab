@@ -7,21 +7,9 @@ const useAudio = (url: string) => {
   );
   const [playing, setPlaying] = useState(false);
 
-  const toggle = () => audio?.play();
+  const play = () => audio?.play();
 
-  //   useEffect(() => {
-  //     audio?.play();
-  //     playing ? audio?.play() : audio?.pause();
-  //   }, [playing]);
-
-  //   useEffect(() => {
-  //     audio?.addEventListener("ended", () => setPlaying(false));
-  //     return () => {
-  //       audio?.removeEventListener("ended", () => setPlaying(false));
-  //     };
-  //   }, []);
-
-  return [playing, toggle] as const;
+  return { play };
 };
 
 export default useAudio;

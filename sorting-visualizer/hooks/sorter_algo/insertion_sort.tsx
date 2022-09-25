@@ -33,11 +33,11 @@ export const useInsertionSort: () => SortAlgorithm = () => {
       // choose the first element in our unsorted subarray
       let firstUnsorted = { ...arr[i] };
       // await updateColor([i], COLORS.SPECIAL);
-      playAudio(firstUnsorted.value);
+      playAudio();
       await blinkItemDifferentColor(
         [{ index: i, color: COLORS.SPECIAL }],
         COLORS.COMPARE,
-        1
+        2
       );
       let j = i - 1;
       let lastSorted = { ...arr[j] };
@@ -45,7 +45,7 @@ export const useInsertionSort: () => SortAlgorithm = () => {
         if (isStopRef.current) return await stopSort();
         arr = [...itemArrayRef.current];
         // Through a while loop, we go through the sorted array and shift elements to the right, opening up a space for the current element to be inserted.
-        playAudio(lastSorted.value);
+        playAudio();
         await updateColor([j + 1], COLORS.COMPARE);
         await replaceItem(j + 1, { ...arr[j] });
         // Once we find the proper place for it, the current element is inserted into the newly-opened slot. This process is repeated for each iteration until the array is sorted  Cr.https://stackabuse.com/insertion-sort-in-javascript/
