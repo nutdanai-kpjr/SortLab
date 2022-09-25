@@ -44,7 +44,7 @@ export const useInsertionSort: () => SortAlgorithm = () => {
       let j = i - 1;
       let lastSorted = { ...arr[j] };
       setExplainText(
-        `Finding the position to insert ${firstUnsorted.value}...  (Round ${
+        `Finding the position to insert ${firstUnsorted.value}  (Round ${
           i + 1
         })`
       );

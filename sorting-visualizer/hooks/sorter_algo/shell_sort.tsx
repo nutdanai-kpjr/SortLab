@@ -14,6 +14,7 @@ export const useShellSort: () => SortAlgorithm = () => {
     updateColorFromRange,
     blinkItemDifferentColor,
     audioPlayer,
+    setExplainText,
   } = useContext(ArrayCtx);
 
   /* 
@@ -69,6 +70,7 @@ by https://levelup.gitconnected.com/
       // start with select the next candidate to be inserted and then compare it with the previous element in the sorted array; (in case the sorted array is not empty)
 
       for (let i = gap; i < arr.length; i += 1) {
+        setExplainText(`Doing insertion sort with Gap : ${gap}`);
         await colorizeGap(i, gap);
         arr = [...itemArrayRef.current];
         //We store the current varible
@@ -85,6 +87,9 @@ by https://levelup.gitconnected.com/
           ],
           COLORS.COMPARE,
           1
+        );
+        setExplainText(
+          `Finding the position to insert ${firstUnsorted.value} `
         );
         while (j >= 0 && lastSorted.value > firstUnsorted.value) {
           if (isStopRef.current) return await stopSort();
