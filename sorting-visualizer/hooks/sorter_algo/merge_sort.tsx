@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { ArrayCtx } from "../../context/arrayContext";
 import { COLORS, getRandomColor } from "../../styles/color";
 import { Item, SortAlgorithm } from "../sorter_abstract";
+import { useSorterAudio } from "../sorter_audio";
 
 export const useMergeSort: () => SortAlgorithm = () => {
   const {
@@ -12,6 +13,7 @@ export const useMergeSort: () => SortAlgorithm = () => {
     updateColorFromRange,
   } = useContext(ArrayCtx);
 
+  const { playSpecialAudio } = useSorterAudio();
   const info = {
     name: "Merge Sort",
     description:
@@ -25,6 +27,7 @@ export const useMergeSort: () => SortAlgorithm = () => {
 
   const sort = async () => {
     let arr: Item[] = [...itemArrayRef.current];
+
     await mergeSort(arr, 0, arr.length - 1);
     if (!isStopRef.current)
       await updateColorFromRange(0, arr.length - 1, COLORS.SORTED);
@@ -80,12 +83,12 @@ export const useMergeSort: () => SortAlgorithm = () => {
 
       if (L[i].value <= R[j].value) {
         arr[k] = L[i];
-        await replaceItem(k, L[i]);
+        await replaceItem(k, L[i], true);
         i++;
         // animation here
       } else {
         arr[k] = R[j];
-        await replaceItem(k, R[j]);
+        await replaceItem(k, R[j], true);
         j++;
         // animation here
       }
@@ -97,7 +100,7 @@ export const useMergeSort: () => SortAlgorithm = () => {
     while (i < n1) {
       if (isStopRef.current) return await stopSort();
       arr[k] = L[i];
-      await replaceItem(k, L[i]);
+      await replaceItem(k, L[i], true);
       i++;
       k++;
     }
@@ -107,7 +110,7 @@ export const useMergeSort: () => SortAlgorithm = () => {
     while (j < n2) {
       if (isStopRef.current) return await stopSort();
       arr[k] = R[j];
-      await replaceItem(k, R[j]);
+      await replaceItem(k, R[j], true);
       j++;
       k++;
     }

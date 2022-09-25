@@ -17,6 +17,7 @@ export const useSorterAudio = () => {
   const eleventhAudio = useAudio("/audio/note11.mp3");
   const twelfthAudio = useAudio("/audio/note12.mp3");
   const sortedAudio = useAudio("/audio/sorted.wav");
+  const specialAudio = useAudio("/audio/special.wav");
 
   const { animate, speedRef, minItemValue, maxItemValueRef } =
     useContext(ArrayCtx);
@@ -32,10 +33,12 @@ export const useSorterAudio = () => {
   };
   const playSortedAudio = async () => {
     await animate(speedRef.current);
-    console.log("play sorted audio");
-    console.log("With Speed", speedRef.current);
 
     const [isPlaying, toggle] = sortedAudio;
+    toggle();
+  };
+  const playSpecialAudio = async () => {
+    const [isPlaying, toggle] = specialAudio;
     toggle();
   };
 
@@ -84,5 +87,5 @@ export const useSorterAudio = () => {
     toggle();
   };
 
-  return { playAudio, playSortedAudio };
+  return { playAudio, playSortedAudio, playSpecialAudio };
 };

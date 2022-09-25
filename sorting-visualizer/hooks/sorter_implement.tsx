@@ -25,14 +25,16 @@ export const useSortVisualizer: SortVisualizer = () => {
   );
   const { playSortedAudio } = useSorterAudio();
   const { sort, info } = currentSortAlgorithm;
-  const { speed, setSpeed, itemArray, updateSize, setIsStop } =
+  const { speed, setSpeed, itemArray, updateSize, isStopRef, setIsStop } =
     useContext(ArrayCtx);
   const play = async () => {
     // console.log("SortViz Fx ", itemArray.length);
     setIsStop(false);
 
     await sort();
-    await playSortedAudio();
+    if (isStopRef.current) return;
+    playSortedAudio();
+
     // setIsProcessing(false);
   };
   const stop = () => {
