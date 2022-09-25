@@ -71,7 +71,11 @@ const initArrayCtx: IArrayContext = {
   minItemValue: 1,
   maxItemValue: 100,
   maxItemValueRef: { current: 100 },
-  audioPlayer: { toggleAudio: () => {}, playAudio: () => {} },
+  audioPlayer: {
+    toggleAudio: () => {},
+    playAudio: () => {},
+    isAudioOn: false,
+  },
   setItemArray: () => {},
   setSpeed: () => {},
   setIsStop: () => {},

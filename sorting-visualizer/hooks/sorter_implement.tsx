@@ -23,7 +23,7 @@ export const useSortVisualizer: SortVisualizer = () => {
   const [currentSortAlgorithm, setSortAlgorithm] = useState<SortAlgorithm>(
     sortAlgorithms[0]
   );
-  const audioPlayer = useSorterAudio();
+
   const { sort, info } = currentSortAlgorithm;
   const {
     animate,
@@ -33,6 +33,7 @@ export const useSortVisualizer: SortVisualizer = () => {
     updateSize,
     isStopRef,
     setIsStop,
+    audioPlayer,
   } = useContext(ArrayCtx);
   const play = async () => {
     // console.log("SortViz Fx ", itemArray.length);
@@ -50,6 +51,10 @@ export const useSortVisualizer: SortVisualizer = () => {
   };
   const reset = () => {
     updateSize(itemArray.length);
+  };
+
+  const toggleAudio = () => {
+    audioPlayer.toggleAudio();
   };
   const changeSize = async (newSize: number) => {
     updateSize(newSize);
@@ -74,6 +79,7 @@ export const useSortVisualizer: SortVisualizer = () => {
   const getComplexity = () => info.complexity;
   const getArray = () => itemArray;
   const getSpeed = () => speed;
+  const getIsAudioOn = () => audioPlayer.isAudioOn;
   // useEffect(() => {
   //   // console.log("SorterImplement: itemArray changed", itemArray.length);
   // }, [itemArray]);
@@ -85,6 +91,7 @@ export const useSortVisualizer: SortVisualizer = () => {
     play,
     stop,
     reset,
+    toggleAudio,
     changeSize,
     changeSpeed,
     changeSortAlgorithm,
@@ -93,5 +100,6 @@ export const useSortVisualizer: SortVisualizer = () => {
     getComplexity,
     getSpeed,
     getArray,
+    getIsAudioOn,
   };
 };

@@ -17,6 +17,7 @@ export default function BarSet() {
     getComplexity,
     getArray,
     getSpeed,
+    getIsAudioOn,
     sortAlgorithms,
     currentSortAlgorithm,
     changeSortAlgorithm,
@@ -24,6 +25,7 @@ export default function BarSet() {
     changeSpeed,
     stop,
     reset,
+    toggleAudio,
   } = useSortVisualizer();
   const [hydrated, setHydrated] = useState(false);
   useEffect(() => {
@@ -38,7 +40,6 @@ export default function BarSet() {
     <div>
       {/* <h1>{getArray().map((i) => i.value)}</h1> */}
       {/* <h2>{getName()}</h2> */}
-
 
       <div className={styles.barSet}>
         <div className={styles.settingBar}>
@@ -84,6 +85,20 @@ export default function BarSet() {
                 src="/shuffle-icon.svg"
               ></Image>
             </button>
+            <button
+              onClick={() => {
+                toggleAudio();
+              }}
+            >
+              <Image
+                alt="Audio Button"
+                width={40}
+                height={50}
+                src={
+                  getIsAudioOn() ? "/audio-on-icon.svg" : "/audio-off-icon.svg"
+                }
+              ></Image>
+            </button>
           </div>
           <div className={styles.sliderSetting}>
             <Slider
@@ -114,8 +129,6 @@ export default function BarSet() {
         <p>Average case: {getComplexity().averageCase}</p>
         <p>Best case: {getComplexity().bestCase}</p>
       </div>
-
-
 
       {/* <button
         onClick={async () => {

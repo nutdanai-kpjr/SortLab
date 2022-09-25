@@ -5,6 +5,7 @@ import useAudio from "./use_audio";
 import { useStateWithRef } from "./use_state_with_ref";
 
 export interface audioPlayer {
+  isAudioOn: boolean;
   toggleAudio: () => void;
   playAudio: (type: AudioType) => void;
 }
@@ -49,5 +50,5 @@ export const useSorterAudio = () => {
     audio.play();
   };
 
-  return { playAudio, toggleAudio };
+  return { playAudio, toggleAudio, isAudioOn };
 };
