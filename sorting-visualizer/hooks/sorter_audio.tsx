@@ -34,7 +34,6 @@ export const useSorterAudio = ({
 
   const playAudio = (type: AudioType) => {
     let speed = speedRef.current;
-    console.log("Speed", speed);
 
     if (!isAudioOnRef.current) return;
     let audio = defaultAudio;
@@ -53,7 +52,7 @@ export const useSorterAudio = ({
         break;
     }
 
-    if (speed >= 970 && type !== AudioType.Sorted) {
+    if (speed <= 30 && type !== AudioType.Sorted) {
       audio = defaultAudio;
     }
     audio.play();

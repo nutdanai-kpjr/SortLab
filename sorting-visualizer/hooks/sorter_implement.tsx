@@ -40,8 +40,9 @@ export const useSortVisualizer: SortVisualizer = () => {
     setIsStop(false);
 
     await sort();
-    if (isStopRef.current) return;
     await animate(1000);
+    if (isStopRef.current) return;
+
     audioPlayer.playAudio(AudioType.Sorted);
 
     // setIsProcessing(false);

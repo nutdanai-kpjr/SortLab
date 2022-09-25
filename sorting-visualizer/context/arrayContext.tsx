@@ -104,13 +104,13 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
   );
   const minItemValue = 1;
   const [maxItemValue, setMaxItemValue, maxItemValueRef] = useStateWithRef(100);
-  const [speed, setSpeed, speedRef] = useStateWithRef<number>(800);
+  const [speed, setSpeed, speedRef] = useStateWithRef<number>(200);
   const [isStop, setIsStop, isStopRef] = useStateWithRef<boolean>(false);
   const audioPlayer = useSorterAudio({ speedRef: speedRef });
   const animate = async (speed: number) => {
-    const delay: number = maxDelay - speed;
+    // const delay: number = maxDelay - speed;
     // console.log("speed", speed);
-    await new Promise<void>((resolve) => setTimeout(resolve, delay));
+    await new Promise<void>((resolve) => setTimeout(resolve, speed));
   };
 
   // Level 2 :  Medium Level Operations

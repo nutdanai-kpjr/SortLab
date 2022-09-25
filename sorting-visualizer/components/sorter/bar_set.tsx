@@ -107,9 +107,10 @@ export default function BarSet() {
               onValueChanged={changeSize}
             ></Slider>
             <Slider
-              title={`Speed : ${getSpeed()}`}
+              title={`Speed : ${getSpeed() / 1000} sec/step`}
               min={1}
               max={1000}
+              invert={true}
               defaultValue={getSpeed()}
               onValueChanged={changeSpeed}
             ></Slider>
