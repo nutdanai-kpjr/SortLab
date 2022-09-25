@@ -14,6 +14,7 @@ export const useInsertionSort: () => SortAlgorithm = () => {
     updateColorFromRange,
     blinkItemDifferentColor,
     audioPlayer,
+    setExplainText,
   } = useContext(ArrayCtx);
 
   const info = {
@@ -42,6 +43,11 @@ export const useInsertionSort: () => SortAlgorithm = () => {
       );
       let j = i - 1;
       let lastSorted = { ...arr[j] };
+      setExplainText(
+        `Finding the position to insert ${firstUnsorted.value}...  (Round ${
+          i + 1
+        })`
+      );
       while (j >= 0 && lastSorted.value > firstUnsorted.value) {
         if (isStopRef.current) return await stopSort();
         arr = [...itemArrayRef.current];
