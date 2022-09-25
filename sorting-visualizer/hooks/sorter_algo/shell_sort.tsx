@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { ArrayCtx } from "../../context/arrayContext";
 import { COLORS, getRandomColor } from "../../styles/color";
 import { Item, SortAlgorithm } from "../sorter_abstract";
+import { useSorterAudio } from "../sorter_audio";
 
 export const useShellSort: () => SortAlgorithm = () => {
   const {
@@ -13,6 +14,8 @@ export const useShellSort: () => SortAlgorithm = () => {
     updateColorFromRange,
     blinkItemDifferentColor,
   } = useContext(ArrayCtx);
+
+  const { playAudio } = useSorterAudio();
   /* 
 Shell sort is an optimized version of Insertion sort, that basically allows the exchange of items that are far away from another.
 
@@ -71,6 +74,7 @@ by https://levelup.gitconnected.com/
         //We store the current varible
         let firstUnsorted = { ...arr[i] };
         //This is the insection sort to sort the section into order
+        playAudio(firstUnsorted.value);
         let j = i - gap;
         let lastSorted = { ...arr[j] };
 
@@ -86,6 +90,7 @@ by https://levelup.gitconnected.com/
           if (isStopRef.current) return await stopSort();
 
           arr = [...itemArrayRef.current];
+          playAudio(lastSorted.value);
           await updateColor([j + gap], COLORS.COMPARE);
           await replaceItem(j + gap, { ...arr[j] });
           j -= gap;
