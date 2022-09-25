@@ -8,7 +8,7 @@ export const useBubbleSort: () => SortAlgorithm = () => {
   const { itemArrayRef, isStopRef, swapItem, stopSort, updateColor } =
     useContext(ArrayCtx);
   // const itemArrayRef = useRef(itemArray);
-  const { playAudio, playSortedAudio } = useSorterAudio();
+  const { playAudio } = useSorterAudio();
   const info = {
     name: "Bubble Sort",
     description:
@@ -40,15 +40,14 @@ export const useBubbleSort: () => SortAlgorithm = () => {
           await updateColor([j], COLORS.SORTED);
           await swapItem(j, j + 1); // swap j to j+1
         }
-        const maxValue = valueA > valueB ? valueA : valueB;
-        playAudio(maxValue, 0, 100);
+        const biggerValue = valueA > valueB ? valueA : valueB;
+        playAudio(biggerValue);
         await updateColor([j + 1], COLORS.SORTED); // Winner
         await updateColor([j], COLORS.DEFAULT); // Loser
       }
 
       await updateColor([0], COLORS.SORTED); //
     }
-    await playSortedAudio();
   };
   return { sort, info };
 };

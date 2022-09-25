@@ -15,9 +15,13 @@ export interface IArrayContext {
   speedRef: React.MutableRefObject<number>;
   isStop: boolean;
   isStopRef: React.MutableRefObject<boolean>;
+  minItemValue: number;
+  maxItemValue: number;
+  maxItemValueRef: React.MutableRefObject<number>;
   setItemArray: (newState: Item[]) => void;
   setSpeed: (newState: number) => void;
   setIsStop: (newState: boolean) => void;
+  setMaxItemValue: (newState: number) => void;
   animate: (speed: number) => Promise<void>;
   replaceItem: (index: number, newItem: Item) => Promise<void>;
   updateArray: (newArray: Item[]) => Promise<void>;
@@ -58,9 +62,13 @@ const initArrayCtx: IArrayContext = {
   speedRef: { current: 800 },
   isStop: true,
   isStopRef: { current: false },
+  minItemValue: 1,
+  maxItemValue: 100,
+  maxItemValueRef: { current: 100 },
   setItemArray: () => {},
   setSpeed: () => {},
   setIsStop: () => {},
+  setMaxItemValue: () => {},
   animate: () => Promise.resolve(),
   replaceItem: () => Promise.resolve(),
   updateArray: () => Promise.resolve(),
@@ -83,9 +91,11 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
   const [itemArray, setItemArray, itemArrayRef] = useStateWithRef(
     generateRandomItemArray(20)
   );
+  const minItemValue = 1;
+  const [maxItemValue, setMaxItemValue, maxItemValueRef] = useStateWithRef(100);
   const [speed, setSpeed, speedRef] = useStateWithRef<number>(800);
   const [isStop, setIsStop, isStopRef] = useStateWithRef<boolean>(false);
-  const { playAudio } = useSorterAudio();
+
   const animate = async (speed: number) => {
     const delay: number = maxDelay - speed;
     // console.log("speed", speed);
@@ -209,11 +219,15 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
     itemArrayRef,
     speed,
     speedRef,
+    minItemValue,
+    maxItemValue,
+    maxItemValueRef,
     isStop,
     isStopRef,
     setItemArray,
     setSpeed,
     setIsStop,
+    setMaxItemValue,
     animate,
     updateArray,
     updateArrayFromRange,

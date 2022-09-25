@@ -7,18 +7,19 @@ const useAudio = (url: string) => {
   );
   const [playing, setPlaying] = useState(false);
 
-  const toggle = () => setPlaying(!playing);
+  const toggle = () => audio?.play();
 
-  useEffect(() => {
-    playing ? audio?.play() : audio?.pause();
-  }, [playing]);
+  //   useEffect(() => {
+  //     audio?.play();
+  //     playing ? audio?.play() : audio?.pause();
+  //   }, [playing]);
 
-  useEffect(() => {
-    audio?.addEventListener("ended", () => setPlaying(false));
-    return () => {
-      audio?.removeEventListener("ended", () => setPlaying(false));
-    };
-  }, []);
+  //   useEffect(() => {
+  //     audio?.addEventListener("ended", () => setPlaying(false));
+  //     return () => {
+  //       audio?.removeEventListener("ended", () => setPlaying(false));
+  //     };
+  //   }, []);
 
   return [playing, toggle] as const;
 };

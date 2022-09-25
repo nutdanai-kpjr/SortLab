@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { ArrayCtx } from "../../context/arrayContext";
 import { COLORS } from "../../styles/color";
 import { Item, SortAlgorithm } from "../sorter_abstract";
+import { useSorterAudio } from "../sorter_audio";
 
 export const useSelectionSort: () => SortAlgorithm = () => {
   const {
@@ -13,6 +14,7 @@ export const useSelectionSort: () => SortAlgorithm = () => {
     updateDifferentColor,
   } = useContext(ArrayCtx);
 
+  const { playAudio } = useSorterAudio();
   const info = {
     name: "Selection Sort",
     description:
@@ -31,6 +33,7 @@ export const useSelectionSort: () => SortAlgorithm = () => {
       // FInd the smallest element in the unsorted array
       // await updateColor([i], COLORS.COMPARE);
       let min = i;
+
       for (let j = i + 1; j < arr.length; j++) {
         if (isStopRef.current) {
           return await stopSort();
@@ -38,6 +41,7 @@ export const useSelectionSort: () => SortAlgorithm = () => {
         arr = [...itemArrayRef.current]; // refetch the array from context to avoid stale state
         let valueNew = { ...arr[j] }.value;
         let valueMin = { ...arr[min] }.value;
+        playAudio(valueNew);
         await updateDifferentColor([
           { index: min, color: COLORS.SPECIAL },
           { index: j, color: COLORS.COMPARE },
@@ -55,8 +59,10 @@ export const useSelectionSort: () => SortAlgorithm = () => {
       await updateColor([min], COLORS.SPECIAL);
 
       if (min !== i) {
+        playAudio({ ...arr[i] }.value);
         await swapItem(i, min);
       }
+
       await updateColor([i], COLORS.SORTED);
     }
   };

@@ -18,11 +18,12 @@ export const useSorterAudio = () => {
   const twelfthAudio = useAudio("/audio/note12.mp3");
   const sortedAudio = useAudio("/audio/sorted.wav");
 
-  const { animate, speedRef } = useContext(ArrayCtx);
+  const { animate, speedRef, minItemValue, maxItemValueRef } =
+    useContext(ArrayCtx);
   const maxNote = 12;
-  const getAudioFromValue = (value: number, min: number, max: number) => {
-    const range = max - min;
-    const valueRange = value - min;
+  const getAudioFromValue = (value: number) => {
+    const range = maxItemValueRef.current - minItemValue;
+    const valueRange = value - minItemValue;
     const percentage = valueRange / range;
     // get audio no from percentage range from 1-12;
     const audioNo = Math.floor(percentage * maxNote) + 1;
@@ -38,9 +39,8 @@ export const useSorterAudio = () => {
     toggle();
   };
 
-  const playAudio = (value: number, min: number, max: number) => {
-    const audioNo = getAudioFromValue(value, min, max);
-
+  const playAudio = (value: number) => {
+    const audioNo = getAudioFromValue(value);
     let player = firstAudio;
     switch (audioNo) {
       case 1:
