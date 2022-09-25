@@ -14,6 +14,7 @@ export const useQuickSort: () => SortAlgorithm = () => {
     updateColor,
     updateColorFromRange,
     audioPlayer,
+    setExplainText,
   } = useContext(ArrayCtx);
 
   // let pivotNo = 1;
@@ -43,6 +44,7 @@ export const useQuickSort: () => SortAlgorithm = () => {
   const quickSort = async (start: number, end: number) => {
     if (isStopRef.current) return await stopSort();
     if (start >= end) {
+      setExplainText(`Partitioning Finished `);
       return;
     }
     let pivotIndex = await partition(start, end);
@@ -62,10 +64,12 @@ export const useQuickSort: () => SortAlgorithm = () => {
     let arr = [...itemArrayRef.current];
 
     let pivotInsertionIndex = start;
+
     let pivotInitialIndex = end;
 
     let pivot = arr[pivotInitialIndex]; // use last element as pivot election
     audioPlayer.playAudio(AudioType.Default);
+    setExplainText(`Partitioning array by Pivot: ${pivot.value}`);
     await updateColor([pivotInitialIndex], COLORS.SPECIAL);
 
     let leftColor = COLORS.FREE1;

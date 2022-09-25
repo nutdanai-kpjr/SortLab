@@ -208,8 +208,10 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
     playSound = false
   ) => {
     let newArray: Item[] = [...itemArrayRef.current];
+    const IsIdenticalToPrevious = newArray[index].value === newItem.value;
     newArray[index] = newItem;
-    if (playSound) audioPlayer.playAudio(AudioType.Default);
+    if (playSound && !IsIdenticalToPrevious)
+      audioPlayer.playAudio(AudioType.Default);
     await updateArray([...newArray]);
   };
   const blinkItemDifferentColor = async (
