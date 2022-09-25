@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ArrayCtx } from "../context/arrayContext";
 import { Item } from "./sorter_abstract";
 import useAudio from "./use_audio";
@@ -15,7 +15,11 @@ export enum AudioType {
   Special = "special",
   Success = "success",
 }
-export const useSorterAudio = () => {
+export const useSorterAudio = ({
+  speedRef,
+}: {
+  speedRef: React.MutableRefObject<number>;
+}) => {
   const sortedAudio = useAudio("/audio/sorted.wav");
   const specialAudio = useAudio("/audio/special.wav");
   const defaultAudio = useAudio("/audio/default.wav");
@@ -24,13 +28,14 @@ export const useSorterAudio = () => {
   const [isAudioOn, setIsAudioOn, isAudioOnRef] =
     useStateWithRef<boolean>(true);
 
-  const { animate, speedRef } = useContext(ArrayCtx);
-
   const toggleAudio = () => {
     setIsAudioOn(!isAudioOnRef.current);
   };
 
   const playAudio = (type: AudioType) => {
+    let speed = speedRef.current;
+    console.log("Speed", speed);
+
     if (!isAudioOnRef.current) return;
     let audio = defaultAudio;
     switch (type) {
@@ -46,6 +51,10 @@ export const useSorterAudio = () => {
       case AudioType.Success:
         audio = successAudio;
         break;
+    }
+
+    if (speed >= 970 && type !== AudioType.Success) {
+      audio = defaultAudio;
     }
     audio.play();
   };

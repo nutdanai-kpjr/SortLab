@@ -106,7 +106,7 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
   const [maxItemValue, setMaxItemValue, maxItemValueRef] = useStateWithRef(100);
   const [speed, setSpeed, speedRef] = useStateWithRef<number>(800);
   const [isStop, setIsStop, isStopRef] = useStateWithRef<boolean>(false);
-  const audioPlayer = useSorterAudio();
+  const audioPlayer = useSorterAudio({ speedRef: speedRef });
   const animate = async (speed: number) => {
     const delay: number = maxDelay - speed;
     // console.log("speed", speed);
