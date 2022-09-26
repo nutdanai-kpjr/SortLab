@@ -4,7 +4,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 65px;
+  margin-bottom: 45px;
 }
 .links > a:not(:last-child) {
   padding-right: 30px;

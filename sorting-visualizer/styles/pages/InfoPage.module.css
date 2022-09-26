@@ -1,7 +1,6 @@
 .container {
-  margin-top: 8vh;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .textContainer {
@@ -27,7 +26,7 @@
   box-shadow: 0 0 15px rgba(128, 138, 216, 0.5);
 }
 .textContainer h1 {
-  font-size: 6rem;
+  font-size: 4rem;
   font-weight: bold;
   margin: 0;
   padding: 0;
@@ -39,17 +38,18 @@
     drop-shadow(0px 0px 1vw rgba(128, 138, 216, 0.25));
 }
 .textContainer h2 {
-  font-size: 4rem;
+  font-size: 2rem;
   font-weight: bold;
   margin: 0;
   padding: 0;
 }
 .textContainer p {
-  font-size: 1.15rem;
+  font-size: 1rem;
   font-weight: 200;
   line-height: 1.5;
 }
 .imageContainer {
+  margin-top: 30px;
   display: flex;
   flex: 1;
   justify-content: center;
@@ -62,4 +62,22 @@
   filter: drop-shadow(0px 0px 2vw rgba(128, 138, 216, 0.15))
     drop-shadow(0px 0px 3vw rgba(128, 138, 216, 0.15));
   /* box-shadow: 0 0 0 3px rgba(128, 138, 216, 0.5); */
+}
+@media (min-width: 1200px) {
+  .container {
+    margin-top: 8vh;
+    flex-direction: row;
+  }
+  .textContainer h1 {
+    font-size: 6rem;
+  }
+  .textContainer h2 {
+    font-size: 4rem;
+  }
+  .textContainer p {
+    font-size: 1.15rem;
+  }
+  .imageContainer {
+    margin-top: 0px;
+  }
 }
