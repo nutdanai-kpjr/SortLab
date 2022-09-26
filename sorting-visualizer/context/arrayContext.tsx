@@ -21,6 +21,7 @@ export interface IArrayContext {
   maxItemValueRef: React.MutableRefObject<number>;
   explainText: string;
   isShowExplainText: boolean;
+  getIsLeanMode: () => boolean;
   setIsShowExplainText: (isShow: boolean) => void;
   setItemArray: (newState: Item[]) => void;
   setSpeed: (newState: number) => void;
@@ -100,6 +101,7 @@ const initArrayCtx: IArrayContext = {
   blinkItemDifferentColor: () => Promise.resolve(),
   swapItem: () => Promise.resolve(),
   stopSort: () => Promise.resolve(),
+  getIsLeanMode: () => false,
 };
 
 export const ArrayCtx = createContext<IArrayContext>(initArrayCtx);
@@ -241,6 +243,10 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
     await updateColor(indexArr, COLORS.DEFAULT); //change back to original color
     // setIsStop(false);
   };
+
+  const getIsLeanMode = () => {
+    return [...itemArrayRef.current].length > 50;
+  };
   const arrayCtx: IArrayContext = {
     itemArray,
     itemArrayRef,
@@ -272,6 +278,7 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
     replaceItem,
     stopSort,
     audioPlayer,
+    getIsLeanMode,
   };
 
   return <ArrayCtx.Provider value={arrayCtx}> {children}</ArrayCtx.Provider>;

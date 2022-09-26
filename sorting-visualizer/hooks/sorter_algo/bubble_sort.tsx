@@ -11,8 +11,10 @@ export const useBubbleSort: () => SortAlgorithm = () => {
     swapItem,
     stopSort,
     updateColor,
+    updateDifferentColor,
     audioPlayer,
     setExplainText,
+    getIsLeanMode,
   } = useContext(ArrayCtx);
   // const itemArrayRef = useRef(itemArray);
   const info = {
@@ -46,17 +48,19 @@ export const useBubbleSort: () => SortAlgorithm = () => {
             i + 1
           })`
         );
-        await updateColor([j, j + 1], COLORS.COMPARE); // Comparing
+        if (!getIsLeanMode()) await updateColor([j, j + 1], COLORS.COMPARE); // Comparing
         if (valueA > valueB) {
           // console.log(valueA + ">" + valueB + " swap " + j + " to " + (j + 1));
-          await updateColor([j], COLORS.SORTED);
+          if (!getIsLeanMode()) await updateColor([j], COLORS.SORTED);
           await swapItem(j, j + 1); // swazp j to j+1
         }
 
         audioPlayer.playAudio(AudioType.Default);
 
-        await updateColor([j + 1], COLORS.SORTED); // Winner
-        await updateColor([j], COLORS.DEFAULT); // Loser
+        await updateDifferentColor([
+          { index: j, color: COLORS.DEFAULT },
+          { index: j + 1, color: COLORS.SORTED },
+        ]); // Loser, Winner
       }
 
       await updateColor([0], COLORS.SORTED); // update the leftover one element.
