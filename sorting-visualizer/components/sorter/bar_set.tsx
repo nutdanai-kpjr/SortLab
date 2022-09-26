@@ -31,7 +31,7 @@ export default function BarSet() {
     toggleExplainText,
   } = useSortVisualizer();
   const [hydrated, setHydrated] = useState(false);
-  const leanMode = getArray().length >= 50;
+  const leanMode = getArray().length > 50;
   useEffect(() => {
     setHydrated(true);
   }, []);
@@ -124,8 +124,10 @@ export default function BarSet() {
             <Slider
               title={`Array Size : ${getArray().length}`}
               defaultValue={getArray().length}
-              max={1500}
+              max={50}
               onValueChanged={changeSize}
+              isRangeExtendable={true}
+              extendedRange={1500}
             ></Slider>
             <Slider
               title={`Speed : ${getSpeed() / 1000} sec/step`}
