@@ -10,7 +10,6 @@ export const useMergeSort: () => SortAlgorithm = () => {
     stopSort,
     replaceItem,
     updateColorFromRange,
-    updateColorExceptFromRange,
     setExplainText,
   } = useContext(ArrayCtx);
 

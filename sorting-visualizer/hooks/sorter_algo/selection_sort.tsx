@@ -48,6 +48,7 @@ export const useSelectionSort: () => SortAlgorithm = () => {
         setExplainText(
           `Finding the min item : Candidate is ${minValue}  (Round ${i + 1})`
         );
+
         await updateDifferentColor([
           { index: min, color: COLORS.SPECIAL },
           { index: j, color: COLORS.COMPARE },
