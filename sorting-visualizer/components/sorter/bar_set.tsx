@@ -18,6 +18,7 @@ export default function BarSet() {
     getArray,
     getSpeed,
     getIsAudioOn,
+    getIsShowExplainText,
     getExplainText,
     sortAlgorithms,
     currentSortAlgorithm,
@@ -27,6 +28,7 @@ export default function BarSet() {
     stop,
     reset,
     toggleAudio,
+    toggleExplainText,
   } = useSortVisualizer();
   const [hydrated, setHydrated] = useState(false);
   useEffect(() => {
@@ -100,6 +102,22 @@ export default function BarSet() {
                 }
               ></Image>
             </button>
+            <button
+              onClick={() => {
+                toggleExplainText();
+              }}
+            >
+              <Image
+                alt="Show Explain Text Button"
+                width={getIsShowExplainText() ? 40 : 44}
+                height={getIsShowExplainText() ? 50 : 55}
+                src={
+                  getIsShowExplainText()
+                    ? "/explainer-on-icon.svg"
+                    : "/explainer-off-icon.svg"
+                }
+              ></Image>
+            </button>
           </div>
           <div className={styles.sliderSetting}>
             <Slider
@@ -119,7 +137,7 @@ export default function BarSet() {
           <div></div>
         </div>
         <div className={styles.container}>
-          {getExplainText().length > 0 ? (
+          {getIsShowExplainText() && getExplainText().length > 0 ? (
             <div className={styles.explainText}> {getExplainText()}</div>
           ) : (
             <></>

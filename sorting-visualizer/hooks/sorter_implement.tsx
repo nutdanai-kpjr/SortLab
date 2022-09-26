@@ -36,6 +36,8 @@ export const useSortVisualizer: SortVisualizer = () => {
     audioPlayer,
     explainText,
     setExplainText,
+    isShowExplainText,
+    setIsShowExplainText,
   } = useContext(ArrayCtx);
   const play = async () => {
     // console.log("SortViz Fx ", itemArray.length);
@@ -78,6 +80,9 @@ export const useSortVisualizer: SortVisualizer = () => {
     }
     setSortAlgorithm(newSortAlgorithm);
   };
+  const toggleExplainText = () => {
+    setIsShowExplainText(!isShowExplainText);
+  };
 
   const getName = () => info.name;
   const getDescription = () => info.description;
@@ -86,6 +91,7 @@ export const useSortVisualizer: SortVisualizer = () => {
   const getSpeed = () => speed;
   const getIsAudioOn = () => audioPlayer.isAudioOn;
   const getExplainText = () => explainText;
+  const getIsShowExplainText = () => isShowExplainText;
   // useEffect(() => {
   //   // console.log("SorterImplement: itemArray changed", itemArray.length);
   // }, [itemArray]);
@@ -98,6 +104,7 @@ export const useSortVisualizer: SortVisualizer = () => {
     stop,
     reset,
     toggleAudio,
+    toggleExplainText,
     changeSize,
     changeSpeed,
     changeSortAlgorithm,
@@ -108,5 +115,6 @@ export const useSortVisualizer: SortVisualizer = () => {
     getArray,
     getIsAudioOn,
     getExplainText,
+    getIsShowExplainText,
   };
 };

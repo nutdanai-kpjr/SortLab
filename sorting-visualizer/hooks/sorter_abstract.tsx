@@ -9,6 +9,7 @@ export interface SortVisualizer {
     stop(): void;
     reset(): void;
     toggleAudio(): void;
+    toggleExplainText(): void;
     changeSize(newSize: number): void;
     changeSpeed(newSpeed: number): void;
     changeSortAlgorithm(newSortAlgorithmName: string): void;
@@ -17,6 +18,7 @@ export interface SortVisualizer {
     getComplexity(): AlgorithmComplexity;
     getArray(): Item[];
     getIsAudioOn(): boolean;
+    getIsShowExplainText(): boolean;
     getExplainText(): string;
   };
 }

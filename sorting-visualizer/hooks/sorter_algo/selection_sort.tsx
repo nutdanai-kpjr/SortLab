@@ -69,7 +69,7 @@ export const useSelectionSort: () => SortAlgorithm = () => {
         audioPlayer.playAudio(AudioType.Success);
         await swapItem(i, min);
       }
-
+      setExplainText(`Finishing...`);
       await updateColor([i], COLORS.SORTED);
     }
   };

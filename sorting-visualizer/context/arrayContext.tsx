@@ -20,6 +20,8 @@ export interface IArrayContext {
   maxItemValue: number;
   maxItemValueRef: React.MutableRefObject<number>;
   explainText: string;
+  isShowExplainText: boolean;
+  setIsShowExplainText: (isShow: boolean) => void;
   setItemArray: (newState: Item[]) => void;
   setSpeed: (newState: number) => void;
   setIsStop: (newState: boolean) => void;
@@ -79,6 +81,8 @@ const initArrayCtx: IArrayContext = {
     playAudio: () => {},
     isAudioOn: false,
   },
+  isShowExplainText: false,
+  setIsShowExplainText: () => {},
   setItemArray: () => {},
   setSpeed: () => {},
   setIsStop: () => {},
@@ -111,6 +115,7 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
   const [speed, setSpeed, speedRef] = useStateWithRef<number>(200);
   const [isStop, setIsStop, isStopRef] = useStateWithRef<boolean>(false);
   const [explainText, setExplainText] = useState<string>("");
+  const [isShowExplainText, setIsShowExplainText] = useState<boolean>(true);
   const audioPlayer = useSorterAudio({ speedRef: speedRef });
   const animate = async (speed: number) => {
     // const delay: number = maxDelay - speed;
@@ -247,6 +252,8 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
     isStop,
     isStopRef,
     explainText,
+    isShowExplainText,
+    setIsShowExplainText,
     setItemArray,
     setExplainText,
     setSpeed,
