@@ -2,11 +2,9 @@
   /* set flex to be start and justify content to be end */
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
-  /* width: 100%; */
-  /* height: 600px; */
-  /* border: 1px solid black; */
+  margin-bottom: 45px;
 }
 .links > a:not(:last-child) {
   padding-right: 30px;
@@ -30,10 +28,17 @@
 } */
 
 .nav {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-
-  /* border:1px solid black; */
+  flex-direction: column;
+}
+@media (min-width: 1200px) {
+  .nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .links {
+    margin-bottom: 0px;
+    justify-self: space-between;
+  }
 }

@@ -1,6 +1,6 @@
-import React, { createContext } from "react";
+import React, { createContext, useState } from "react";
 import { Item } from "../hooks/sorter_abstract";
-import { useSorterAudio } from "../hooks/sorter_audio";
+import { audioPlayer, AudioType, useSorterAudio } from "../hooks/sorter_audio";
 import { useStateWithRef } from "../hooks/use_state_with_ref";
 import { generateRandomItemArray } from "../hooks/utils";
 import { COLORS } from "../styles/color";
@@ -15,11 +15,26 @@ export interface IArrayContext {
   speedRef: React.MutableRefObject<number>;
   isStop: boolean;
   isStopRef: React.MutableRefObject<boolean>;
+  audioPlayer: audioPlayer;
+  minItemValue: number;
+  maxItemValue: number;
+  maxItemValueRef: React.MutableRefObject<number>;
+  explainText: string;
+  isShowExplainText: boolean;
+  getIsLeanMode: () => boolean;
+  setIsShowExplainText: (isShow: boolean) => void;
   setItemArray: (newState: Item[]) => void;
   setSpeed: (newState: number) => void;
   setIsStop: (newState: boolean) => void;
+  setMaxItemValue: (newState: number) => void;
+  setExplainText: (newState: string) => void;
   animate: (speed: number) => Promise<void>;
-  replaceItem: (index: number, newItem: Item) => Promise<void>;
+
+  replaceItem: (
+    index: number,
+    newItem: Item,
+    playSound?: boolean
+  ) => Promise<void>;
   updateArray: (newArray: Item[]) => Promise<void>;
   updateArrayFromRange: (
     start: number,
@@ -58,9 +73,22 @@ const initArrayCtx: IArrayContext = {
   speedRef: { current: 800 },
   isStop: true,
   isStopRef: { current: false },
+  minItemValue: 1,
+  maxItemValue: 100,
+  maxItemValueRef: { current: 100 },
+  explainText: "",
+  audioPlayer: {
+    toggleAudio: () => {},
+    playAudio: () => {},
+    isAudioOn: false,
+  },
+  isShowExplainText: false,
+  setIsShowExplainText: () => {},
   setItemArray: () => {},
   setSpeed: () => {},
   setIsStop: () => {},
+  setMaxItemValue: () => {},
+  setExplainText: () => {},
   animate: () => Promise.resolve(),
   replaceItem: () => Promise.resolve(),
   updateArray: () => Promise.resolve(),
@@ -73,6 +101,7 @@ const initArrayCtx: IArrayContext = {
   blinkItemDifferentColor: () => Promise.resolve(),
   swapItem: () => Promise.resolve(),
   stopSort: () => Promise.resolve(),
+  getIsLeanMode: () => false,
 };
 
 export const ArrayCtx = createContext<IArrayContext>(initArrayCtx);
@@ -83,13 +112,17 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
   const [itemArray, setItemArray, itemArrayRef] = useStateWithRef(
     generateRandomItemArray(20)
   );
-  const [speed, setSpeed, speedRef] = useStateWithRef<number>(800);
+  const minItemValue = 1;
+  const [maxItemValue, setMaxItemValue, maxItemValueRef] = useStateWithRef(100);
+  const [speed, setSpeed, speedRef] = useStateWithRef<number>(200);
   const [isStop, setIsStop, isStopRef] = useStateWithRef<boolean>(false);
-  const { playAudio } = useSorterAudio();
+  const [explainText, setExplainText] = useState<string>("");
+  const [isShowExplainText, setIsShowExplainText] = useState<boolean>(true);
+  const audioPlayer = useSorterAudio({ speedRef: speedRef });
   const animate = async (speed: number) => {
-    const delay: number = maxDelay - speed;
+    // const delay: number = maxDelay - speed;
     // console.log("speed", speed);
-    await new Promise<void>((resolve) => setTimeout(resolve, delay));
+    await new Promise<void>((resolve) => setTimeout(resolve, speed));
   };
 
   // Level 2 :  Medium Level Operations
@@ -172,14 +205,20 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
     let newArray: Item[] = [...itemArrayRef.current];
 
     [newArray[indexA], newArray[indexB]] = [newArray[indexB], newArray[indexA]];
-    playAudio(indexB, newArray);
+    // playAudio(indexB, newArray);
     await updateArray([...newArray]);
   };
 
-  const replaceItem = async (index: number, newItem: Item) => {
+  const replaceItem = async (
+    index: number,
+    newItem: Item,
+    playSound = false
+  ) => {
     let newArray: Item[] = [...itemArrayRef.current];
+    const IsIdenticalToPrevious = newArray[index].value === newItem.value;
     newArray[index] = newItem;
-    playAudio(index, newArray);
+    if (playSound && !IsIdenticalToPrevious)
+      audioPlayer.playAudio(AudioType.Default);
     await updateArray([...newArray]);
   };
   const blinkItemDifferentColor = async (
@@ -204,16 +243,28 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
     await updateColor(indexArr, COLORS.DEFAULT); //change back to original color
     // setIsStop(false);
   };
+
+  const getIsLeanMode = () => {
+    return [...itemArrayRef.current].length > 50;
+  };
   const arrayCtx: IArrayContext = {
     itemArray,
     itemArrayRef,
     speed,
     speedRef,
+    minItemValue,
+    maxItemValue,
+    maxItemValueRef,
     isStop,
     isStopRef,
+    explainText,
+    isShowExplainText,
+    setIsShowExplainText,
     setItemArray,
+    setExplainText,
     setSpeed,
     setIsStop,
+    setMaxItemValue,
     animate,
     updateArray,
     updateArrayFromRange,
@@ -226,6 +277,8 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
     swapItem,
     replaceItem,
     stopSort,
+    audioPlayer,
+    getIsLeanMode,
   };
 
   return <ArrayCtx.Provider value={arrayCtx}> {children}</ArrayCtx.Provider>;

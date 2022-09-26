@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { ArrayCtx } from "../context/arrayContext";
+import { COLORS } from "../styles/color";
 import { SortAlgorithm, SortVisualizer } from "./sorter_abstract";
 import { useBubbleSort } from "./sorter_algo/bubble_sort";
 import { useHeapSort } from "./sorter_algo/heap_sort";
@@ -8,7 +9,7 @@ import { useMergeSort } from "./sorter_algo/merge_sort";
 import { useQuickSort } from "./sorter_algo/quick_sort";
 import { useSelectionSort } from "./sorter_algo/selection_sort";
 import { useShellSort } from "./sorter_algo/shell_sort";
-import { useSorterAudio } from "./sorter_audio";
+import { AudioType } from "./sorter_audio";
 
 export const useSortVisualizer: SortVisualizer = () => {
   const sortAlgorithms: SortAlgorithm[] = [
@@ -23,23 +24,50 @@ export const useSortVisualizer: SortVisualizer = () => {
   const [currentSortAlgorithm, setSortAlgorithm] = useState<SortAlgorithm>(
     sortAlgorithms[0]
   );
-  const { playAudio } = useSorterAudio();
+  const [isSorting, setIsSorting] = useState<boolean>(false);
   const { sort, info } = currentSortAlgorithm;
-  const { speed, setSpeed, itemArray, updateSize, setIsStop } =
-    useContext(ArrayCtx);
+  const {
+    animate,
+    speed,
+    setSpeed,
+    itemArray,
+    updateSize,
+    isStopRef,
+    setIsStop,
+    audioPlayer,
+    explainText,
+    setExplainText,
+    isShowExplainText,
+    setIsShowExplainText,
+  } = useContext(ArrayCtx);
   const play = async () => {
-    // console.log("SortViz Fx ", itemArray.length);
+    if (isSorting) return;
+    setIsSorting(true);
     setIsStop(false);
     await sort();
+    await animate(1000);
+    if (isStopRef.current) return;
+    setExplainText("Done");
+    audioPlayer.playAudio(AudioType.Sorted);
+    setIsSorting(false);
+
     // setIsProcessing(false);
   };
   const stop = () => {
+    setExplainText("");
     setIsStop(true);
+    setIsSorting(false);
   };
   const reset = () => {
+    setExplainText("");
     updateSize(itemArray.length);
   };
+
+  const toggleAudio = () => {
+    audioPlayer.toggleAudio();
+  };
   const changeSize = async (newSize: number) => {
+    stop();
     updateSize(newSize);
   };
   const changeSpeed = async (newSpeed: number) => {
@@ -56,15 +84,18 @@ export const useSortVisualizer: SortVisualizer = () => {
     }
     setSortAlgorithm(newSortAlgorithm);
   };
+  const toggleExplainText = () => {
+    setIsShowExplainText(!isShowExplainText);
+  };
 
   const getName = () => info.name;
   const getDescription = () => info.description;
   const getComplexity = () => info.complexity;
   const getArray = () => itemArray;
   const getSpeed = () => speed;
-  // useEffect(() => {
-  //   // console.log("SorterImplement: itemArray changed", itemArray.length);
-  // }, [itemArray]);
+  const getIsAudioOn = () => audioPlayer.isAudioOn;
+  const getExplainText = () => explainText;
+  const getIsShowExplainText = () => isShowExplainText;
 
   return {
     sortAlgorithms,
@@ -73,6 +104,8 @@ export const useSortVisualizer: SortVisualizer = () => {
     play,
     stop,
     reset,
+    toggleAudio,
+    toggleExplainText,
     changeSize,
     changeSpeed,
     changeSortAlgorithm,
@@ -81,5 +114,8 @@ export const useSortVisualizer: SortVisualizer = () => {
     getComplexity,
     getSpeed,
     getArray,
+    getIsAudioOn,
+    getExplainText,
+    getIsShowExplainText,
   };
 };

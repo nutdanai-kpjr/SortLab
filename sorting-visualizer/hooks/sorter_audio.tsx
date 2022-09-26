@@ -1,79 +1,62 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ArrayCtx } from "../context/arrayContext";
 import { Item } from "./sorter_abstract";
 import useAudio from "./use_audio";
+import { useStateWithRef } from "./use_state_with_ref";
 
-export const useSorterAudio = () => {
-  const firstAudio = useAudio("/audio/note1.mp3");
-  const secondAudio = useAudio("/audio/note2.mp3");
-  const thirdAudio = useAudio("/audio/note3.mp3");
-  const fourthAudio = useAudio("/audio/note4.mp3");
-  const fifthAudio = useAudio("/audio/note5.mp3");
-  const sixthAudio = useAudio("/audio/note6.mp3");
-  const seventhAudio = useAudio("/audio/note7.mp3");
-  const eighthAudio = useAudio("/audio/note8.mp3");
-  const ninthAudio = useAudio("/audio/note9.mp3");
-  const tenthAudio = useAudio("/audio/note10.mp3");
-  const eleventhAudio = useAudio("/audio/note11.mp3");
-  const twelfthAudio = useAudio("/audio/note12.mp3");
+export interface audioPlayer {
+  isAudioOn: boolean;
+  toggleAudio: () => void;
+  playAudio: (type: AudioType) => void;
+}
+export enum AudioType {
+  Default = "default",
+  Sorted = "sorted",
+  Special = "special",
+  Success = "success",
+}
+export const useSorterAudio = ({
+  speedRef,
+}: {
+  speedRef: React.MutableRefObject<number>;
+}) => {
+  const sortedAudio = useAudio("/audio/sorted.wav");
+  const specialAudio = useAudio("/audio/special.wav");
+  const defaultAudio = useAudio("/audio/default.wav");
+  const successAudio = useAudio("/audio/success.wav");
 
-  const { itemArrayRef, speedRef } = useContext(ArrayCtx);
+  const [isAudioOn, setIsAudioOn, isAudioOnRef] =
+    useStateWithRef<boolean>(true);
 
-  const getAudioNoFromIndex = (index: number, arr: Item[]) => {
-    const n = arr.length;
-    console.log("totalLength", n);
-    // console.log((index + 1) / totalLength);
-
-    const audioNo = Math.ceil(((index + 1) / n) * 12);
-    return audioNo;
+  const toggleAudio = () => {
+    setIsAudioOn(!isAudioOnRef.current);
   };
-  const playAudio = (index: number, arr: Item[]) => {
-    const audioNo = getAudioNoFromIndex(index, arr);
-    console.log(audioNo);
-    console.log(index);
 
-    let player = firstAudio;
-    switch (audioNo) {
-      case 1:
-        player = firstAudio;
+  const playAudio = (type: AudioType) => {
+    let speed = speedRef.current;
+
+    if (!isAudioOnRef.current) return;
+    let audio = defaultAudio;
+    switch (type) {
+      case AudioType.Default:
+        audio = defaultAudio;
         break;
-      case 2:
-        player = secondAudio;
+      case AudioType.Sorted:
+        audio = sortedAudio;
         break;
-      case 3:
-        player = thirdAudio;
+      case AudioType.Special:
+        audio = specialAudio;
         break;
-      case 4:
-        player = fourthAudio;
-        break;
-      case 5:
-        player = fifthAudio;
-        break;
-      case 6:
-        player = sixthAudio;
-        break;
-      case 7:
-        player = seventhAudio;
-        break;
-      case 8:
-        player = eighthAudio;
-        break;
-      case 9:
-        player = ninthAudio;
-        break;
-      case 10:
-        player = tenthAudio;
-        break;
-      case 11:
-        player = eleventhAudio;
-        break;
-      case 12:
-        player = twelfthAudio;
+      case AudioType.Success:
+        audio = successAudio;
         break;
     }
-    const [playing, toggle] = player;
-    toggle();
+
+    if (speed <= 30 && type !== AudioType.Sorted) {
+      audio = defaultAudio;
+    }
+    audio.play();
   };
 
-  return { playAudio };
+  return { playAudio, toggleAudio, isAudioOn };
 };

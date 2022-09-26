@@ -5,7 +5,13 @@ import styles from "../../styles/NavBar.module.css";
 export default function NavBar() {
   return (
     <nav className={styles.nav}>
-      <h1 className={styles.logo}>Sorting Viz</h1>
+      <Link href="/">
+        <a>
+          {" "}
+          <h1 className={styles.logo}>Sorting Viz</h1>
+        </a>
+      </Link>
+
       <div className={styles.links}>
         {" "}
         <Link href="/landing">

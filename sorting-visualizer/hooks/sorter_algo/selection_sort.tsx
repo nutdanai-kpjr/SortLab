@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { ArrayCtx } from "../../context/arrayContext";
 import { COLORS } from "../../styles/color";
 import { Item, SortAlgorithm } from "../sorter_abstract";
+import { AudioType, useSorterAudio } from "../sorter_audio";
 
 export const useSelectionSort: () => SortAlgorithm = () => {
   const {
@@ -11,6 +12,8 @@ export const useSelectionSort: () => SortAlgorithm = () => {
     stopSort,
     updateColor,
     updateDifferentColor,
+    audioPlayer,
+    setExplainText,
   } = useContext(ArrayCtx);
 
   const info = {
@@ -31,13 +34,21 @@ export const useSelectionSort: () => SortAlgorithm = () => {
       // FInd the smallest element in the unsorted array
       // await updateColor([i], COLORS.COMPARE);
       let min = i;
+
       for (let j = i + 1; j < arr.length; j++) {
         if (isStopRef.current) {
           return await stopSort();
         }
+
         arr = [...itemArrayRef.current]; // refetch the array from context to avoid stale state
         let valueNew = { ...arr[j] }.value;
         let valueMin = { ...arr[min] }.value;
+        let minValue = Math.min(valueNew, valueMin);
+        audioPlayer.playAudio(AudioType.Default);
+        setExplainText(
+          `Finding the min item : Candidate is ${minValue}  (Round ${i + 1})`
+        );
+
         await updateDifferentColor([
           { index: min, color: COLORS.SPECIAL },
           { index: j, color: COLORS.COMPARE },
@@ -46,6 +57,7 @@ export const useSelectionSort: () => SortAlgorithm = () => {
         if (valueNew < valueMin) {
           await updateColor([min], COLORS.DEFAULT);
           min = j;
+          audioPlayer.playAudio(AudioType.Default);
           await updateColor([min], COLORS.SPECIAL);
         } else {
           await updateColor([j, min], COLORS.DEFAULT); // Loser
@@ -55,8 +67,10 @@ export const useSelectionSort: () => SortAlgorithm = () => {
       await updateColor([min], COLORS.SPECIAL);
 
       if (min !== i) {
+        audioPlayer.playAudio(AudioType.Success);
         await swapItem(i, min);
       }
+      setExplainText(`Finishing...`);
       await updateColor([i], COLORS.SORTED);
     }
   };

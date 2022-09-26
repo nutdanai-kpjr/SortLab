@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { ArrayCtx } from "../../context/arrayContext";
 import { COLORS, getGradientColor } from "../../styles/color";
 import { Item, SortAlgorithm } from "../sorter_abstract";
+import { AudioType, useSorterAudio } from "../sorter_audio";
 
 export const useHeapSort: () => SortAlgorithm = () => {
   const {
@@ -14,8 +15,10 @@ export const useHeapSort: () => SortAlgorithm = () => {
     updateArrayFromRange,
     blinkItemDifferentColor,
     replaceItem,
+    audioPlayer,
+    setExplainText,
+    getIsLeanMode,
   } = useContext(ArrayCtx);
-
   const info = {
     name: "Heap Sort",
     description:
@@ -42,7 +45,10 @@ export const useHeapSort: () => SortAlgorithm = () => {
       let item = itemArrayRef.current[arrIndex];
       // update color based on heap level on orginal arr (not heap array)
       let itemHeapLevel = this.getHeapLevel(arrIndex);
-      let color = getGradientColor(itemHeapLevel + 1); //gradient level start from 1st level
+      let color = getGradientColor(
+        itemHeapLevel + 1,
+        getIsLeanMode() ? 10 : 40
+      ); //gradient level start from 1st level
       await updateColor([arrIndex], color);
 
       this.heap.push(item);
@@ -64,8 +70,10 @@ export const useHeapSort: () => SortAlgorithm = () => {
       await updateArrayFromRange(start, end, this.heap); // update heap array into orginal array (after remove root)
 
       let lastItem = this.heap.pop();
+
       if (lastItem) {
         this.heap.unshift(lastItem);
+
         await updateArrayFromRange(start, end, this.heap); // update heap array into orginal array (after replace new root with last element)
       }
 
@@ -81,7 +89,9 @@ export const useHeapSort: () => SortAlgorithm = () => {
         lastItemIndex > 0 &&
         this.isSmaller(lastItemIndex, parentOfLastItemIndex)
       ) {
-        // we want fmin at top , so swap if child is smaller than parent
+        setExplainText("Heapifying up...");
+        audioPlayer.playAudio(AudioType.Default);
+        // we want min at top , so swap if child is smaller than parent
         await swapItem(lastItemIndex, parentOfLastItemIndex); // swap on orginal array
         this.swap(lastItemIndex, parentOfLastItemIndex); // swap on heap array
         lastItemIndex = parentOfLastItemIndex;
@@ -125,7 +135,8 @@ export const useHeapSort: () => SortAlgorithm = () => {
             ? leftChildIndex
             : rightChildIndex;
         }
-
+        setExplainText("Heapifying down...");
+        audioPlayer.playAudio(AudioType.Default);
         this.swap(rootIndex, smallerChildIndex);
         await updateArrayFromRange(start, end, this.heap); // update heap array into orginal array (after swap)
         rootIndex = smallerChildIndex;
@@ -136,8 +147,14 @@ export const useHeapSort: () => SortAlgorithm = () => {
     }
     swap(a: number, b: number) {
       [this.heap[a], this.heap[b]] = [this.heap[b], this.heap[a]];
-      this.heap[a].color = getGradientColor(this.getHeapLevel(a) + 1); // swap gradient color as well
-      this.heap[b].color = getGradientColor(this.getHeapLevel(b) + 1);
+      this.heap[a].color = getGradientColor(
+        this.getHeapLevel(a) + 1,
+        getIsLeanMode() ? 10 : 40
+      ); // swap gradient color as well
+      this.heap[b].color = getGradientColor(
+        this.getHeapLevel(b) + 1,
+        getIsLeanMode() ? 10 : 40
+      );
     }
     getParentIndex = (index: number) => Math.floor((index - 1) / 2);
     getLeftChildIndex = (index: number) => 2 * index + 1;
@@ -189,15 +206,26 @@ export const useHeapSort: () => SortAlgorithm = () => {
 
     for (let i = 0; i < arr.length; i++) {
       if (isStopRef.current) return await stopSort();
+
+      setExplainText(`Adding (${arr[i].value}) from heap`);
       await minHeap.add(i);
     }
     await updateArray(minHeap.heap);
     for (let i = 0; i < arr.length; i++) {
       if (isStopRef.current) return await stopSort();
+      // setExplainText("Removing items from heap");
       let item = await minHeap.remove(i + 1, arr.length - 1);
       if (item) {
         if (i < arr.length - 1) {
+          // playAudio(item.value);
+
           await replaceItem(i, item);
+          arr = [...itemArrayRef.current];
+          setExplainText(
+            `Removing root (${arr[i + 1].value}) and Replace it with last (${
+              arr[arr.length - 1].value
+            })`
+          );
           await blinkItemDifferentColor(
             [
               { index: i + 1, color: COLORS.FREE1 },
@@ -209,6 +237,7 @@ export const useHeapSort: () => SortAlgorithm = () => {
         } else {
           await updateColor([i], COLORS.SORTED);
         }
+        audioPlayer.playAudio(AudioType.Success);
 
         // sorted.push(item);
       }

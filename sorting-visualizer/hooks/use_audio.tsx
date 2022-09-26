@@ -3,24 +3,13 @@ import { useMemo, useEffect, useState } from "react";
 const useAudio = (url: string) => {
   const audio = useMemo<HTMLAudioElement | undefined>(
     () => (typeof Audio !== "undefined" ? new Audio(url) : undefined),
-    []
+    [url]
   );
   const [playing, setPlaying] = useState(false);
 
-  const toggle = () => setPlaying(!playing);
+  const play = () => audio?.play();
 
-  useEffect(() => {
-    playing ? audio?.play() : audio?.pause();
-  }, [playing]);
-
-  useEffect(() => {
-    audio?.addEventListener("ended", () => setPlaying(false));
-    return () => {
-      audio?.removeEventListener("ended", () => setPlaying(false));
-    };
-  }, []);
-
-  return [playing, toggle] as const;
+  return { play };
 };
 
 export default useAudio;

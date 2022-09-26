@@ -2,12 +2,20 @@ import { useContext } from "react";
 import { ArrayCtx } from "../../context/arrayContext";
 import { COLORS } from "../../styles/color";
 import { Item, SortAlgorithm } from "../sorter_abstract";
+import { AudioType, useSorterAudio } from "../sorter_audio";
 
 export const useBubbleSort: () => SortAlgorithm = () => {
-  const { itemArrayRef, isStopRef, swapItem, stopSort, updateColor } =
-    useContext(ArrayCtx);
+  const {
+    itemArrayRef,
+    isStopRef,
+    swapItem,
+    stopSort,
+    updateColor,
+    updateDifferentColor,
+    audioPlayer,
+    setExplainText,
+  } = useContext(ArrayCtx);
   // const itemArrayRef = useRef(itemArray);
-
   const info = {
     name: "Bubble Sort",
     description:
@@ -33,16 +41,28 @@ export const useBubbleSort: () => SortAlgorithm = () => {
 
         let valueA = { ...arr[j] }.value;
         let valueB = { ...arr[j + 1] }.value;
+        let maxValue = Math.max(valueA, valueB);
+        setExplainText(
+          `Moving the max item into proper place : Candidate is ${maxValue} (Round ${
+            i + 1
+          })`
+        );
         await updateColor([j, j + 1], COLORS.COMPARE); // Comparing
         if (valueA > valueB) {
           // console.log(valueA + ">" + valueB + " swap " + j + " to " + (j + 1));
           await updateColor([j], COLORS.SORTED);
-          await swapItem(j, j + 1); // swap j to j+1
+          await swapItem(j, j + 1); // swazp j to j+1
         }
-        await updateColor([j + 1], COLORS.SORTED); // Winner
-        await updateColor([j], COLORS.DEFAULT); // Loser
+
+        audioPlayer.playAudio(AudioType.Default);
+
+        await updateDifferentColor([
+          { index: j, color: COLORS.DEFAULT },
+          { index: j + 1, color: COLORS.SORTED },
+        ]); // Loser, Winner
       }
-      await updateColor([0], COLORS.SORTED); //
+
+      await updateColor([0], COLORS.SORTED); // update the leftover one element.
     }
   };
   return { sort, info };

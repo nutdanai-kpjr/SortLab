@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { ArrayCtx } from "../../context/arrayContext";
 import { COLORS, getRandomColor } from "../../styles/color";
 import { Item, SortAlgorithm } from "../sorter_abstract";
+import { AudioType, useSorterAudio } from "../sorter_audio";
 
 export const useShellSort: () => SortAlgorithm = () => {
   const {
@@ -12,7 +13,10 @@ export const useShellSort: () => SortAlgorithm = () => {
     updateColor,
     updateColorFromRange,
     blinkItemDifferentColor,
+    audioPlayer,
+    setExplainText,
   } = useContext(ArrayCtx);
+
   /* 
 Shell sort is an optimized version of Insertion sort, that basically allows the exchange of items that are far away from another.
 
@@ -66,11 +70,13 @@ by https://levelup.gitconnected.com/
       // start with select the next candidate to be inserted and then compare it with the previous element in the sorted array; (in case the sorted array is not empty)
 
       for (let i = gap; i < arr.length; i += 1) {
+        setExplainText(`Doing insertion sort with Gap : ${gap}`);
         await colorizeGap(i, gap);
         arr = [...itemArrayRef.current];
         //We store the current varible
         let firstUnsorted = { ...arr[i] };
         //This is the insection sort to sort the section into order
+        audioPlayer.playAudio(AudioType.Default);
         let j = i - gap;
         let lastSorted = { ...arr[j] };
 
@@ -82,10 +88,14 @@ by https://levelup.gitconnected.com/
           COLORS.COMPARE,
           1
         );
+        setExplainText(
+          `Finding the position to insert ${firstUnsorted.value} `
+        );
         while (j >= 0 && lastSorted.value > firstUnsorted.value) {
           if (isStopRef.current) return await stopSort();
 
           arr = [...itemArrayRef.current];
+          audioPlayer.playAudio(AudioType.Default);
           await updateColor([j + gap], COLORS.COMPARE);
           await replaceItem(j + gap, { ...arr[j] });
           j -= gap;
@@ -94,6 +104,7 @@ by https://levelup.gitconnected.com/
         // right now, j+gap is the index where we want to insert the firstUnsorted in the sorted array
 
         await replaceItem(j + gap, firstUnsorted);
+        audioPlayer.playAudio(AudioType.Success);
         await updateColor([j + gap], COLORS.SORTED);
         await updateColorFromRange(0, arr.length - 1, COLORS.DEFAULT);
       }

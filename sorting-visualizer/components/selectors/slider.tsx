@@ -6,22 +6,46 @@ export const Slider = ({
   title,
   onValueChanged,
   defaultValue,
+  invert = false,
   min = 2,
   max = 50,
+  extendedRange = 50,
+  isRangeExtendable = false,
 }: {
   title: string;
   onValueChanged: (n: number) => void;
   defaultValue: number;
+  invert?: boolean;
+  isRangeExtendable?: boolean;
+  extendedRange?: number;
   min?: number;
   max?: number;
 }) => {
+  const [maxValue, setMaxValue] = useState(max);
+  const [isExtend, setExtend] = useState(false);
+  const toggleExtend = () => {
+    if (isRangeExtendable) {
+      setExtend(!isExtend);
+      if (isExtend) onValueChanged(max);
+      setMaxValue(isExtend ? max : extendedRange);
+    }
+  };
   const handleChange = (size: number) => {
     onValueChanged(size);
   };
 
   return (
     <div className={styles.container}>
-      <div className={styles.title}>{title}</div>
+      <div className={styles.title}>
+        {title}{" "}
+        {isRangeExtendable && (
+          <button onClick={toggleExtend}>
+            {" "}
+            {!isExtend ? "Extend" : "Reduce"}
+          </button>
+        )}
+      </div>
+
       <style>{`
         .customSlider-track {
           /* Top value to align your track to the center of your thumb */
@@ -51,15 +75,32 @@ export const Slider = ({
         .customSlider-thumb:hover {
           box-shadow: 0 0 0 8px rgb(104, 117, 217, 0.2);
         }
+        .customSlider-track-inverse {
+          /* Top value to align your track to the center of your thumb */
+          top: 8px;
+          /* thickness of the track */
+          height: 4px;
+          /* color of the track before the thumb */
+          background: rgb(104, 117, 217);
+        }
+
+        .customSlider-track-inverse.customSlider-track-inverse-0 {
+          /* default color of your track */
+          background: #ddd;
+   
+        }
       `}</style>
       <ReactSlider
         min={min}
-        max={max}
+        max={maxValue}
+        invert={invert}
         value={defaultValue}
         onChange={handleChange}
         ariaLabelledby="slider-label"
         thumbClassName="customSlider-thumb"
-        trackClassName="customSlider-track"
+        trackClassName={
+          invert ? "customSlider-track-inverse" : "customSlider-track"
+        }
         renderThumb={(props, state) => <div {...props}></div>}
       />
     </div>

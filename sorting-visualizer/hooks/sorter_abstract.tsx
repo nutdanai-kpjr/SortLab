@@ -8,6 +8,8 @@ export interface SortVisualizer {
     play(): Promise<void>;
     stop(): void;
     reset(): void;
+    toggleAudio(): void;
+    toggleExplainText(): void;
     changeSize(newSize: number): void;
     changeSpeed(newSpeed: number): void;
     changeSortAlgorithm(newSortAlgorithmName: string): void;
@@ -15,6 +17,9 @@ export interface SortVisualizer {
     getDescription(): string;
     getComplexity(): AlgorithmComplexity;
     getArray(): Item[];
+    getIsAudioOn(): boolean;
+    getIsShowExplainText(): boolean;
+    getExplainText(): string;
   };
 }
 

@@ -10,6 +10,7 @@ export const useMergeSort: () => SortAlgorithm = () => {
     stopSort,
     replaceItem,
     updateColorFromRange,
+    setExplainText,
   } = useContext(ArrayCtx);
 
   const info = {
@@ -25,6 +26,7 @@ export const useMergeSort: () => SortAlgorithm = () => {
 
   const sort = async () => {
     let arr: Item[] = [...itemArrayRef.current];
+
     await mergeSort(arr, 0, arr.length - 1);
     if (!isStopRef.current)
       await updateColorFromRange(0, arr.length - 1, COLORS.SORTED);
@@ -34,17 +36,23 @@ export const useMergeSort: () => SortAlgorithm = () => {
   // of arr to be sorted */
   const mergeSort = async (arr: Item[], l: number, r: number) => {
     if (isStopRef.current) return await stopSort();
+
     if (l >= r) {
       return; //  If the array has only one element (l , r is point at the same), return
       // why? because we need to have at least 2 elements to merge
     }
-
     let m = l + Math.floor((r - l) / 2); //divide the array into two halves
+    let n1 = m - l + 1; // size of the left subarray (l to m) we need to +1 because we need to include the m
+    let n2 = r - m; // size of the right subarray
+    setExplainText(
+      `Dividing Array into two subarrays(left: ${n1} items, right: ${n2} items)`
+    );
     await updateColorFromRange(l, m, getRandomColor());
     await updateColorFromRange(m + 1, r, getRandomColor());
 
     await mergeSort(arr, l, m); // start to middle of the array (left)
     await mergeSort(arr, m + 1, r); // middle+1 to end of the array (right)
+
     await merge(arr, l, m, r); // merge the two halves
   };
   // Merges two subarrays of arr[].
@@ -55,7 +63,7 @@ export const useMergeSort: () => SortAlgorithm = () => {
 
     let n1 = m - l + 1; // size of the left subarray (l to m) we need to +1 because we need to include the m
     let n2 = r - m; // size of the right subarray
-
+    setExplainText(`Merging sub array into array of ${n1 + n2} items`);
     // Create temp arrays
     let L = new Array(n1);
     let R = new Array(n2);
@@ -80,12 +88,12 @@ export const useMergeSort: () => SortAlgorithm = () => {
 
       if (L[i].value <= R[j].value) {
         arr[k] = L[i];
-        await replaceItem(k, L[i]);
+        await replaceItem(k, L[i], true);
         i++;
         // animation here
       } else {
         arr[k] = R[j];
-        await replaceItem(k, R[j]);
+        await replaceItem(k, R[j], true);
         j++;
         // animation here
       }
@@ -97,7 +105,7 @@ export const useMergeSort: () => SortAlgorithm = () => {
     while (i < n1) {
       if (isStopRef.current) return await stopSort();
       arr[k] = L[i];
-      await replaceItem(k, L[i]);
+      await replaceItem(k, L[i], true);
       i++;
       k++;
     }
@@ -107,11 +115,12 @@ export const useMergeSort: () => SortAlgorithm = () => {
     while (j < n2) {
       if (isStopRef.current) return await stopSort();
       arr[k] = R[j];
-      await replaceItem(k, R[j]);
+      await replaceItem(k, R[j], true);
       j++;
       k++;
     }
     if (isStopRef.current) return await stopSort();
+
     await updateColorFromRange(l, r, getRandomColor());
   };
 
