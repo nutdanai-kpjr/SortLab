@@ -17,6 +17,7 @@ export const useHeapSort: () => SortAlgorithm = () => {
     replaceItem,
     audioPlayer,
     setExplainText,
+    getIsLeanMode,
   } = useContext(ArrayCtx);
   const info = {
     name: "Heap Sort",
@@ -44,7 +45,10 @@ export const useHeapSort: () => SortAlgorithm = () => {
       let item = itemArrayRef.current[arrIndex];
       // update color based on heap level on orginal arr (not heap array)
       let itemHeapLevel = this.getHeapLevel(arrIndex);
-      let color = getGradientColor(itemHeapLevel + 1); //gradient level start from 1st level
+      let color = getGradientColor(
+        itemHeapLevel + 1,
+        getIsLeanMode() ? 10 : 40
+      ); //gradient level start from 1st level
       await updateColor([arrIndex], color);
 
       this.heap.push(item);
@@ -143,8 +147,14 @@ export const useHeapSort: () => SortAlgorithm = () => {
     }
     swap(a: number, b: number) {
       [this.heap[a], this.heap[b]] = [this.heap[b], this.heap[a]];
-      this.heap[a].color = getGradientColor(this.getHeapLevel(a) + 1); // swap gradient color as well
-      this.heap[b].color = getGradientColor(this.getHeapLevel(b) + 1);
+      this.heap[a].color = getGradientColor(
+        this.getHeapLevel(a) + 1,
+        getIsLeanMode() ? 10 : 40
+      ); // swap gradient color as well
+      this.heap[b].color = getGradientColor(
+        this.getHeapLevel(b) + 1,
+        getIsLeanMode() ? 10 : 40
+      );
     }
     getParentIndex = (index: number) => Math.floor((index - 1) / 2);
     getLeftChildIndex = (index: number) => 2 * index + 1;
