@@ -2,9 +2,9 @@
   /* border: 1px solid ?; */
   width: 50px;
   min-height: 20px;
-  min-width: 2px;
+  min-width: 1px;
   text-align: center;
-  margin-left: 5px;
+
   color: white;
   font-size: 12px;
 }

@@ -31,6 +31,7 @@ export default function BarSet() {
     toggleExplainText,
   } = useSortVisualizer();
   const [hydrated, setHydrated] = useState(false);
+  const leanMode = getArray().length >= 50;
   useEffect(() => {
     setHydrated(true);
   }, []);
@@ -123,6 +124,7 @@ export default function BarSet() {
             <Slider
               title={`Array Size : ${getArray().length}`}
               defaultValue={getArray().length}
+              max={1500}
               onValueChanged={changeSize}
             ></Slider>
             <Slider
@@ -143,7 +145,7 @@ export default function BarSet() {
             <></>
           )}
           {getArray().map((v, i) => (
-            <Bar key={i} value={v.value} color={v.color} />
+            <Bar key={i} value={v.value} color={v.color} leanMode={leanMode} />
           ))}
         </div>
       </div>
