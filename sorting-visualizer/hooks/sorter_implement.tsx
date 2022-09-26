@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { ArrayCtx } from "../context/arrayContext";
+import { COLORS } from "../styles/color";
 import { SortAlgorithm, SortVisualizer } from "./sorter_abstract";
 import { useBubbleSort } from "./sorter_algo/bubble_sort";
 import { useHeapSort } from "./sorter_algo/heap_sort";
@@ -23,7 +24,7 @@ export const useSortVisualizer: SortVisualizer = () => {
   const [currentSortAlgorithm, setSortAlgorithm] = useState<SortAlgorithm>(
     sortAlgorithms[0]
   );
-
+  const [isSorting, setIsSorting] = useState<boolean>(false);
   const { sort, info } = currentSortAlgorithm;
   const {
     animate,
@@ -40,20 +41,22 @@ export const useSortVisualizer: SortVisualizer = () => {
     setIsShowExplainText,
   } = useContext(ArrayCtx);
   const play = async () => {
-    // console.log("SortViz Fx ", itemArray.length);
+    if (isSorting) return;
+    setIsSorting(true);
     setIsStop(false);
-
     await sort();
     await animate(1000);
     if (isStopRef.current) return;
     setExplainText("Done");
     audioPlayer.playAudio(AudioType.Sorted);
+    setIsSorting(false);
 
     // setIsProcessing(false);
   };
   const stop = () => {
     setExplainText("");
     setIsStop(true);
+    setIsSorting(false);
   };
   const reset = () => {
     setExplainText("");
@@ -64,6 +67,7 @@ export const useSortVisualizer: SortVisualizer = () => {
     audioPlayer.toggleAudio();
   };
   const changeSize = async (newSize: number) => {
+    stop();
     updateSize(newSize);
   };
   const changeSpeed = async (newSpeed: number) => {
@@ -92,9 +96,6 @@ export const useSortVisualizer: SortVisualizer = () => {
   const getIsAudioOn = () => audioPlayer.isAudioOn;
   const getExplainText = () => explainText;
   const getIsShowExplainText = () => isShowExplainText;
-  // useEffect(() => {
-  //   // console.log("SorterImplement: itemArray changed", itemArray.length);
-  // }, [itemArray]);
 
   return {
     sortAlgorithms,

@@ -138,7 +138,6 @@ export default function BarSet() {
               onValueChanged={changeSpeed}
             ></Slider>
           </div>
-          <div></div>
         </div>
         <div className={styles.container}>
           {getIsShowExplainText() && getExplainText().length > 0 ? (
@@ -158,28 +157,6 @@ export default function BarSet() {
         <p>Average case: {getComplexity().averageCase}</p>
         <p>Best case: {getComplexity().bestCase}</p>
       </div>
-
-      {/* <button
-        onClick={async () => {
-      await handleStop();
-        }}
-      >
-        Stop
-      </button>
-      <button
-        onClick={async () => {
-          await handleShuffle();
-        }}
-      >
-        Shuffle
-      </button>
-      <button
-        onClick={async () => {
-          await handleGenerate();
-        }}
-      >
-        Generate
-      </button> */}
     </div>
   );
 }

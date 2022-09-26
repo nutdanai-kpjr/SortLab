@@ -4,12 +4,17 @@
   min-height: 20px;
   min-width: 1px;
   text-align: center;
-
-  color: white;
-  font-size: 12px;
+  color: transparent;
 }
 
 .container:hover {
   box-sizing: border-box;
   border: 1px solid black;
+}
+
+@media (min-width: 1200px) {
+  .container {
+    color: white;
+    font-size: 12px;
+  }
 }

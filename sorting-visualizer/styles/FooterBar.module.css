@@ -6,19 +6,17 @@
 }
 
 .links > a {
-  font-size: 0.75rem;
+  font-size: 0.6rem;
+  padding-right: 5px;
 }
 .links > a:hover {
   /* font-size: 1rem; */
   color: var(--primary-color);
 }
-.links > a:not(:last-child) {
-  padding-right: 15px;
-}
 
 .copyRight {
-  font-size: 0.75rem;
-  padding-right: 15px;
+  font-size: 0.6rem;
+  padding-right: 5px;
 }
 
 .footer {
@@ -28,4 +26,16 @@
   align-items: center;
   margin-bottom: 10px;
   /* border:1px solid black; */
+}
+@media (min-width: 1200px) {
+  .links > a {
+    font-size: 0.75rem;
+  }
+  .copyRight {
+    font-size: 0.75rem;
+    padding-right: 15px;
+  }
+  .links > a:not(:last-child) {
+    padding-right: 15px;
+  }
 }
