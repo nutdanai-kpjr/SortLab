@@ -79,15 +79,6 @@ arrows
   }
   )
 
-  it('8. After finish sorting, all item in array should be green,', () => {
-    
-    
-   cy.get('[data-cy="play-button"]').click()
-    cy.wait(3000)
-    for ( let i = 0 ; i<10 ; i++){
-      cy.get('[data-cy="bar-'+i+'"]').should('have.css', 'background-color', 'rgb(76, 175, 80)')
-    }
-  })
 
   it('Reset button should reset all item to primary color', () => {
     cy.get('[data-cy="reset-button"]').click()
@@ -98,10 +89,29 @@ arrows
   it('Audio button should toggleable', () => {
     cy.get('[data-cy="audio-button"]').click()
     cy.get('[alt="Audio Off Button"]').should('be.visible')
+    cy.get('[data-cy="audio-button"]').click()
   })
   it('Explain Text button should toggleable', () => {
     cy.get('[data-cy="explain-button"]').click()
     cy.get('[alt="Hide Explain Text Button"]').should('be.visible')
+    cy.get('[data-cy="explain-button"]').click()
+  })
+
+  it('All Sort algorithm should return green array', () => {
+    // cy.get('[data-cy="algorithm-dropdown"]').click()
+    cy.get('[data-cy="algorithm-dropdown"]').find('option').each(($el, index, $list) => {
+      const sortingAlgorithm = $el.text()
+      cy.get('[data-cy="algorithm-dropdown"]').select(sortingAlgorithm)
+
+
+  
+      cy.get('[data-cy="play-button"]').click()
+      cy.wait(3000)
+      for ( let i = 0 ; i<10 ; i++){
+        cy.get('[data-cy="bar-'+i+'"]').should('have.css', 'background-color', 'rgb(76, 175, 80)')
+      }
+      cy.get('[data-cy="reset-button"]').click()
+    })
   })
 
   
