@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { ArrayCtx } from "../context/arrayContext";
+import { COLORS } from "../styles/color";
 import { SortAlgorithm, SortVisualizer } from "./sorter_abstract";
 import { useBubbleSort } from "./sorter_algo/bubble_sort";
 import { useHeapSort } from "./sorter_algo/heap_sort";

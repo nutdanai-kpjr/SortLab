@@ -99,6 +99,7 @@ export default function BarSet() {
               }}
             >
               <Image
+
                 alt={getIsAudioOn() ? "Audio On Button" : "Audio Off Button"}
                 width={40}
                 height={50}

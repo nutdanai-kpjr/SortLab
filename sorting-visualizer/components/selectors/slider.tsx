@@ -37,6 +37,7 @@ export const Slider = ({
   };
 
   return (
+
     <div data-cy={sliderTestName} className={styles.container}>
       <div className={styles.title}>
         {title}{" "}
