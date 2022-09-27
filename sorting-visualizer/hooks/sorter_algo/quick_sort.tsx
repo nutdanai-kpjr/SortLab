@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { ArrayCtx } from "../../context/arrayContext";
 import { COLORS } from "../../styles/color";
 import { SortAlgorithm } from "../sorter_abstract";
-import { AudioType, useSorterAudio } from "../sorter_audio";
+import { AudioType } from "../sorter_audio";
 
 export const useQuickSort: () => SortAlgorithm = () => {
   const {
@@ -16,8 +16,6 @@ export const useQuickSort: () => SortAlgorithm = () => {
     audioPlayer,
     setExplainText,
   } = useContext(ArrayCtx);
-
-  // let pivotNo = 1;
 
   const info = {
     name: "Quick Sort",
@@ -92,7 +90,6 @@ export const useQuickSort: () => SortAlgorithm = () => {
         await updateColor([i], rightColor);
       }
     }
-    arr = [...itemArrayRef.current];
 
     await blinkItemDifferentColor(
       [
@@ -106,10 +103,8 @@ export const useQuickSort: () => SortAlgorithm = () => {
     await swapItem(pivotInsertionIndex, end);
 
     await updateColorFromRange(start, end, COLORS.INACTIVE);
-    // await updateColor([pivotInsertionIndex], COLORS.SPECIAL);
+
     await updateColor([pivotInsertionIndex], COLORS.BLOCKED);
-    // await updateColor([end], COLORS.COMPARE);
-    // await updateColorFromRange(start, end, COLORS.DEFAULT);
 
     return pivotInsertionIndex;
   };

@@ -54,6 +54,7 @@ export default function BarSet() {
           ></Dropdown>
           <div className={styles.buttonGroup}>
             <button
+              data-cy={"play-button"}
               onClick={async () => {
                 await play();
               }}
@@ -66,6 +67,7 @@ export default function BarSet() {
               ></Image>
             </button>
             <button
+              data-cy={"stop-button"}
               onClick={() => {
                 stop();
               }}
@@ -78,6 +80,7 @@ export default function BarSet() {
               ></Image>
             </button>
             <button
+              data-cy={"reset-button"}
               onClick={() => {
                 reset();
               }}
@@ -90,12 +93,14 @@ export default function BarSet() {
               ></Image>
             </button>
             <button
+              data-cy={"audio-button"}
               onClick={() => {
                 toggleAudio();
               }}
             >
               <Image
-                alt="Audio Button"
+
+                alt={getIsAudioOn() ? "Audio On Button" : "Audio Off Button"}
                 width={40}
                 height={50}
                 src={
@@ -104,12 +109,17 @@ export default function BarSet() {
               ></Image>
             </button>
             <button
+              data-cy={"explain-button"}
               onClick={() => {
                 toggleExplainText();
               }}
             >
               <Image
-                alt="Show Explain Text Button"
+                alt={
+                  getIsShowExplainText()
+                    ? "Show Explain Text Button"
+                    : "Hide Explain Text Button"
+                }
                 width={getIsShowExplainText() ? 40 : 44}
                 height={getIsShowExplainText() ? 50 : 55}
                 src={
@@ -122,6 +132,7 @@ export default function BarSet() {
           </div>
           <div className={styles.sliderSetting}>
             <Slider
+              sliderTestName={"size-slider"}
               title={`Array Size : ${getArray().length}`}
               defaultValue={getArray().length}
               max={50}
@@ -130,6 +141,7 @@ export default function BarSet() {
               extendedRange={1500}
             ></Slider>
             <Slider
+              sliderTestName={"speed-slider"}
               title={`Speed : ${getSpeed() / 1000} sec/step`}
               min={1}
               max={1000}
@@ -141,12 +153,21 @@ export default function BarSet() {
         </div>
         <div className={styles.container}>
           {getIsShowExplainText() && getExplainText().length > 0 ? (
-            <div className={styles.explainText}> {getExplainText()}</div>
+            <div data-cy={"explain-text"} className={styles.explainText}>
+              {" "}
+              {getExplainText()}
+            </div>
           ) : (
             <></>
           )}
           {getArray().map((v, i) => (
-            <Bar key={i} value={v.value} color={v.color} leanMode={leanMode} />
+            <Bar
+              index={i}
+              key={i}
+              value={v.value}
+              color={v.color}
+              leanMode={leanMode}
+            />
           ))}
         </div>
       </div>

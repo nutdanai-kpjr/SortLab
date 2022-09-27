@@ -108,7 +108,7 @@ export const ArrayCtx = createContext<IArrayContext>(initArrayCtx);
 
 export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
   // Level 1 :  Low Level Operations
-  const maxDelay = 1001;
+  // const maxDelay = 1001;
   const [itemArray, setItemArray, itemArrayRef] = useStateWithRef(
     generateRandomItemArray(20)
   );
