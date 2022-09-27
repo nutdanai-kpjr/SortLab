@@ -57,7 +57,7 @@ describe('Init test', () => {
   }
   )
 
-  it(' Size Slider is adjustable', () => {
+  it('8. Size Slider is adjustable', () => {
   
     const arrows = '{leftarrow}'.repeat(10); 
     cy.get('[data-cy="size-slider"] > .slider > .customSlider-thumb').focus().realType(
@@ -66,7 +66,7 @@ arrows
     cy.get('[data-cy="size-slider"]').contains('Array Size : 10')
   }
   )
-  it(' Speed Slider is adjustable', () => {
+  it('9. Speed Slider is adjustable', () => {
     const currentValue  = 200;
     const targetValue = 10;
     const decrement = 1;
@@ -80,31 +80,28 @@ arrows
   )
 
 
-  it('Reset button should reset all item to primary color', () => {
+  it('10. Reset button should reset all item to primary color', () => {
     cy.get('[data-cy="reset-button"]').click()
     for ( let i = 0 ; i<10 ; i++){
       cy.get('[data-cy="bar-'+i+'"]').should('have.css', 'background-color', 'rgb(129, 138, 216)')
     }
   })
-  it('Audio button should toggleable', () => {
+  it('11. Audio button should toggleable', () => {
     cy.get('[data-cy="audio-button"]').click()
     cy.get('[alt="Audio Off Button"]').should('be.visible')
     cy.get('[data-cy="audio-button"]').click()
   })
-  it('Explain Text button should toggleable', () => {
+  it('12. Explain Text button should toggleable', () => {
     cy.get('[data-cy="explain-button"]').click()
     cy.get('[alt="Hide Explain Text Button"]').should('be.visible')
     cy.get('[data-cy="explain-button"]').click()
   })
 
-  it('All Sort algorithm should return green array', () => {
+  it('13. All Sort algorithm should return green array', () => {
     // cy.get('[data-cy="algorithm-dropdown"]').click()
     cy.get('[data-cy="algorithm-dropdown"]').find('option').each(($el, index, $list) => {
       const sortingAlgorithm = $el.text()
       cy.get('[data-cy="algorithm-dropdown"]').select(sortingAlgorithm)
-
-
-  
       cy.get('[data-cy="play-button"]').click()
       cy.wait(3000)
       for ( let i = 0 ; i<10 ; i++){
@@ -112,6 +109,15 @@ arrows
       }
       cy.get('[data-cy="reset-button"]').click()
     })
+  })
+
+  it('14. Can extend to 100 array size', () => {
+    cy.get('[data-cy="size-slider"]').find('button').click()
+    const arrows = '{rightarrow}'.repeat(90); 
+    cy.get('[data-cy="size-slider"] > .slider > .customSlider-thumb').focus().realType(
+arrows
+    );
+    cy.get('[data-cy="size-slider"]').contains('Array Size : 100')
   })
 
   
