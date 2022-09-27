@@ -13,7 +13,7 @@
 // https://on.cypress.io/introduction-to-cypress
 
 describe('Init test', () => {
-  beforeEach(() => {
+  before(() => {
 
     // Cypress starts out with a blank slate for each test
     // so we must tell it p to visit our website with the `cy.visit()` command.
@@ -23,9 +23,6 @@ describe('Init test', () => {
   })
 
   it('1. Interactions are visible', () => {
-    // We use the `cy.get()` command to get all elements that match the selector.
-    // Then, we use `should` to assert that there are two matched items,
-    // which are the two default items.
     cy.get('[data-cy="play-button"]').should('be.visible')
     cy.get('[data-cy="stop-button"]').should('be.visible')
     cy.get('[data-cy="reset-button"]').should('be.visible')
@@ -44,7 +41,7 @@ describe('Init test', () => {
   it('3. Default speed is 0.2 sec/step', () => {
     cy.get('[data-cy="speed-slider"]').contains('Speed : 0.2')
   })
-  it('4. Default algorithm is bubble sort', () => {
+  it('4. Default algorithm is Bubble sort', () => {
     cy.get('[data-cy="algorithm-dropdown"]').contains('Bubble Sort')
   })
   it('5. Default color are all primary', () => {
@@ -59,5 +56,53 @@ describe('Init test', () => {
     cy.get('[alt="Show Explain Text Button"]').should('be.visible')
   }
   )
+
+  it(' Size Slider is adjustable', () => {
+  
+    const arrows = '{leftarrow}'.repeat(10); 
+    cy.get('[data-cy="size-slider"] > .slider > .customSlider-thumb').focus().realType(
+arrows
+    );
+    cy.get('[data-cy="size-slider"]').contains('Array Size : 10')
+  }
+  )
+  it(' Speed Slider is adjustable', () => {
+    const currentValue  = 200;
+    const targetValue = 10;
+    const decrement = 1;
+    const steps = (  currentValue-targetValue) / decrement;
+    const arrows = '{leftarrow}'.repeat(steps); 
+    cy.get('[data-cy="speed-slider"] > .slider > .customSlider-thumb').focus().realType(
+arrows
+    );
+    cy.get('[data-cy="speed-slider"]').contains('Speed : 0.01')
+  }
+  )
+
+  it('8. After finish sorting, all item in array should be green,', () => {
+    
+    
+   cy.get('[data-cy="play-button"]').click()
+    cy.wait(3000)
+    for ( let i = 0 ; i<10 ; i++){
+      cy.get('[data-cy="bar-'+i+'"]').should('have.css', 'background-color', 'rgb(76, 175, 80)')
+    }
+  })
+
+  it('Reset button should reset all item to primary color', () => {
+    cy.get('[data-cy="reset-button"]').click()
+    for ( let i = 0 ; i<10 ; i++){
+      cy.get('[data-cy="bar-'+i+'"]').should('have.css', 'background-color', 'rgb(129, 138, 216)')
+    }
+  })
+  it('Audio button should toggleable', () => {
+    cy.get('[data-cy="audio-button"]').click()
+    cy.get('[alt="Audio Off Button"]').should('be.visible')
+  })
+  it('Explain Text button should toggleable', () => {
+    cy.get('[data-cy="explain-button"]').click()
+    cy.get('[alt="Hide Explain Text Button"]').should('be.visible')
+  })
+
   
 })
