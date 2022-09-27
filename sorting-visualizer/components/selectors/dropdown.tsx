@@ -10,6 +10,7 @@ export default function Dropdown({
 }) {
   return (
     <select
+      data-cy={"algorithm-dropdown"}
       className={styles.dropdownItem}
       onChange={(e) => {
         const name = e.target.value;

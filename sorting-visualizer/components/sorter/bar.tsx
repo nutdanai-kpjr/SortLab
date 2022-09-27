@@ -4,14 +4,17 @@ export default function Bar({
   value,
   color,
   leanMode = false,
+  index,
 }: {
   value: number;
   color: string;
   leanMode?: boolean;
+  index: number;
 }) {
   const marginLeft = leanMode ? 0 : 2;
   return (
     <div
+      data-cy={`bar-${index}`}
       style={{
         height: `${value}%`,
         backgroundColor: color,

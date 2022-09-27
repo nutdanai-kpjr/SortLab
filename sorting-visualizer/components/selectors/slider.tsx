@@ -11,6 +11,7 @@ export const Slider = ({
   max = 50,
   extendedRange = 50,
   isRangeExtendable = false,
+  sliderTestName,
 }: {
   title: string;
   onValueChanged: (n: number) => void;
@@ -20,6 +21,7 @@ export const Slider = ({
   extendedRange?: number;
   min?: number;
   max?: number;
+  sliderTestName?: string; // Eg. "size-slider"
 }) => {
   const [maxValue, setMaxValue] = useState(max);
   const [isExtend, setExtend] = useState(false);
@@ -35,7 +37,7 @@ export const Slider = ({
   };
 
   return (
-    <div className={styles.container}>
+    <div data-cy={sliderTestName} className={styles.container}>
       <div className={styles.title}>
         {title}{" "}
         {isRangeExtendable && (
