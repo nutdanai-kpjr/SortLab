@@ -1,11 +1,10 @@
-import { useMemo, useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 
 const useAudio = (url: string) => {
   const audio = useMemo<HTMLAudioElement | undefined>(
     () => (typeof Audio !== "undefined" ? new Audio(url) : undefined),
     [url]
   );
-  const [playing, setPlaying] = useState(false);
 
   const play = () => audio?.play();
 

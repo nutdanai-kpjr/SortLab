@@ -1,6 +1,3 @@
-import { useContext, useEffect } from "react";
-import { ArrayCtx } from "../context/arrayContext";
-import { Item } from "./sorter_abstract";
 import useAudio from "./use_audio";
 import { useStateWithRef } from "./use_state_with_ref";
 
@@ -38,9 +35,6 @@ export const useSorterAudio = ({
     if (!isAudioOnRef.current) return;
     let audio = defaultAudio;
     switch (type) {
-      case AudioType.Default:
-        audio = defaultAudio;
-        break;
       case AudioType.Sorted:
         audio = sortedAudio;
         break;

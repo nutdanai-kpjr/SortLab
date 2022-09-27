@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { ArrayCtx } from "../../context/arrayContext";
 import { COLORS, getGradientColor } from "../../styles/color";
 import { Item, SortAlgorithm } from "../sorter_abstract";
-import { AudioType, useSorterAudio } from "../sorter_audio";
+import { AudioType } from "../sorter_audio";
 
 export const useHeapSort: () => SortAlgorithm = () => {
   const {
