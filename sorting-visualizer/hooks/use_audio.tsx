@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 
 const useAudio = (url: string) => {
   const audio = useMemo<HTMLAudioElement | undefined>(
