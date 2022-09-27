@@ -99,7 +99,7 @@ export default function BarSet() {
               }}
             >
               <Image
-                alt="Audio Button"
+                alt={getIsAudioOn() ? "Audio On Button" : "Audio Off Button"}
                 width={40}
                 height={50}
                 src={
@@ -114,7 +114,11 @@ export default function BarSet() {
               }}
             >
               <Image
-                alt="Show Explain Text Button"
+                alt={
+                  getIsShowExplainText()
+                    ? "Show Explain Text Button"
+                    : "Hide Explain Text Button"
+                }
                 width={getIsShowExplainText() ? 40 : 44}
                 height={getIsShowExplainText() ? 50 : 55}
                 src={

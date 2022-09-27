@@ -35,12 +35,29 @@ describe('Init test', () => {
     cy.get('[data-cy="speed-slider"]').should('be.visible')
     cy.get('[data-cy="size-slider"]').should('be.visible')
     cy.get('[data-cy="bar-0"]').should('be.visible')
-
-
-
-
-
   })
+  it('2. Default size are 20', () => {
+    cy.get('[data-cy="size-slider"]').contains('Array Size : 20')
 
+    cy.get('[data-cy="bar-19"]').should('be.visible')
+  })
+  it('3. Default speed is 0.2 sec/step', () => {
+    cy.get('[data-cy="speed-slider"]').contains('Speed : 0.2')
+  })
+  it('4. Default algorithm is bubble sort', () => {
+    cy.get('[data-cy="algorithm-dropdown"]').contains('Bubble Sort')
+  })
+  it('5. Default color are all primary', () => {
+    for ( let i = 0 ; i<20 ; i++){
+      cy.get('[data-cy="bar-'+i+'"]').should('have.css', 'background-color', 'rgb(129, 138, 216)')
+    }
+  })
+  it('6. Default audio is on', () => {
+    cy.get('[alt="Audio On Button"]').should('be.visible')
+  })
+  it('7. Default explain is on', () => {
+    cy.get('[alt="Show Explain Text Button"]').should('be.visible')
+  }
+  )
   
 })
