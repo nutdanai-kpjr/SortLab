@@ -1,7 +1,7 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import PageLayout from "../components/page_wrapper/page_layout";
-import styles from "../styles/pages/LegalPage.module.css";
+import type { NextPage } from 'next';
+import Head from 'next/head';
+import PageLayout from '../components/page_wrapper/PageLayout';
+import styles from '../styles/pages/LegalPage.module.css';
 const PrivacyPolicy: NextPage = () => {
   return (
     <PageLayout>
@@ -26,7 +26,7 @@ const PrivacyPolicy: NextPage = () => {
           Information that we collect are used for providing and improving the
           Service. We will not use or share your information with anyone except
           as described in this Privacy Policy. Our Privacy Policy was created
-          with the help of the{" "}
+          with the help of the{' '}
           <a href="https://www.privacypolicytemplate.net/">
             Privacy Policy Template Generator
           </a>

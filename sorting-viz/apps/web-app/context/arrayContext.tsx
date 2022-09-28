@@ -1,9 +1,10 @@
-import React, { createContext, useState } from "react";
-import { Item } from "../hooks/sorter_abstract";
-import { audioPlayer, AudioType, useSorterAudio } from "../hooks/sorter_audio";
-import { useStateWithRef } from "../hooks/use_state_with_ref";
-import { generateRandomItemArray } from "../hooks/utils";
-import { COLORS } from "../styles/color";
+/* eslint-disable @typescript-eslint/no-empty-function */
+import React, { createContext, useState } from 'react';
+import { Item } from '../hooks/sorter_abstract';
+import { audioPlayer, AudioType, useSorterAudio } from '../hooks/sorter_audio';
+import { useStateWithRef } from '../hooks/use_state_with_ref';
+import { generateRandomItemArray } from '../hooks/utils';
+import { COLORS } from '../styles/color';
 interface updateDiffrentColorInstruction {
   index: number;
   color: string;
@@ -76,7 +77,7 @@ const initArrayCtx: IArrayContext = {
   minItemValue: 1,
   maxItemValue: 100,
   maxItemValueRef: { current: 100 },
-  explainText: "",
+  explainText: '',
   audioPlayer: {
     toggleAudio: () => {},
     playAudio: () => {},
@@ -116,7 +117,7 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
   const [maxItemValue, setMaxItemValue, maxItemValueRef] = useStateWithRef(100);
   const [speed, setSpeed, speedRef] = useStateWithRef<number>(200);
   const [isStop, setIsStop, isStopRef] = useStateWithRef<boolean>(false);
-  const [explainText, setExplainText] = useState<string>("");
+  const [explainText, setExplainText] = useState<string>('');
   const [isShowExplainText, setIsShowExplainText] = useState<boolean>(true);
   const audioPlayer = useSorterAudio({ speedRef: speedRef });
   const animate = async (speed: number) => {
@@ -128,7 +129,7 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
   // Level 2 :  Medium Level Operations
   const updateArray = async (newArray: Item[]) => {
     // console.log("updateArray", newArray);
-    let speed = speedRef.current;
+    const speed = speedRef.current;
     setItemArray(newArray);
     await animate(speed);
   };
@@ -137,9 +138,9 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
     end: number,
     newArray: Item[]
   ) => {
-    let speed = speedRef.current;
-    let oldArray = itemArrayRef.current;
-    let updatedArray = oldArray
+    const speed = speedRef.current;
+    const oldArray = itemArrayRef.current;
+    const updatedArray = oldArray
       .slice(0, start)
       .concat(newArray)
       .concat(oldArray.slice(end + 1));
@@ -153,7 +154,7 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const updateColor = async (indexs: number[], color: string) => {
-    let newArray: Item[] = [...itemArrayRef.current];
+    const newArray: Item[] = [...itemArrayRef.current];
 
     indexs.forEach((i) => {
       newArray[i].color = color;
@@ -166,7 +167,7 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
     end: number,
     color: string
   ) => {
-    let newArray: Item[] = [...itemArrayRef.current];
+    const newArray: Item[] = [...itemArrayRef.current];
 
     for (let i = start; i <= end; i++) {
       newArray[i].color = color;
@@ -179,7 +180,7 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
     end: number,
     color: string
   ) => {
-    let newArray: Item[] = [...itemArrayRef.current];
+    const newArray: Item[] = [...itemArrayRef.current];
     for (let i = 0; i < newArray.length; i++) {
       if (i < start || i > end) {
         newArray[i].color = color;
@@ -192,7 +193,7 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
   const updateDifferentColor = async (
     instructions: updateDiffrentColorInstruction[]
   ) => {
-    let newArray: Item[] = [...itemArrayRef.current];
+    const newArray: Item[] = [...itemArrayRef.current];
     instructions.forEach((instruction) => {
       newArray[instruction.index].color = instruction.color;
     });
@@ -202,7 +203,7 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
   // Level 3 :  High Level Operations
   const swapItem = async (indexA: number, indexB: number) => {
     // console.log("swapItem ArrayProvider Function", itemArrayRef.current.length);
-    let newArray: Item[] = [...itemArrayRef.current];
+    const newArray: Item[] = [...itemArrayRef.current];
 
     [newArray[indexA], newArray[indexB]] = [newArray[indexB], newArray[indexA]];
     // playAudio(indexB, newArray);
@@ -214,7 +215,7 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
     newItem: Item,
     playSound = false
   ) => {
-    let newArray: Item[] = [...itemArrayRef.current];
+    const newArray: Item[] = [...itemArrayRef.current];
     const IsIdenticalToPrevious = newArray[index].value === newItem.value;
     newArray[index] = newItem;
     if (playSound && !IsIdenticalToPrevious)
@@ -238,8 +239,8 @@ export const ArrayProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const stopSort = async () => {
-    let arr: Item[] = [...itemArrayRef.current];
-    let indexArr = Array.from(Array(arr.length).keys());
+    const arr: Item[] = [...itemArrayRef.current];
+    const indexArr = Array.from(Array(arr.length).keys());
     await updateColor(indexArr, COLORS.DEFAULT); //change back to original color
     // setIsStop(false);
   };

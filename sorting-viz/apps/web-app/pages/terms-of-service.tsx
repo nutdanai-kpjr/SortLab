@@ -1,7 +1,7 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import PageLayout from "../components/page_wrapper/page_layout";
-import styles from "../styles/pages/LegalPage.module.css";
+import type { NextPage } from 'next';
+import Head from 'next/head';
+import PageLayout from '../components/page_wrapper/PageLayout';
+import styles from '../styles/pages/LegalPage.module.css';
 
 const Home: NextPage = () => {
   return (
@@ -206,14 +206,14 @@ const Home: NextPage = () => {
           </p>
           <p>
             For more information on the privacy practices of Google, please
-            visit the Google Privacy Terms web page:{" "}
+            visit the Google Privacy Terms web page:{' '}
             <a href="https://policies.google.com/privacy?hl=en">
               https://policies.google.com/privacy?hl=en
             </a>
           </p>
           <p>
             We also encourage you to review the Google&apos;s policy for
-            safeguarding your data:{" "}
+            safeguarding your data:{' '}
             <a href="https://support.google.com/analytics/answer/6004245">
               https://support.google.com/analytics/answer/6004245
             </a>
@@ -323,7 +323,7 @@ const Home: NextPage = () => {
           </p>
           <p>
             Sentry is open-source error tracking solution provided by Functional
-            Software Inc. More information is available here:{" "}
+            Software Inc. More information is available here:{' '}
             <a href="https://sentry.io/privacy/">https://sentry.io/privacy/</a>
           </p>
           <ol start={9}>
