@@ -1,12 +1,12 @@
-import Bar from "./bar";
-import styles from "../../styles/BarSet.module.css";
-import Image from "next/image";
+import Bar from './Bar';
+import styles from '../../styles/components/sorters/BarSet.module.css';
+import Image from 'next/image';
 
-import { Slider } from "../selectors/slider";
-import Dropdown from "../selectors/dropdown";
-import { useEffect, useState } from "react";
+import { Slider } from '../selectors/Slider';
+import Dropdown from '../selectors/Dropdown';
+import { useEffect, useState } from 'react';
 
-import { useSortVisualizer } from "../../hooks/sorter_implement";
+import { useSortVisualizer } from '../../hooks/sorter_implement';
 
 export default function BarSet() {
   //this component manage the array of numbers that will be sorted
@@ -54,7 +54,7 @@ export default function BarSet() {
           ></Dropdown>
           <div className={styles.buttonGroup}>
             <button
-              data-cy={"play-button"}
+              data-cy={'play-button'}
               onClick={async () => {
                 await play();
               }}
@@ -67,7 +67,7 @@ export default function BarSet() {
               ></Image>
             </button>
             <button
-              data-cy={"stop-button"}
+              data-cy={'stop-button'}
               onClick={() => {
                 stop();
               }}
@@ -80,7 +80,7 @@ export default function BarSet() {
               ></Image>
             </button>
             <button
-              data-cy={"reset-button"}
+              data-cy={'reset-button'}
               onClick={() => {
                 reset();
               }}
@@ -93,22 +93,22 @@ export default function BarSet() {
               ></Image>
             </button>
             <button
-              data-cy={"audio-button"}
+              data-cy={'audio-button'}
               onClick={() => {
                 toggleAudio();
               }}
             >
               <Image
-                alt={getIsAudioOn() ? "Audio On Button" : "Audio Off Button"}
+                alt={getIsAudioOn() ? 'Audio On Button' : 'Audio Off Button'}
                 width={40}
                 height={50}
                 src={
-                  getIsAudioOn() ? "/audio-on-icon.svg" : "/audio-off-icon.svg"
+                  getIsAudioOn() ? '/audio-on-icon.svg' : '/audio-off-icon.svg'
                 }
               ></Image>
             </button>
             <button
-              data-cy={"explain-button"}
+              data-cy={'explain-button'}
               onClick={() => {
                 toggleExplainText();
               }}
@@ -116,22 +116,22 @@ export default function BarSet() {
               <Image
                 alt={
                   getIsShowExplainText()
-                    ? "Show Explain Text Button"
-                    : "Hide Explain Text Button"
+                    ? 'Show Explain Text Button'
+                    : 'Hide Explain Text Button'
                 }
                 width={getIsShowExplainText() ? 40 : 44}
                 height={getIsShowExplainText() ? 50 : 55}
                 src={
                   getIsShowExplainText()
-                    ? "/explainer-on-icon.svg"
-                    : "/explainer-off-icon.svg"
+                    ? '/explainer-on-icon.svg'
+                    : '/explainer-off-icon.svg'
                 }
               ></Image>
             </button>
           </div>
           <div className={styles.sliderSetting}>
             <Slider
-              sliderTestName={"size-slider"}
+              sliderTestName={'size-slider'}
               title={`Array Size : ${getArray().length}`}
               defaultValue={getArray().length}
               max={50}
@@ -140,7 +140,7 @@ export default function BarSet() {
               extendedRange={1500}
             ></Slider>
             <Slider
-              sliderTestName={"speed-slider"}
+              sliderTestName={'speed-slider'}
               title={`Speed : ${getSpeed() / 1000} sec/step`}
               min={1}
               max={1000}
@@ -152,8 +152,8 @@ export default function BarSet() {
         </div>
         <div className={styles.container}>
           {getIsShowExplainText() && getExplainText().length > 0 ? (
-            <div data-cy={"explain-text"} className={styles.explainText}>
-              {" "}
+            <div data-cy={'explain-text'} className={styles.explainText}>
+              {' '}
               {getExplainText()}
             </div>
           ) : (

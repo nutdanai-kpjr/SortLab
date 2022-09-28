@@ -1,6 +1,6 @@
-import FooterBar from "./footer_bar";
-import NavBar from "./nav_bar";
-import styles from "../../styles/PageLayout.module.css";
+import FooterBar from './FooterBar';
+import NavBar from './NavBar';
+import styles from '../../styles/components/page_wrapper/PageLayout.module.css';
 
 export default function PageLayout({
   children,

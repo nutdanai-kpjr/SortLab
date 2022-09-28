@@ -1,4 +1,4 @@
-import styles from "../../styles/Dropdown.module.css";
+import styles from '../../styles/components/selectors/Dropdown.module.css';
 export default function Dropdown({
   list,
   defaultValue,
@@ -10,7 +10,7 @@ export default function Dropdown({
 }) {
   return (
     <select
-      data-cy={"algorithm-dropdown"}
+      data-cy={'algorithm-dropdown'}
       className={styles.dropdownItem}
       onChange={(e) => {
         const name = e.target.value;

@@ -1,5 +1,5 @@
-import { NextPage } from "next";
-import styles from "../../styles/components/buttons/FilledButton.module.css";
+import { NextPage } from 'next';
+import styles from '../../styles/components/buttons/FilledButton.module.css';
 interface Props {
   title: string;
   onClick?: () => void;
@@ -17,4 +17,3 @@ const FilledButton: NextPage<Props> = ({ title, onClick }) => {
 
 // export component
 export default FilledButton;
-

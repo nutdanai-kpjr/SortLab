@@ -1,19 +1,19 @@
 // create mockup nav bar component
 
-import Link from "next/link";
-import styles from "../../styles/NavBar.module.css";
+import Link from 'next/link';
+import styles from '../../styles/components/page_wrapper/NavBar.module.css';
 export default function NavBar() {
   return (
     <nav className={styles.nav}>
       <Link href="/">
         <a>
-          {" "}
+          {' '}
           <h1 className={styles.logo}>Sorting Viz</h1>
         </a>
       </Link>
 
       <div className={styles.links}>
-        {" "}
+        {' '}
         <Link href="/landing">
           <a>Landing</a>
         </Link>

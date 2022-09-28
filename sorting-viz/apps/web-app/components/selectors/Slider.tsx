@@ -1,6 +1,6 @@
-import { useState } from "react";
-import ReactSlider from "react-slider";
-import styles from "../../styles/Slider.module.css";
+import { useState } from 'react';
+import ReactSlider from 'react-slider';
+import styles from '../../styles/components/selectors/Slider.module.css';
 
 export const Slider = ({
   title,
@@ -39,11 +39,11 @@ export const Slider = ({
   return (
     <div data-cy={sliderTestName} className={styles.container}>
       <div className={styles.title}>
-        {title}{" "}
+        {title}{' '}
         {isRangeExtendable && (
           <button onClick={toggleExtend}>
-            {" "}
-            {!isExtend ? "Extend" : "Reduce"}
+            {' '}
+            {!isExtend ? 'Extend' : 'Reduce'}
           </button>
         )}
       </div>
@@ -101,7 +101,7 @@ export const Slider = ({
         ariaLabelledby="slider-label"
         thumbClassName="customSlider-thumb"
         trackClassName={
-          invert ? "customSlider-track-inverse" : "customSlider-track"
+          invert ? 'customSlider-track-inverse' : 'customSlider-track'
         }
         renderThumb={(props, state) => <div {...props}></div>}
       />

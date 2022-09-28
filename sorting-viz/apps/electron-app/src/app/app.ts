@@ -58,8 +58,8 @@ export default class App {
 
   private static initMainWindow() {
     const workAreaSize = screen.getPrimaryDisplay().workAreaSize;
-    const width = Math.min(1280, workAreaSize.width || 1280);
-    const height = Math.min(720, workAreaSize.height || 720);
+    const width = Math.min(1400, workAreaSize.width || 1400);
+    const height = Math.min(1000, workAreaSize.height || 1000);
 
     // Create the browser window.
     App.mainWindow = new BrowserWindow({
@@ -67,6 +67,7 @@ export default class App {
       height: height,
       show: false,
       webPreferences: {
+        nodeIntegration:false,
         contextIsolation: true,
         backgroundThrottling: false,
         preload: join(__dirname, 'main.preload.js'),

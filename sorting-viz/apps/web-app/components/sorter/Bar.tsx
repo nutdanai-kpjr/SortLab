@@ -1,4 +1,4 @@
-import styles from "../../styles/Bar.module.css";
+import styles from '../../styles/components/sorters/Bar.module.css';
 
 export default function Bar({
   value,
@@ -22,7 +22,7 @@ export default function Bar({
       }}
       className={styles.container}
     >
-      {!leanMode ? value : ""}
+      {!leanMode ? value : ''}
     </div>
   );
 }
