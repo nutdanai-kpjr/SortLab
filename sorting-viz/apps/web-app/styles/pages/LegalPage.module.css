@@ -23,7 +23,7 @@
   font-size: 1rem;
   font-weight: 200;
   line-height: 1.25;
-  overflow: auto;
+  /* overflow-x: auto; */
 }
 .textContainer strong {
   font-size: 1rem;
