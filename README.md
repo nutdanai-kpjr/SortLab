@@ -15,7 +15,6 @@ Install dependencies
 ```
 cd sort-lab
 npm install
-
 ```
 
 Run the project
@@ -26,14 +25,12 @@ npx nx serve web-app
 
 //2. Electron App (if in development, must run web-app first)
 npx nx serve electron-app
-
 ```
 
 Run E2E test for web app (don't forget to run web app first)
 
 ```
 npx nx e2e web-app-e2e --watch
-
 ```
 
 Build the project
@@ -76,22 +73,17 @@ npm exec nx package electron-app
   - StackOverflow
   - And many more.
 
-## Ch.3 Method
+## Ch.3 Implementation
 
-Design UI via Figma ( I love the 3d modern icon design!)
+- Design UI via Figma ( I love the 3d modern icon design!)
 
-- View my design [here](https://www.figma.com/file/537GzOKmDzNgRW4XdgSS7H/Project-01---Sorting-Visualizer?node-id=0%3A1)
+  - View my design [here](https://www.figma.com/file/537GzOKmDzNgRW4XdgSS7H/Project-01---Sorting-Visualizer?node-id=0%3A1)
 
-Project Structure
+- Project Structure
 
-- 1st phase ( web app only) - u
+  - 1st phase ( web app only) - use Next.js default project structure.
 
-  se Next.js default project structure.
-
-- 2nd phase (web-app + electron )- u
-  se Nx for monorepo management.  
-
-
+  - 2nd phase (web-app + electron )- use [Nx](https://nx.dev/) for monorepo management.  
 
 
 ```
@@ -106,19 +98,18 @@ Project Structure
 ├── package.json
 ├── tsconfig.json
 └── tslint.json
-
 ```
 
-Core Design Pattern
+- Core Design Pattern
 
-- Use Strategy Pattern for changing sorting algorithm.  
+  - Use Strategy Pattern for changing sorting algorithm.  
 
-- Use Singleton for managing array via context provider ( array is used by many components/hooks)  
+  - Use Singleton for managing array via context provider ( array is used by many components/hooks)  
 
 
-Project Management ( I used ClickUp to manage the project)
+- Project Management ( I used ClickUp to manage the project)
 
-- View my Clickup board [here](https://sharing.clickup.com/36800995/b/h/6-198892556-2/2c944e8c276694b)
+  - View my Clickup board [here](https://sharing.clickup.com/36800995/b/h/6-198892556-2/2c944e8c276694b)
 
 ## Ch.4 Result
 
@@ -134,7 +125,7 @@ Project Management ( I used ClickUp to manage the project)
 
   - Why? I’m curious about how hard it is to share a codebase from Next.js to Electron
 
-    - Turned out that there is a simple method to do so, which is to mirror the remote web app url into electron app Currently I used this approach in the project Although at first I aim to use another approach which is to create shared library between the web-app and electron-app. (Which is the reason why I use NX for managing monospace) . I didn’t do that because I’m new to electron and still not quite sure how to fit the next.js framework into electron. Although there is a [Nextron](https://github.com/saltyshiomix/nextron) to start a template for, integrating them with NX workspace is quite hard for me. So to sum up , due to the time constraint, I use the remote URL as a temporal solution, it the future I aim to decide a extra features to the electron-app such as give a. native context menu, a notification after sorting is finish. ( Note: I publish my blog about the 4 methods how to share a codebase from web app to electron app [here](https://medium.com/@nutdanai.kpjr/sharing-code-between-web-electron-apps-summary-1d9e417ee83d))
+    - Turned out that there is a simple method to do so, which is to mirror the remote web app url into electron app. Currently, I used this approach in the project. Although at first I aimed to use another approach which is to create shared library between the web-app and electron-app. (Which is the reason why I use NX for managing monorepo). But, I didn’t do that because I’m new to electron and still not quite sure how to fit the next.js framework into electron. Although there is a [Nextron](https://github.com/saltyshiomix/nextron) to start a template for, integrating them with NX workspace is quite hard for me. So to sum up , due to the time constraint, I use the remote URL as a temporal solution. ( Note: I published my blog which dicuss about the 4 methods on how to share a codebase from web app to electron app [here](https://medium.com/@nutdanai.kpjr/sharing-code-between-web-electron-apps-summary-1d9e417ee83d)) In the future I aimed to introduce extra features to the electron-app such as give a native context menu, a notification after sorting is finished. 
 
 ## Ch.5  Conclusion
 
@@ -142,16 +133,16 @@ Project Management ( I used ClickUp to manage the project)
 
   - So I learned to use the react useRef, which mean that everytime I update the array, the sorting algorithm should also re-fetch the array from useRef as well , ( you can see this in bubble sorting algor)  With useRef, the sorting algorim is working properly.
 
-- Another problem that I found is the implementation of each algorithm logic is mixing with displaying logic (not pure) so maybe it better to use a Command pattern like write a function to generate a list of instructions first, and then use that instruction to play the visualize animation later, that would be a better approach since it would allow use to rewind back the sorting step as well.
+- Another problem that I found is the implementation of each algorithm logic is mixing with UI logic (not pure) so maybe it better to use a Command pattern like write a function to generate a list of array manipulating instructions first,  then use those instructions to play the visualize animation later, that would be a better approach since it would allow us to rewind back the sorting steps as well.
 
 - Could be refractor to make it better
 
   - There are still a room for improvement such as BarSet components could be breakdown for a better Single Responsibility Principle.
-  - This is also the same on arrayContext where it look like a god object now, the code is long and I should refractor some part of the function into another object such as Color Manager, Audio Manager
+  - This is also the same on arrayContext where it look like a god object now, the code is long and I should refractor some part of the function into another object such as Color Manager, Audio Manager.
 
 - Could introduce Backend
 
-  - I could introduce backend API to fetch the data from online world, maybe it’s a bitcoin price, stock market price, and then sorting them, that would make the project even more interesting!
+  - I could introduce backend API to fetch the data from online world, maybe it’s a Bitcoin price, stock market price, and then sorting them, that would make the project even more interesting!
 
 ---
 
