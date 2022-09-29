@@ -1,5 +1,5 @@
 import { BrowserWindow, shell, screen } from 'electron';
-import { rendererAppName, rendererAppPort } from './constants';
+import { rendererAppName, rendererAppPort,rendererUrl } from './constants';
 import { environment } from '../environments/environment';
 import { join } from 'path';
 import { format } from 'url';
@@ -102,11 +102,12 @@ export default class App {
       App.mainWindow.loadURL(`http://localhost:${rendererAppPort}`);
     } else {
       App.mainWindow.loadURL(
-        format({
-          pathname: join(__dirname, '..', rendererAppName, 'index.html'),
-          protocol: 'file:',
-          slashes: true,
-        })
+        rendererUrl
+        // format({
+        //   pathname: join(__dirname, '..', rendererAppName, 'index.html'),
+        //   protocol: 'file:',
+        //   slashes: true,
+        // })
       );
     }
   }
