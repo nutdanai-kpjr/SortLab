@@ -1,0 +1,11 @@
+{
+  "$schema": "../../../../../node_modules/nx-electron/src/validation/maker.schema.json",
+  "productName": "SortLab",
+  "win": {
+    "icon": "apps\\electron-app\\src\\assets\\sort-lab-icon.ico"
+  },
+  "mac": {
+    "icon": "apps/electron-app/src/assets/sort-lab-icon.png",
+    "category": "public.app-category.education"
+  }
+}
