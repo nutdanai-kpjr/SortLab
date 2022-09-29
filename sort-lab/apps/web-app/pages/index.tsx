@@ -8,7 +8,7 @@ const Home: NextPage = () => {
   return (
     <PageLayout>
       <Head>
-        <title>Sorting Viz - Home</title>
+        <title>SortLab - Home</title>
       </Head>
       <ArrayProvider>
         <BarSet></BarSet>

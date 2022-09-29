@@ -6,19 +6,18 @@ const PrivacyPolicy: NextPage = () => {
   return (
     <PageLayout>
       <Head>
-        <title>Sorting Viz - Privacy Policy</title>
+        <title>SortLab - Privacy Policy</title>
       </Head>
       <div className={styles.textContainer}>
-        <h1>Privacy Policy of Sorting Visualizer By Nash</h1>
+        <h1>Privacy Policy of SortLab By Nash</h1>
         <p>
-          Sorting Visualizer By Nash operates the sorter-viz-nash.vercel.app
-          website, which provides the SERVICE.
+          SortLab By Nash operates the sortlab.vercel.app website, which
+          provides the SERVICE.
         </p>
         <p>
           This page is used to inform website visitors regarding our policies
           with the collection, use, and disclosure of Personal Information if
-          anyone decided to use our Service, the Sorting Visualizer By Nash
-          website.
+          anyone decided to use our Service, the SortLab By Nash website.
         </p>
         <p>
           If you choose to use our Service, then you agree to the collection and
@@ -34,9 +33,8 @@ const PrivacyPolicy: NextPage = () => {
         </p>
         <p>
           The terms used in this Privacy Policy have the same meanings as in our
-          Terms and Conditions, which is accessible at
-          sorter-viz-nash.vercel.app, unless otherwise defined in this Privacy
-          Policy.
+          Terms and Conditions, which is accessible at sortlab.vercel.app,
+          unless otherwise defined in this Privacy Policy.
         </p>
         <h2>Information Collection and Use</h2>
         <p>

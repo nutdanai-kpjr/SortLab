@@ -9,7 +9,7 @@ const Home: NextPage = () => {
   return (
     <PageLayout>
       <Head>
-        <title>Sorting Viz - About</title>
+        <title>SortLab - About</title>
       </Head>
       <div className={styles.container}>
         <div className={styles.textContainer}>

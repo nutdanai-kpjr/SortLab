@@ -8,7 +8,9 @@ export default function NavBar() {
       <Link href="/">
         <a>
           {' '}
-          <h1 className={styles.logo}>Sorting Viz</h1>
+          <h1 className={styles.logo}>
+            Sort<span className={styles.logoPurple}>Lab</span>
+          </h1>
         </a>
       </Link>
 

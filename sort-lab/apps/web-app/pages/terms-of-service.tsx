@@ -7,11 +7,11 @@ const Home: NextPage = () => {
   return (
     <PageLayout>
       <Head>
-        <title>Sorting Viz - Terms of Service</title>
+        <title>SortLab - Terms of Service</title>
       </Head>
       <div className={styles.textContainer}>
         <h1>Term of Services</h1>
-        <p>Last updated:&nbsp;09/06/2022</p>
+        <p>Last updated:&nbsp;09/30/2022</p>
         <div className={styles.list}>
           <ol>
             <li>
@@ -21,7 +21,7 @@ const Home: NextPage = () => {
             </li>
           </ol>
           <p>
-            Welcome to&nbsp;<strong>Sorting Visualizer By Nash</strong>
+            Welcome to&nbsp;<strong>SortLab By Nash</strong>
             &nbsp;(&ldquo;<strong>Company</strong>&rdquo;, &ldquo;
             <strong>we</strong>&rdquo;, &ldquo;<strong>our</strong>&rdquo;,
             &ldquo;
@@ -33,15 +33,14 @@ const Home: NextPage = () => {
             These Terms of Service (&ldquo;<strong>Terms</strong>&rdquo;,
             &ldquo;
             <strong>Terms of Service</strong>&rdquo;) govern your use
-            of&nbsp;our web pages located at
-            sorter-viz-nash.vercel.app&nbsp;operated by&nbsp;Sorting Visualizer
-            By Nash.
+            of&nbsp;our web pages located at sortlab.vercel.app&nbsp;operated
+            by&nbsp;SortLab By Nash.
           </p>
           <p>
             Our Privacy Policy also governs your use of our Service and explains
             how we collect, safeguard and disclose information that results from
             your use of our web pages. Please read it here
-            sorter-viz-nash.vercel.app/privacy-policy.
+            sortlab.vercel.app/privacy-policy.
           </p>
           <p>
             Your agreement with us includes these Terms&nbsp;and our Privacy
@@ -280,11 +279,11 @@ const Home: NextPage = () => {
           <p>
             Service and its original content (excluding Content provided by
             users), features and functionality are and will remain the exclusive
-            property of&nbsp;Sorting Visualizer By Nash&nbsp;and its licensors.
-            Service is protected by copyright, trademark, and other laws
-            of&nbsp;foreign countries. Our trademarks and trade dress may not be
-            used in connection with any product or service without the prior
-            written consent of&nbsp;Sorting Visualizer By Nash.
+            property of&nbsp;SortLab By Nash&nbsp;and its licensors. Service is
+            protected by copyright, trademark, and other laws of&nbsp;foreign
+            countries. Our trademarks and trade dress may not be used in
+            connection with any product or service without the prior written
+            consent of&nbsp;SortLab By Nash.
           </p>
           <ol start={8}>
             <li>
@@ -335,21 +334,20 @@ const Home: NextPage = () => {
           </ol>
           <p>
             Our Service may contain links to third party web sites or services
-            that are not owned or controlled by&nbsp;Sorting Visualizer By Nash.
+            that are not owned or controlled by&nbsp;SortLab By Nash.
           </p>
           <p>
-            Sorting Visualizer By Nash&nbsp;has no control over, and assumes no
+            SortLab By Nash&nbsp;has no control over, and assumes no
             responsibility for the content, privacy policies, or practices of
             any third party web sites or services. We do not warrant the
             offerings of any of these entities/individuals or their websites.
           </p>
           <p>
-            YOU ACKNOWLEDGE AND AGREE THAT&nbsp;Sorting Visualizer By
-            Nash&nbsp;SHALL NOT BE RESPONSIBLE OR LIABLE, DIRECTLY OR
-            INDIRECTLY, FOR ANY DAMAGE OR LOSS CAUSED OR ALLEGED TO BE CAUSED BY
-            OR IN CONNECTION WITH USE OF OR RELIANCE ON ANY SUCH CONTENT, GOODS
-            OR SERVICES AVAILABLE ON OR THROUGH ANY SUCH THIRD PARTY WEB SITES
-            OR SERVICES.
+            YOU ACKNOWLEDGE AND AGREE THAT&nbsp;SortLab By Nash&nbsp;SHALL NOT
+            BE RESPONSIBLE OR LIABLE, DIRECTLY OR INDIRECTLY, FOR ANY DAMAGE OR
+            LOSS CAUSED OR ALLEGED TO BE CAUSED BY OR IN CONNECTION WITH USE OF
+            OR RELIANCE ON ANY SUCH CONTENT, GOODS OR SERVICES AVAILABLE ON OR
+            THROUGH ANY SUCH THIRD PARTY WEB SITES OR SERVICES.
           </p>
           <p>
             WE STRONGLY ADVISE YOU TO READ THE TERMS OF SERVICE AND PRIVACY

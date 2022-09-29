@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "npmScope": "sorting-viz",
+  "npmScope": "sort-lab",
   "affected": {
     "defaultBase": "main"
   },

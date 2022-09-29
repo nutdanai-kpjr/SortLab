@@ -29,11 +29,12 @@
   font-size: 4rem;
   font-weight: bold;
   margin: 0;
+  margin-top: 40px;
   padding: 0;
   transition: filter 0.3s;
 }
 .textContainer h1:hover {
-  border-radius: 50%;
+  border-radius: 15%;
   filter: drop-shadow(0px 0px 1vw rgba(128, 138, 216, 0.25))
     drop-shadow(0px 0px 1vw rgba(128, 138, 216, 0.25));
 }
@@ -43,13 +44,20 @@
   margin: 0;
   padding: 0;
 }
+.textContainer h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+  margin-bottom: 30px;
+  padding: 0;
+}
 .textContainer p {
   font-size: 1rem;
   font-weight: 200;
   line-height: 1.5;
 }
 .imageContainer {
-  margin-top: 30px;
+  margin-top: 40px;
   display: flex;
   flex: 1;
   justify-content: center;
@@ -63,16 +71,27 @@
     drop-shadow(0px 0px 3vw rgba(128, 138, 216, 0.15));
   /* box-shadow: 0 0 0 3px rgba(128, 138, 216, 0.5); */
 }
+.logoPurple {
+  color: var(--primary-color);
+}
+
 @media (min-width: 1200px) {
   .container {
     margin-top: 8vh;
     flex-direction: row;
   }
   .textContainer h1 {
+    margin-top: 0;
     font-size: 6rem;
   }
   .textContainer h2 {
     font-size: 4rem;
+  }
+  .textContainer h3 {
+    /* padding: 0; */
+
+    margin-bottom: 15px;
+    font-size: 2.5em;
   }
   .textContainer p {
     font-size: 1.15rem;

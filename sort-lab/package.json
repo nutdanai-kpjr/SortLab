@@ -1,5 +1,7 @@
 {
-  "name": "sorting-viz",
+  "name": "sort-lab",
+  "description": "Sorting Algorithms Visualizer",
+  "author": "Nash Nutdanai-Kpjr",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {

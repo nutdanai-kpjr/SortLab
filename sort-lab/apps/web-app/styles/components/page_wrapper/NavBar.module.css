@@ -30,6 +30,9 @@
 .nav {
   flex-direction: column;
 }
+.logoPurple {
+  color: var(--primary-color);
+}
 @media (min-width: 1200px) {
   .nav {
     display: flex;

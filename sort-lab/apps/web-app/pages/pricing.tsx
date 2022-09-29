@@ -10,7 +10,7 @@ const Home: NextPage = () => {
       <div className={styles.container}>
         <div className={styles.textContainer}>
           <Head>
-            <title>Sorting Viz - Pricing</title>
+            <title>SortLab - Pricing</title>
           </Head>
           <h2>Pricing</h2>
           <p>

@@ -10,12 +10,16 @@ const Home: NextPage = () => {
   return (
     <PageLayout>
       <Head>
-        <title>Sorting Viz - Landing</title>
+        <title>SortLab - Landing</title>
       </Head>
       <div className={styles.container}>
         <div className={styles.textContainer}>
-          <h1>Sorting Viszualizer</h1>
+          <h1>
+            Sort<span className={styles.logoPurple}>Lab</span>
+          </h1>
+          <h3>The Extaordinary Sorting Visualizer</h3>
           <p>Learn world famous sorting algorithms through animiation!</p>
+
           <div className={styles.buttonContainer}>
             <Link href="/">
               <a>Play</a>
