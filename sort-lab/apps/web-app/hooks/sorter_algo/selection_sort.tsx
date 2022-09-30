@@ -1,8 +1,8 @@
-import { useContext } from "react";
-import { ArrayCtx } from "../../context/arrayContext";
-import { COLORS } from "../../styles/color";
-import { Item, SortAlgorithm } from "../sorter_abstract";
-import { AudioType } from "../sorter_audio";
+import { useContext } from 'react';
+import { ArrayCtx } from '../../context/arrayContext';
+import { COLORS } from '../../styles/color';
+import { Item, SortAlgorithm } from '../sorter_abstract';
+import { AudioType } from '../sorter_audio';
 
 export const useSelectionSort: () => SortAlgorithm = () => {
   const {
@@ -17,13 +17,13 @@ export const useSelectionSort: () => SortAlgorithm = () => {
   } = useContext(ArrayCtx);
 
   const info = {
-    name: "Selection Sort",
+    name: 'Selection Sort',
     description:
-      "Selection Sort is a simple sorting algorithm that works by repeatedly finding the minimum element (considering ascending order) from unsorted part and putting it at the beginning. The algorithm maintains two subarrays in a given array. One subarray is always sorted. Selection sort repeatedly selects the minimum element from the unsorted array and places it at the end of the sorted array.",
+      'Selection Sort is a simple sorting algorithm that works by repeatedly finding the minimum element (considering ascending order) from unsorted part and putting it at the beginning. The algorithm maintains two subarrays in a given array. One subarray is always sorted. Selection sort repeatedly selects the minimum element from the unsorted array and places it at the end of the sorted array.',
     complexity: {
-      bestCase: "O(n^2)",
-      averageCase: "O(n^2)",
-      worstCase: "O(n^2)",
+      bestCase: 'O(n^2)',
+      averageCase: 'O(n^2)',
+      worstCase: 'O(n^2)',
     },
   };
 
@@ -41,9 +41,9 @@ export const useSelectionSort: () => SortAlgorithm = () => {
         }
 
         arr = [...itemArrayRef.current]; // refetch the array from context to avoid stale state
-        let valueNew = { ...arr[j] }.value;
-        let valueMin = { ...arr[min] }.value;
-        let minValue = Math.min(valueNew, valueMin);
+        const valueNew = { ...arr[j] }.value;
+        const valueMin = { ...arr[min] }.value;
+        const minValue = Math.min(valueNew, valueMin);
         audioPlayer.playAudio(AudioType.Default);
         setExplainText(
           `Finding the min item : Candidate is ${minValue}  (Round ${i + 1})`

@@ -1,8 +1,8 @@
-import { useContext } from "react";
-import { ArrayCtx } from "../../context/arrayContext";
-import { COLORS, getGradientColor } from "../../styles/color";
-import { Item, SortAlgorithm } from "../sorter_abstract";
-import { AudioType } from "../sorter_audio";
+import { useContext } from 'react';
+import { ArrayCtx } from '../../context/arrayContext';
+import { COLORS, getGradientColor } from '../../styles/color';
+import { Item, SortAlgorithm } from '../sorter_abstract';
+import { AudioType } from '../sorter_audio';
 
 export const useHeapSort: () => SortAlgorithm = () => {
   const {
@@ -20,13 +20,13 @@ export const useHeapSort: () => SortAlgorithm = () => {
     getIsLeanMode,
   } = useContext(ArrayCtx);
   const info = {
-    name: "Heap Sort",
+    name: 'Heap Sort',
     description:
-      "Heap Sort is a comparison based sorting technique based on Binary Heap data structure. It is similar to selection sort where we first find the maximum element and place the maximum element at the end. We repeat the same process for remaining element.",
+      'Heapsort is a comparison-based sorting algorithm. Heapsort can be thought of as an improved selection sort: like selection sort, heapsort divides its input into a sorted and an unsorted region, and it iteratively shrinks the unsorted region by extracting the largest element from it and inserting it into the sorted region. Unlike selection sort, heapsort does not waste time with a linear-time scan of the unsorted region; rather, heap sort maintains the unsorted region in a heap data structure to more quickly find the largest element in each step',
     complexity: {
-      bestCase: "O(n log(n))",
-      averageCase: "O(n log(n))",
-      worstCase: "O(n log(n))",
+      bestCase: 'O(n log(n))',
+      averageCase: 'O(n log(n))',
+      worstCase: 'O(n log(n))',
     },
   };
   // 1. Build max heap from array
@@ -42,10 +42,10 @@ export const useHeapSort: () => SortAlgorithm = () => {
 
     async add(arrIndex: number) {
       // index of item in itemArrayRef (not heap) (use to update color)
-      let item = itemArrayRef.current[arrIndex];
+      const item = itemArrayRef.current[arrIndex];
       // update color based on heap level on orginal arr (not heap array)
-      let itemHeapLevel = this.getHeapLevel(arrIndex);
-      let color = getGradientColor(
+      const itemHeapLevel = this.getHeapLevel(arrIndex);
+      const color = getGradientColor(
         itemHeapLevel + 1,
         getIsLeanMode() ? 10 : 40
       ); //gradient level start from 1st level
@@ -69,7 +69,7 @@ export const useHeapSort: () => SortAlgorithm = () => {
 
       await updateArrayFromRange(start, end, this.heap); // update heap array into orginal array (after remove root)
 
-      let lastItem = this.heap.pop();
+      const lastItem = this.heap.pop();
 
       if (lastItem) {
         this.heap.unshift(lastItem);
@@ -89,7 +89,7 @@ export const useHeapSort: () => SortAlgorithm = () => {
         lastItemIndex > 0 &&
         this.isSmaller(lastItemIndex, parentOfLastItemIndex)
       ) {
-        setExplainText("Heapifying up...");
+        setExplainText('Heapifying up...');
         audioPlayer.playAudio(AudioType.Default);
         // we want min at top , so swap if child is smaller than parent
         await swapItem(lastItemIndex, parentOfLastItemIndex); // swap on orginal array
@@ -135,7 +135,7 @@ export const useHeapSort: () => SortAlgorithm = () => {
             ? leftChildIndex
             : rightChildIndex;
         }
-        setExplainText("Heapifying down...");
+        setExplainText('Heapifying down...');
         audioPlayer.playAudio(AudioType.Default);
         this.swap(rootIndex, smallerChildIndex);
         await updateArrayFromRange(start, end, this.heap); // update heap array into orginal array (after swap)
@@ -202,7 +202,7 @@ export const useHeapSort: () => SortAlgorithm = () => {
   const sort = async () => {
     let arr: Item[] = [...itemArrayRef.current];
     // let sorted: Item[] = [];
-    let minHeap = new MinHeap();
+    const minHeap = new MinHeap();
 
     for (let i = 0; i < arr.length; i++) {
       if (isStopRef.current) return await stopSort();
@@ -214,7 +214,7 @@ export const useHeapSort: () => SortAlgorithm = () => {
     for (let i = 0; i < arr.length; i++) {
       if (isStopRef.current) return await stopSort();
       // setExplainText("Removing items from heap");
-      let item = await minHeap.remove(i + 1, arr.length - 1);
+      const item = await minHeap.remove(i + 1, arr.length - 1);
       if (item) {
         if (i < arr.length - 1) {
           // playAudio(item.value);

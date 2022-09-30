@@ -1,8 +1,8 @@
-import { useContext } from "react";
-import { ArrayCtx } from "../../context/arrayContext";
-import { COLORS } from "../../styles/color";
-import { Item, SortAlgorithm } from "../sorter_abstract";
-import { AudioType } from "../sorter_audio";
+import { useContext } from 'react';
+import { ArrayCtx } from '../../context/arrayContext';
+import { COLORS } from '../../styles/color';
+import { Item, SortAlgorithm } from '../sorter_abstract';
+import { AudioType } from '../sorter_audio';
 
 export const useBubbleSort: () => SortAlgorithm = () => {
   const {
@@ -17,13 +17,13 @@ export const useBubbleSort: () => SortAlgorithm = () => {
   } = useContext(ArrayCtx);
   // const itemArrayRef = useRef(itemArray);
   const info = {
-    name: "Bubble Sort",
+    name: 'Bubble Sort',
     description:
-      "Bubble Sort is the simplest sorting algorithm that works by repeatedly swapping the adjacent elements if they are in wrong order.",
+      'Bubble Sort is the simplest sorting algorithm that works by repeatedly swapping the adjacent elements if they are in wrong order.',
     complexity: {
-      bestCase: "O(n)",
-      averageCase: "O(n^2)",
-      worstCase: "O(n^2)",
+      bestCase: 'O(n)',
+      averageCase: 'O(n^2)',
+      worstCase: 'O(n^2)',
     },
   };
 
@@ -39,9 +39,9 @@ export const useBubbleSort: () => SortAlgorithm = () => {
         if (isStopRef.current) return await stopSort();
         arr = [...itemArrayRef.current]; // refetch the array from context to avoid stale state
 
-        let valueA = { ...arr[j] }.value;
-        let valueB = { ...arr[j + 1] }.value;
-        let maxValue = Math.max(valueA, valueB);
+        const valueA = { ...arr[j] }.value;
+        const valueB = { ...arr[j + 1] }.value;
+        const maxValue = Math.max(valueA, valueB);
         setExplainText(
           `Moving the max item into proper place : Candidate is ${maxValue} (Round ${
             i + 1

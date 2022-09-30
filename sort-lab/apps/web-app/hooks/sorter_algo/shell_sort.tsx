@@ -1,8 +1,8 @@
-import { useContext } from "react";
-import { ArrayCtx } from "../../context/arrayContext";
-import { COLORS } from "../../styles/color";
-import { Item, SortAlgorithm } from "../sorter_abstract";
-import { AudioType } from "../sorter_audio";
+import { useContext } from 'react';
+import { ArrayCtx } from '../../context/arrayContext';
+import { COLORS } from '../../styles/color';
+import { Item, SortAlgorithm } from '../sorter_abstract';
+import { AudioType } from '../sorter_audio';
 
 export const useShellSort: () => SortAlgorithm = () => {
   const {
@@ -27,18 +27,18 @@ by https://levelup.gitconnected.com/
 
 */
   const info = {
-    name: "Shell Sort",
+    name: 'Shell Sort',
     description:
-      "Shell sort is a generalized version of the insertion sort algorithm. It first sorts elements that are far apart from each other and successively reduces the interval between the elements to be sorted. The interval between the elements is reduced based on the sequence used.",
+      'Shell sort is a generalized version of the insertion sort algorithm. It first sorts elements that are far apart from each other and successively reduces the gap between the elements to be sorted (When gap = 1, Shell Sort will work like Selection Sort). The gap between the elements is reduced based on the sequence used. (We will use the Knuth sequence in this implementation) ',
     complexity: {
-      bestCase: "O(n log(n))",
-      averageCase: "O(n log(n))",
-      worstCase: "O(n^2)",
+      bestCase: 'O(n log(n))',
+      averageCase: 'O(n log(n))',
+      worstCase: 'O(n^2)',
     },
   };
 
   const generateKnuthSequence = (n: number) => {
-    let knuthSequence = [];
+    const knuthSequence = [];
     let k = 1;
     while (k < n) {
       knuthSequence.push(k);
@@ -49,7 +49,7 @@ by https://levelup.gitconnected.com/
   };
 
   const colorizeGap = async (end: number, gap: number) => {
-    let gapColorIndex = [];
+    const gapColorIndex = [];
     for (let i = end; i >= 0; i -= gap) {
       gapColorIndex.push(i);
     }
@@ -59,12 +59,12 @@ by https://levelup.gitconnected.com/
 
   const sort = async () => {
     let arr: Item[] = [...itemArrayRef.current];
-    let knuthSequence = generateKnuthSequence(arr.length);
+    const knuthSequence = generateKnuthSequence(arr.length);
     //Start with a really large gap, and then reduce the gap until there isn't any
 
     for (let gapIndex = 0; gapIndex < knuthSequence.length; gapIndex++) {
       arr = [...itemArrayRef.current];
-      let gap = knuthSequence[gapIndex];
+      const gap = knuthSequence[gapIndex];
 
       //Do a insertion sort for each of the section the gap ends up dividing
       // start with select the next candidate to be inserted and then compare it with the previous element in the sorted array; (in case the sorted array is not empty)
@@ -74,7 +74,7 @@ by https://levelup.gitconnected.com/
         await colorizeGap(i, gap);
         arr = [...itemArrayRef.current];
         //We store the current varible
-        let firstUnsorted = { ...arr[i] };
+        const firstUnsorted = { ...arr[i] };
         //This is the insection sort to sort the section into order
         audioPlayer.playAudio(AudioType.Default);
         let j = i - gap;
