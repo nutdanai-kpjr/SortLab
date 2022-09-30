@@ -2,7 +2,7 @@
 
 ---
 
-SortLab is a sorting algorithms visualizer built based on Next.js with TypeScript. (Also have an Electron version as a bonus!)
+(SortLab)[sortlab.click] is a sorting algorithms visualizer built based on Next.js with TypeScript. (Also have an Electron version as a bonus!)
 
 I created this project in order to help people (including myself) understand how each sorting algorithm works, as well as to provide example for anyone who interest in making their own sorting visualizer.
 
