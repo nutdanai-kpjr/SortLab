@@ -1,8 +1,8 @@
-import { useContext } from "react";
-import { ArrayCtx } from "../../context/arrayContext";
-import { COLORS } from "../../styles/color";
-import { SortAlgorithm } from "../sorter_abstract";
-import { AudioType } from "../sorter_audio";
+import { useContext } from 'react';
+import { ArrayCtx } from '../../context/arrayContext';
+import { COLORS } from '../../styles/color';
+import { SortAlgorithm } from '../sorter_abstract';
+import { AudioType } from '../sorter_audio';
 
 export const useQuickSort: () => SortAlgorithm = () => {
   const {
@@ -18,18 +18,18 @@ export const useQuickSort: () => SortAlgorithm = () => {
   } = useContext(ArrayCtx);
 
   const info = {
-    name: "Quick Sort",
+    name: 'Quick Sort',
     description:
-      "Quick Sort is a Divide and Conquer algorithm. It picks an element as pivot and partitions the given array around the picked pivot. There are many different versions of quickSort that pick pivot in different ways.",
+      'Quick Sort is a Divide and Conquer algorithm. It picks an element as pivot and partitions the given array around the picked pivot. There are many different versions of quick sort that pick pivot in different ways (In our case, we pick the last element as a pivot) The key process in quick sort is a partition. The target of partitions is, given an array and an element x of an array as the pivot, put x at its correct position in a sorted array and put all smaller elements (smaller than x) before x, and put all greater elements (greater than x) after x.',
     complexity: {
-      bestCase: "O(n log(n))",
-      averageCase: "O(n log(n))",
-      worstCase: "O(n^2)",
+      bestCase: 'O(n log(n))',
+      averageCase: 'O(n log(n))',
+      worstCase: 'O(n^2)',
     },
   };
 
   const sort = async () => {
-    let n = itemArrayRef.current.length;
+    const n = itemArrayRef.current.length;
     await quickSort(0, n - 1);
     if (!isStopRef.current) await updateColorFromRange(0, n - 1, COLORS.SORTED);
   };
@@ -45,7 +45,7 @@ export const useQuickSort: () => SortAlgorithm = () => {
       setExplainText(`Partitioning Finished `);
       return;
     }
-    let pivotIndex = await partition(start, end);
+    const pivotIndex = await partition(start, end);
 
     // await updateColorFromRange(start, pivotIndex - 1, leftColor);
     // await updateColorFromRange(pivotIndex + 1, end, rightColor);
@@ -63,15 +63,15 @@ export const useQuickSort: () => SortAlgorithm = () => {
 
     let pivotInsertionIndex = start;
 
-    let pivotInitialIndex = end;
+    const pivotInitialIndex = end;
 
-    let pivot = arr[pivotInitialIndex]; // use last element as pivot election
+    const pivot = arr[pivotInitialIndex]; // use last element as pivot election
     audioPlayer.playAudio(AudioType.Default);
     setExplainText(`Partitioning array by Pivot: ${pivot.value}`);
     await updateColor([pivotInitialIndex], COLORS.SPECIAL);
 
-    let leftColor = COLORS.FREE1;
-    let rightColor = COLORS.FREE2;
+    const leftColor = COLORS.FREE1;
+    const rightColor = COLORS.FREE2;
 
     for (let i = start; i < end; i++) {
       if (isStopRef.current) {

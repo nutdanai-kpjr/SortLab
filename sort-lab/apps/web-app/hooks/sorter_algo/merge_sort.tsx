@@ -1,7 +1,7 @@
-import { useContext } from "react";
-import { ArrayCtx } from "../../context/arrayContext";
-import { COLORS, getRandomColor } from "../../styles/color";
-import { Item, SortAlgorithm } from "../sorter_abstract";
+import { useContext } from 'react';
+import { ArrayCtx } from '../../context/arrayContext';
+import { COLORS, getRandomColor } from '../../styles/color';
+import { Item, SortAlgorithm } from '../sorter_abstract';
 
 export const useMergeSort: () => SortAlgorithm = () => {
   const {
@@ -14,18 +14,18 @@ export const useMergeSort: () => SortAlgorithm = () => {
   } = useContext(ArrayCtx);
 
   const info = {
-    name: "Merge Sort",
+    name: 'Merge Sort',
     description:
-      "Merge Sort is a Divide and Conquer algorithm. It divides input array in two halves, calls itself for the two halves and then merges the two sorted halves.",
+      'Merge Sort is a Divide and Conquer algorithm. It divides input array in two halves, calls itself for the two halves and then merges the two sorted halves. Think of it as a recursive algorithm continuously splits the array in half until it cannot be further divided. This means that if the array becomes empty or has only one element left, the dividing will stop, i.e. it is the base case to stop the recursion. If the array has multiple elements, split the array into halves and recursively invoke the merge sort on each of the halves. Finally, when both halves are sorted, the merge operation is applied. Merge operation is the process of taking two smaller sorted arrays and combining them to eventually make a larger one.',
     complexity: {
-      bestCase: "O(n log(n))",
-      averageCase: "O(n log(n))",
-      worstCase: "O(n log(n))",
+      bestCase: 'O(n log(n))',
+      averageCase: 'O(n log(n))',
+      worstCase: 'O(n log(n))',
     },
   };
 
   const sort = async () => {
-    let arr: Item[] = [...itemArrayRef.current];
+    const arr: Item[] = [...itemArrayRef.current];
 
     await mergeSort(arr, 0, arr.length - 1);
     if (!isStopRef.current)
@@ -41,9 +41,9 @@ export const useMergeSort: () => SortAlgorithm = () => {
       return; //  If the array has only one element (l , r is point at the same), return
       // why? because we need to have at least 2 elements to merge
     }
-    let m = l + Math.floor((r - l) / 2); //divide the array into two halves
-    let n1 = m - l + 1; // size of the left subarray (l to m) we need to +1 because we need to include the m
-    let n2 = r - m; // size of the right subarray
+    const m = l + Math.floor((r - l) / 2); //divide the array into two halves
+    const n1 = m - l + 1; // size of the left subarray (l to m) we need to +1 because we need to include the m
+    const n2 = r - m; // size of the right subarray
     setExplainText(
       `Dividing Array into two subarrays(left: ${n1} items, right: ${n2} items)`
     );
@@ -61,12 +61,12 @@ export const useMergeSort: () => SortAlgorithm = () => {
   const merge = async (arr: Item[], l: number, m: number, r: number) => {
     if (isStopRef.current) return await stopSort();
 
-    let n1 = m - l + 1; // size of the left subarray (l to m) we need to +1 because we need to include the m
-    let n2 = r - m; // size of the right subarray
+    const n1 = m - l + 1; // size of the left subarray (l to m) we need to +1 because we need to include the m
+    const n2 = r - m; // size of the right subarray
     setExplainText(`Merging sub array into array of ${n1 + n2} items`);
     // Create temp arrays
-    let L = new Array(n1);
-    let R = new Array(n2);
+    const L = new Array(n1);
+    const R = new Array(n2);
 
     // Copy data to temp arrays L[] and R[]
     for (let i = 0; i < n1; i++) L[i] = arr[l + i];
@@ -75,13 +75,13 @@ export const useMergeSort: () => SortAlgorithm = () => {
     // Merge the temp arrays back into arr[l..r]
 
     // Initial index of first subarray
-    var i = 0;
+    let i = 0;
 
     // Initial index of second subarray
-    var j = 0;
+    let j = 0;
 
     // Initial index of merged subarray
-    var k = l;
+    let k = l;
 
     while (i < n1 && j < n2) {
       if (isStopRef.current) return await stopSort();

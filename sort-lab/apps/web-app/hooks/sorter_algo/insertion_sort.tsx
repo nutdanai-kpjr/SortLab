@@ -1,8 +1,8 @@
-import { useContext } from "react";
-import { ArrayCtx } from "../../context/arrayContext";
-import { COLORS } from "../../styles/color";
-import { Item, SortAlgorithm } from "../sorter_abstract";
-import { AudioType } from "../sorter_audio";
+import { useContext } from 'react';
+import { ArrayCtx } from '../../context/arrayContext';
+import { COLORS } from '../../styles/color';
+import { Item, SortAlgorithm } from '../sorter_abstract';
+import { AudioType } from '../sorter_audio';
 
 export const useInsertionSort: () => SortAlgorithm = () => {
   const {
@@ -18,13 +18,13 @@ export const useInsertionSort: () => SortAlgorithm = () => {
   } = useContext(ArrayCtx);
 
   const info = {
-    name: "Insertion Sort",
+    name: 'Insertion Sort',
     description:
-      "Insertion Sort is a simple sorting algorithm that works the way we sort playing cards in our hands.",
+      'Insertion sort is a simple sorting algorithm that works similar to the way you sort playing cards in your hands. The array is virtually split into a sorted and an unsorted part. Values from the unsorted part are picked and placed at the correct position in the sorted part.',
     complexity: {
-      bestCase: "O(n)",
-      averageCase: "O(n^2)",
-      worstCase: "O(n^2)",
+      bestCase: 'O(n)',
+      averageCase: 'O(n^2)',
+      worstCase: 'O(n^2)',
     },
   };
 
@@ -33,7 +33,7 @@ export const useInsertionSort: () => SortAlgorithm = () => {
     for (let i = 1; i < arr.length; i++) {
       arr = [...itemArrayRef.current];
       // choose the first element in our unsorted subarray
-      let firstUnsorted = { ...arr[i] };
+      const firstUnsorted = { ...arr[i] };
       // await updateColor([i], COLORS.SPECIAL);
       audioPlayer.playAudio(AudioType.Default);
       await blinkItemDifferentColor(
@@ -69,7 +69,7 @@ export const useInsertionSort: () => SortAlgorithm = () => {
       await updateColor([j + 1], COLORS.SORTED);
       await replaceItem(j + 1, firstUnsorted);
 
-      let indexArr = Array.from(Array(arr.length).keys());
+      const indexArr = Array.from(Array(arr.length).keys());
       await updateColor(indexArr, COLORS.DEFAULT);
       // the last element of our sorted subarray
     }
