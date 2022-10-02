@@ -16,7 +16,7 @@ export const useMergeSort: () => SortAlgorithm = () => {
   const info = {
     name: 'Merge Sort',
     description:
-      'Merge Sort is a Divide and Conquer algorithm. It will keep dividing the array into two havles until it becomes undividable, then it will start merging each pair of halves back together. (array will be sorted during this merging process)',
+      'Merge Sort is a Divide and Conquer algorithm. It will keep dividing the array into two halves until it becomes undividable, then it will start merging each pair of halves back together(array will be sorted during this merging process)',
     complexity: {
       bestCase: 'O(n log(n))',
       averageCase: 'O(n log(n))',
