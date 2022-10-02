@@ -29,7 +29,7 @@ by https://levelup.gitconnected.com/
   const info = {
     name: 'Shell Sort',
     description:
-      'Shell sort is a generalized version of the insertion sort algorithm. It first sorts elements that are far apart from each other and successively reduces the gap between the elements to be sorted (When gap = 1, Shell Sort will work like Selection Sort). The gap between the elements is reduced based on the sequence used. (We will use the Knuth sequence in this implementation) ',
+      'Shell sort is the optimized version of the insertion sort. It first sorts elements that are far apart from each other first, then successively reduces the gap between the elements to be sorted until the gap is 1 (which is equivalent to insertion sort). This algorithm is also known as the “diminishing increment sort”.',
     complexity: {
       bestCase: 'O(n log(n))',
       averageCase: 'O(n log(n))',
