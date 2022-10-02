@@ -19,7 +19,9 @@ export const useSelectionSort: () => SortAlgorithm = () => {
   const info = {
     name: 'Selection Sort',
     description:
+
       'Selection Sort is a simple sorting algorithm that works by maintaining two subarrays, sort and unsorted. It will repeatedly find the minimum element from the unsorted subarray and move it to the sorted subarray.',
+
     complexity: {
       bestCase: 'O(n^2)',
       averageCase: 'O(n^2)',

@@ -30,6 +30,7 @@ by https://levelup.gitconnected.com/
     name: 'Shell Sort',
     description:
       'Shell sort is the optimized version of the insertion sort. It first sorts elements that are far apart from each other first, then successively reduces the gap between the elements to be sorted until the gap is 1 (which is equivalent to insertion sort). This algorithm is also known as the “diminishing increment sort”.',
+
     complexity: {
       bestCase: 'O(n log(n))',
       averageCase: 'O(n log(n))',

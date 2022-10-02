@@ -20,7 +20,9 @@ export const useQuickSort: () => SortAlgorithm = () => {
   const info = {
     name: 'Quick Sort',
     description:
+
       'Quick Sort is a Divide and Conquer algorithm. It will pick a pivot, and start partitioning by moving all the elements that are less than the pivot to the left, and the rest to the right. and then repeat a partitioning process again until the array no longer can be partitioned.',
+
     complexity: {
       bestCase: 'O(n log(n))',
       averageCase: 'O(n log(n))',
