@@ -17,7 +17,7 @@ const Home: NextPage = () => {
           <h1>
             Sort<span className={styles.logoPurple}>Lab</span>
           </h1>
-          <h3>The Extaordinary Sorting Visualizer</h3>
+          <h3>The Extraordinary Sorting Visualizer</h3>
           <p>Learn world famous sorting algorithms through animiation!</p>
 
           <div className={styles.buttonContainer}>
