@@ -66,7 +66,7 @@
   /* background-color: red; */
 }
 .textContainer a {
-  color: var(--primary-color);
+  /*color: var(--primary-color);*/
 }
 .imageContainer:hover {
   border-radius: 50%;
