@@ -1,5 +1,8 @@
 # SortLab - Sorting Visualizer by Nash
 
+![Merge Sort](https://github.com/user-attachments/assets/54aa2d1b-7516-4869-94bd-68b51cce8879)
+
+
 ---
 <a href="https://sortlab.vercel.app/" target="_blank">SortLab</a> is a sorting algorithms visualizer built based on Next.js with TypeScript. (Also have an Electron version as a bonus!)
 
